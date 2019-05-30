@@ -22,10 +22,26 @@ class ControllerCommonNav extends PT_Controller
             # Catalog
             $catalog = array();
             
-            if ($this->user->hasPermission('access', 'catalog/service')) {
+            if ($this->user->hasPermission('access', 'catalog/center')) {
                 $catalog[] = array(
-                    'name'      => $this->language->get('text_service'),
-                    'href'      => $this->url->link('catalog/service', 'user_token=' . $this->session->data['user_token']),
+                    'name'      => $this->language->get('text_center'),
+                    'href'      => $this->url->link('catalog/center', 'user_token=' . $this->session->data['user_token']),
+                    'children'  => array()
+                );
+            }
+            
+            if ($this->user->hasPermission('access', 'catalog/citation')) {
+                $catalog[] = array(
+                    'name'      => $this->language->get('text_citation'),
+                    'href'      => $this->url->link('catalog/citation', 'user_token=' . $this->session->data['user_token']),
+                    'children'  => array()
+                );
+            }
+            
+            if ($this->user->hasPermission('access', 'catalog/club')) {
+                $catalog[] = array(
+                    'name'      => $this->language->get('text_club'),
+                    'href'      => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token']),
                     'children'  => array()
                 );
             }
@@ -72,33 +88,6 @@ class ControllerCommonNav extends PT_Controller
                     'name'      => $this->language->get('text_language_editor'),
                     'href'      => $this->url->link('design/translation', 'user_token=' . $this->session->data['user_token']),
                     'children'  => array()
-                );
-            }
-
-            # SEO
-            $seo = array();
-
-            if ($this->user->hasPermission('access', 'design/seo_regex')) {
-                $seo[] = array(
-                    'name'      => $this->language->get('text_seo_regex'),
-                    'href'      => $this->url->link('design/seo_regex', 'user_token=' . $this->session->data['user_token']),
-                    'children'  => array()
-                );
-            }
-
-            if ($this->user->hasPermission('access', 'design/seo_url')) {
-                $seo[] = array(
-                    'name'      => $this->language->get('text_seo_url'),
-                    'href'      => $this->url->link('design/seo_url', 'user_token=' . $this->session->data['user_token']),
-                    'children'  => array()
-                );
-            }
-
-            if ($seo) {
-                $design[] = array(
-                    'name'      => $this->language->get('text_seo'),
-                    'href'      => '',
-                    'children'  => $seo
                 );
             }
 
@@ -176,13 +165,13 @@ class ControllerCommonNav extends PT_Controller
             # Localisation
             $localisation = array();
 
-            if ($this->user->hasPermission('access', 'localisation/language')) {
-                $localisation[] = array(
-                    'name'      => $this->language->get('text_language'),
-                    'href'      => $this->url->link('localisation/language', 'user_token=' . $this->session->data['user_token']),
-                    'children'  => array()
-                );
-            }
+//            if ($this->user->hasPermission('access', 'localisation/language')) {
+//                $localisation[] = array(
+//                    'name'      => $this->language->get('text_language'),
+//                    'href'      => $this->url->link('localisation/language', 'user_token=' . $this->session->data['user_token']),
+//                    'children'  => array()
+//                );
+//            }
 
             if ($this->user->hasPermission('access', 'localisation/country')) {
                 $localisation[] = array(
