@@ -58,7 +58,7 @@
                     <a href="<?php echo $add; ?>" data-toggle="tooltip" title="<?php echo $button_add; ?>"
                         class="btn btn-primary btn-bold"><i class="fa fa-plus"></i></a>
                     <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>"
-                        class="btn btn-danger btn-bold" onclick="confirm('<?php echo $text_confirm; ?>') ? $('#form-team-group').submit() :
+                        class="btn btn-danger btn-bold" onclick="confirm('<?php echo $text_confirm; ?>') ? $('#form-club-group').submit() :
                         false;"><i class="fa fa-trash-alt"></i></button>
                     <div class="float-right tableTools-container"></div>
                 </div>
@@ -74,21 +74,21 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <form action="<?php echo $delete; ?>" method="POST" enctype="multipart/form-data"
-                            id="form-team-group">
+                            id="form-club-group">
                             <div class="table-responsive">
-                                <table id="table_team" class="table table-bordered table-hover">
+                                <table id="table_club" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
                                             <th style="width: 1px;" class="text-center no-sort"><input type="checkbox"
                                                     onclick="$('input[name*=\'selected\']').trigger('click');" /></th>
                                             <th>
-                                                <?php echo $column_club; ?>
+                                                <?php echo $column_date; ?>
                                             </th>
                                             <th>
                                                 <?php echo $column_name; ?>
                                             </th>
                                             <th>
-                                                <?php echo $column_position; ?>
+                                                <?php echo $column_president; ?>
                                             </th>
                                             <th>
                                                 <?php echo $column_mobile; ?>
@@ -96,44 +96,49 @@
                                             <th>
                                                 <?php echo $column_email; ?>
                                             </th>
+                                            <th>
+                                                <?php echo $column_website; ?>
+                                            </th>
                                             <th class="no-sort">
                                                 <?php echo $column_action; ?>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($teams) : ?>
-                                        <?php foreach($teams as $team) : ?>
+                                        <?php if($clubs) : ?>
+                                        <?php foreach($clubs as $club) : ?>
                                         <tr>
                                             <td class="text-center">
-                                                <?php if(in_array($team['team_id'], $selected)) : ?>
+                                                <?php if(in_array($club['club_id'], $selected)) : ?>
                                                 <input type="checkbox" name="selected[]"
-                                                    value="<?php echo $team['team_id']; ?>"
+                                                    value="<?php echo $club['club_id']; ?>"
                                                     checked="checked" />
                                                 <?php else : ?>
                                                 <input type="checkbox" name="selected[]"
-                                                    value="<?php echo $team['team_id']; ?>" />
+                                                    value="<?php echo $club['club_id']; ?>" />
                                                 <?php endif; ?>
                                             </td>
                                             <td class="text-left">
-                                                <?php echo $team['club_name']; ?>
+                                                <?php echo $club['date']; ?>
                                             </td>
                                             <td class="text-left">
-                                                <?php echo $team['name']; ?>
+                                                <?php echo $club['name']; ?>
                                             </td>
                                             <td class="text-left">
-                                                <?php echo $team['position']; ?>
+                                                <?php echo $club['president']; ?>
                                             </td>
                                             <td class="text-left">
-                                                <?php echo $team['mobile']; ?>
+                                                <?php echo $club['mobile']; ?>
                                             </td>
                                             <td class="text-left">
-                                                <?php echo $team['email']; ?>
+                                                <?php echo $club['email']; ?>
                                             </td>
-                                            <td class="text-left"><a href="<?php echo $team['edit']; ?>"
+                                            <td class="text-left">
+                                                <?php echo $club['website']; ?>
+                                            </td>
+                                            <td class="text-left"><a href="<?php echo $club['edit']; ?>"
                                                     data-toggle="tooltip" title="<?php echo $button_edit; ?>"
-                                                    class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a>
-                                            </td>
+                                                    class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a></td>
                                         </tr>
                                         <?php endforeach; ?>
                                         <?php else : ?>
@@ -162,7 +167,7 @@
 <?php echo $footer; ?>
 <script type="text/javascript">
     $(function () {
-        var table = $('#table_team').DataTable({
+        var table = $('#table_club').DataTable({
             "order": [
                 [1, 'asc']
             ],
@@ -267,7 +272,7 @@
             });
         }, 500);
 
-        $(document).on('click', '#table_team .dropdown-toggle', function (e) {
+        $(document).on('click', '#table_club .dropdown-toggle', function (e) {
             e.stopImmediatePropagation();
             e.stopPropagation();
             e.preventDefault();

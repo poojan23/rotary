@@ -14,14 +14,19 @@ $_['text_icon_list']            = 'Icons List';
 
 # Column
 $_['column_name']               = 'Name';
-$_['column_designation']        = 'Designation';
-$_['column_sort_order']         = 'Sort Order';
+$_['column_club']               = 'Rotary Club Of';
+$_['column_position']           = 'Position';
+$_['column_mobile']             = 'Mobile';
+$_['column_email']              = 'Email';
 $_['column_action']             = 'Action';
 
 # Entry
-$_['entry_name']               = 'Name';
+$_['entry_name']                = 'Name';
+$_['entry_club']                = 'Rotary Club Of';
 $_['entry_title_footer']        = 'Footer Title';
-$_['entry_description']         = 'Description';
+$_['entry_position']            = 'Position';
+$_['entry_mobile']              = 'Mobile';
+$_['entry_email']               = 'Email';
 $_['entry_designation']         = 'Designation';
 $_['entry_meta_description']    = 'Meta Description';
 $_['entry_meta_keyword']        = 'Meta Keyword';

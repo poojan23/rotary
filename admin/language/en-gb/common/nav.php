@@ -70,3 +70,5 @@ $_['text_team']                 = 'Team';
 $_['text_enquiry']              = 'Enquiry';
 $_['text_testimonial']          = 'Testimonial';
 $_['text_store']                = 'Setting';
+$_['text_club']                 = 'Club';
+$_['text_citation']             = "DG's Citation Criteria";

@@ -1,35 +1,35 @@
 <?php
 
-class ControllerCatalogTeam extends PT_Controller
+class ControllerCatalogCitation extends PT_Controller
 {
     private $error = array();
 
     public function index()
     {
-        $this->load->language('catalog/team');
+        $this->load->language('catalog/citation');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/team');
+        $this->load->model('catalog/citation');
 
         $this->getList();
     }
 
     public function add()
     {
-        $this->load->language('catalog/team');
+        $this->load->language('catalog/citation');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/team');
+        $this->load->model('catalog/citation');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
 
-            $this->model_catalog_team->addTeam($this->request->post);
+            $this->model_catalog_citation->addCitation($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('catalog/team', 'user_token=' . $this->session->data['user_token']));
+            $this->response->redirect($this->url->link('catalog/citation', 'user_token=' . $this->session->data['user_token']));
         }
 
         $this->getForm();
@@ -37,19 +37,19 @@ class ControllerCatalogTeam extends PT_Controller
 
     public function edit()
     {
-        $this->load->language('catalog/team');
+        $this->load->language('catalog/citation');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/team');
+        $this->load->model('catalog/citation');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
 //            print_r( $this->request->post);exit;
-            $this->model_catalog_team->editTeam($this->request->get['team_id'], $this->request->post);
+            $this->model_catalog_citation->editCitation($this->request->get['citation_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('catalog/team', 'user_token=' . $this->session->data['user_token']));
+            $this->response->redirect($this->url->link('catalog/citation', 'user_token=' . $this->session->data['user_token']));
         }
 
         $this->getForm();
@@ -57,20 +57,20 @@ class ControllerCatalogTeam extends PT_Controller
 
     public function delete()
     {
-        $this->load->language('catalog/team');
+        $this->load->language('catalog/citation');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/team');
+        $this->load->model('catalog/citation');
 
         if (isset($this->request->post['selected'])) {
-            foreach ($this->request->post['selected'] as $team_id) {
-                $this->model_catalog_team->deleteTeam($team_id);
+            foreach ($this->request->post['selected'] as $citation_id) {
+                $this->model_catalog_citation->deleteCitation($citation_id);
             }
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('catalog/team', 'user_token=' . $this->session->data['user_token']));
+            $this->response->redirect($this->url->link('catalog/citation', 'user_token=' . $this->session->data['user_token']));
         }
 
         $this->getList();
@@ -106,26 +106,23 @@ class ControllerCatalogTeam extends PT_Controller
 
         $data['breadcrumbs'][] = array(
             'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('catalog/team', 'user_token=' . $this->session->data['user_token'])
+            'href'  => $this->url->link('catalog/citation', 'user_token=' . $this->session->data['user_token'])
         );
 
-        $data['add'] = $this->url->link('catalog/team/add', 'user_token=' . $this->session->data['user_token']);
-        $data['delete'] = $this->url->link('catalog/team/delete', 'user_token=' . $this->session->data['user_token']);
+        $data['add'] = $this->url->link('catalog/citation/add', 'user_token=' . $this->session->data['user_token']);
+        $data['delete'] = $this->url->link('catalog/citation/delete', 'user_token=' . $this->session->data['user_token']);
 
-        $data['teams'] = array();
+        $data['citations'] = array();
 
-        $results = $this->model_catalog_team->getTeams();
+        $results = $this->model_catalog_citation->getCitations();
 
         foreach ($results as $result) {
-            $data['teams'][] = array(
-                'team_id'       => $result['team_id'],
-                'club_name'     => $result['club_name'],
-                'name'          => $result['name'],
-                'position'      => $result['position'],
-                'mobile'        => $result['mobile'],
-                'email'         => $result['email'],
+            $data['citations'][] = array(
+                'citation_id'   => $result['citation_id'],
+                'content'       => $result['content'],
+                'value'         => $result['value'],
                 'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-                'edit'          => $this->url->link('catalog/team/edit', 'user_token=' . $this->session->data['user_token'] . '&team_id=' . $result['team_id'])
+                'edit'          => $this->url->link('catalog/citation/edit', 'user_token=' . $this->session->data['user_token'] . '&citation_id=' . $result['citation_id'])
             );
         }
 
@@ -153,7 +150,7 @@ class ControllerCatalogTeam extends PT_Controller
         $data['nav'] = $this->load->controller('common/nav');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('catalog/team_list', $data));
+        $this->response->setOutput($this->load->view('catalog/citation_list', $data));
     }
 
     protected function getForm()
@@ -163,7 +160,7 @@ class ControllerCatalogTeam extends PT_Controller
         $this->document->addScript("view/dist/plugins/ckeditor/adapters/jquery.js");
         $this->document->addScript("view/dist/plugins/iCheck/icheck.min.js");
         
-        $data['text_form'] = !isset($this->request->get['team_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+        $data['text_form'] = !isset($this->request->get['citation_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         if (isset($this->error['warning'])) {
             $data['warning_err'] = $this->error['warning'];
@@ -171,29 +168,18 @@ class ControllerCatalogTeam extends PT_Controller
             $data['warning_err'] = '';
         }
 
-        if (isset($this->error['position'])) {
-            $data['position_err'] = $this->error['position'];
+        if (isset($this->error['content'])) {
+            $data['content_err'] = $this->error['content'];
         } else {
-            $data['position_err'] = '';
+            $data['content_err'] = '';
         }
 
-        if (isset($this->error['name'])) {
-            $data['name_err'] = $this->error['name'];
+        if (isset($this->error['value'])) {
+            $data['value_err'] = $this->error['value'];
         } else {
-            $data['name_err'] = '';
+            $data['value_err'] = '';
         }
-        
-        if (isset($this->error['email'])) {
-            $data['email_err'] = $this->error['email'];
-        } else {
-            $data['email_err'] = '';
-        }
-        
-        if (isset($this->error['mobile'])) {
-            $data['mobile_err'] = $this->error['mobile'];
-        } else {
-            $data['mobile_err'] = '';
-        }
+
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
@@ -203,77 +189,49 @@ class ControllerCatalogTeam extends PT_Controller
 
         $data['breadcrumbs'][] = array(
             'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('catalog/team', 'user_token=' . $this->session->data['user_token'])
+            'href'  => $this->url->link('catalog/citation', 'user_token=' . $this->session->data['user_token'])
         );
 
-        if (!isset($this->request->get['team_id'])) {
-            $data['action'] = $this->url->link('catalog/team/add', 'user_token=' . $this->session->data['user_token']);
+        if (!isset($this->request->get['citation_id'])) {
+            $data['action'] = $this->url->link('catalog/citation/add', 'user_token=' . $this->session->data['user_token']);
             $data['breadcrumbs'][] = array(
                 'text'  => $this->language->get('text_add'),
-                'href'  => $this->url->link('catalog/team/add', 'user_token=' . $this->session->data['user_token'])
+                'href'  => $this->url->link('catalog/citation/add', 'user_token=' . $this->session->data['user_token'])
             );
         } else {
-            $data['action'] = $this->url->link('catalog/team/edit', 'user_token=' . $this->session->data['user_token'] . '&team_id=' . $this->request->get['team_id']);
+            $data['action'] = $this->url->link('catalog/citation/edit', 'user_token=' . $this->session->data['user_token'] . '&citation_id=' . $this->request->get['citation_id']);
             $data['breadcrumbs'][] = array(
                 'text'  => $this->language->get('text_edit'),
-                'href'  => $this->url->link('catalog/team/edit', 'user_token=' . $this->session->data['user_token'])
+                'href'  => $this->url->link('catalog/citation/edit', 'user_token=' . $this->session->data['user_token'])
             );
         }
 
-        $data['cancel'] = $this->url->link('catalog/team', 'user_token=' . $this->session->data['user_token']);
+        $data['cancel'] = $this->url->link('catalog/citation', 'user_token=' . $this->session->data['user_token']);
 
-        if (isset($this->request->get['team_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-            $team_info = $this->model_catalog_team->getTeam($this->request->get['team_id']);
+        if (isset($this->request->get['citation_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+            $citation_info = $this->model_catalog_citation->getCitation($this->request->get['citation_id']);
         }
 
-        if (isset($this->request->post['name'])) {
-            $data['name'] = $this->request->post['name'];
-        } elseif (!empty($team_info)) {
-            $data['name'] = $team_info['name'];
+        if (isset($this->request->post['content'])) {
+            $data['content'] = $this->request->post['content'];
+        } elseif (!empty($citation_info)) {
+            $data['content'] = $citation_info['content'];
         } else {
-            $data['name'] = '';
+            $data['content'] = '';
+        }
+
+        if (isset($this->request->post['value'])) {
+            $data['value'] = $this->request->post['value'];
+        } elseif (!empty($citation_info)) {
+            $data['value'] = $citation_info['value'];
+        } else {
+            $data['value'] = '';
         }
         
-        if (isset($this->request->post['club_id'])) {
-            $data['club_id'] = $this->request->post['club_id'];
-        } elseif (!empty($team_info)) {
-            $data['club_id'] = $team_info['club_id'];
-        } else {
-            $data['club_id'] = '';
-        }
-
-        $this->load->model('catalog/club');
-
-        $data['clubs'] = $this->model_catalog_club->getClubs();
-
-        if (isset($this->request->post['position'])) {
-            $data['position'] = $this->request->post['position'];
-        } elseif (!empty($team_info)) {
-            $data['position'] = $team_info['position'];
-        } else {
-            $data['position'] = '';
-        }
-        
-        if (isset($this->request->post['email'])) {
-            $data['email'] = $this->request->post['email'];
-        } elseif (!empty($team_info)) {
-            $data['email'] = $team_info['email'];
-        } else {
-            $data['email'] = '';
-        }
-        
-        if (isset($this->request->post['mobile'])) {
-            $data['mobile'] = $this->request->post['email'];
-        } elseif (!empty($team_info)) {
-            $data['mobile'] = $team_info['mobile'];
-        } else {
-            $data['mobile'] = '';
-        }
-
         if (isset($this->request->post['status'])) {
             $data['status'] = $this->request->post['status'];
-        } elseif (!empty($team_info)) {
-            $data['status'] = $team_info['status'];
+        } elseif (!empty($citation_info)) {
+            $data['status'] = $citation_info['status'];
         } else {
             $data['status'] = 0;
         }
@@ -282,12 +240,12 @@ class ControllerCatalogTeam extends PT_Controller
         $data['nav'] = $this->load->controller('common/nav');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('catalog/team_form', $data));
+        $this->response->setOutput($this->load->view('catalog/citation_form', $data));
     }
 
     protected function validateForm()
     {
-        if (!$this->user->hasPermission('modify', 'catalog/team')) {
+        if (!$this->user->hasPermission('modify', 'catalog/citation')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
@@ -295,14 +253,14 @@ class ControllerCatalogTeam extends PT_Controller
             $this->error['email'] = $this->language->get('error_name');
         }
 
-        $team_info = $this->model_catalog_team->getTeamByEmail($this->request->post['email']);
+        $citation_info = $this->model_catalog_citation->getCitationByEmail($this->request->post['email']);
 
-        if (!isset($this->request->get['team_id'])) {
-            if ($team_info) {
+        if (!isset($this->request->get['citation_id'])) {
+            if ($citation_info) {
                 $this->error['warning'] = $this->language->get('error_exists_email');
             }
         } else {
-            if ($team_info && ($this->request->get['team_id'] != $team_info['team_id'])) {
+            if ($citation_info && ($this->request->get['citation_id'] != $citation_info['citation_id'])) {
                 $this->error['warning'] = $this->language->get('error_exists_email');
             }
         }
@@ -311,7 +269,7 @@ class ControllerCatalogTeam extends PT_Controller
             $this->error['name'] = $this->language->get('error_name');
         }
 
-        if ($this->request->post['password'] || (!isset($this->request->get['team_id']))) {
+        if ($this->request->post['password'] || (!isset($this->request->get['citation_id']))) {
             if ((utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
                 $this->error['password'] = $this->language->get('error_password');
             }
@@ -326,12 +284,12 @@ class ControllerCatalogTeam extends PT_Controller
 
     protected function validateDelete()
     {
-        if (!$this->user->hasPermission('delete', 'catalog/team')) {
+        if (!$this->user->hasPermission('delete', 'catalog/citation')) {
             $this->error['warning'] = $this->language->get('error_delete');
         }
 
-        foreach ($this->request->post['selected'] as $team_id) {
-            if ($this->user->getId() == $team_id) {
+        foreach ($this->request->post['selected'] as $citation_id) {
+            if ($this->user->getId() == $citation_id) {
                 $this->error['warning'] = $this->language->get('error_account');
             }
         }

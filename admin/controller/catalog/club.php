@@ -1,35 +1,35 @@
 <?php
 
-class ControllerCommonTestimonial extends PT_Controller
+class ControllerCatalogClub extends PT_Controller
 {
     private $error = array();
 
     public function index()
     {
-        $this->load->language('common/testimonial');
+        $this->load->language('catalog/club');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/testimonial');
+        $this->load->model('catalog/club');
 
         $this->getList();
     }
 
     public function add()
     {
-        $this->load->language('common/testimonial');
+        $this->load->language('catalog/club');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/testimonial');
+        $this->load->model('catalog/club');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
 //            print_r($this->request->post);exit;
-            $this->model_catalog_testimonial->addTestimonial($this->request->post);
+            $this->model_catalog_club->addClub($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('common/testimonial', 'user_token=' . $this->session->data['user_token']));
+            $this->response->redirect($this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token']));
         }
 
         $this->getForm();
@@ -37,18 +37,18 @@ class ControllerCommonTestimonial extends PT_Controller
 
     public function edit()
     {
-        $this->load->language('common/testimonial');
+        $this->load->language('catalog/club');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/testimonial');
+        $this->load->model('catalog/club');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-            $this->model_catalog_testimonial->editTestimonial($this->request->get['testimonial_id'], $this->request->post);
+            $this->model_catalog_club->editClub($this->request->get['club_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('common/testimonial', 'user_token=' . $this->session->data['user_token']));
+            $this->response->redirect($this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token']));
         }
 
         $this->getForm();
@@ -56,20 +56,20 @@ class ControllerCommonTestimonial extends PT_Controller
 
     public function delete()
     {
-        $this->load->language('common/testimonial');
+        $this->load->language('catalog/club');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/testimonial');
+        $this->load->model('catalog/club');
 
         if (isset($this->request->post['selected'])) {
-            foreach ($this->request->post['selected'] as $testimonial_id) {
-                $this->model_catalog_testimonial->deleteTestimonial($testimonial_id);
+            foreach ($this->request->post['selected'] as $club_id) {
+                $this->model_catalog_club->deleteClub($club_id);
             }
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('common/testimonial', 'user_token=' . $this->session->data['user_token']));
+            $this->response->redirect($this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token']));
         }
 
         $this->getList();
@@ -105,24 +105,28 @@ class ControllerCommonTestimonial extends PT_Controller
 
         $data['breadcrumbs'][] = array(
             'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('common/testimonial', 'user_token=' . $this->session->data['user_token'])
+            'href'  => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token'])
         );
 
-        $data['add'] = $this->url->link('common/testimonial/add', 'user_token=' . $this->session->data['user_token']);
-        $data['delete'] = $this->url->link('common/testimonial/delete', 'user_token=' . $this->session->data['user_token']);
+        $data['add'] = $this->url->link('catalog/club/add', 'user_token=' . $this->session->data['user_token']);
+        $data['delete'] = $this->url->link('catalog/club/delete', 'user_token=' . $this->session->data['user_token']);
 
-        $data['testimonials'] = array();
+        $data['clubs'] = array();
 
-        $results = $this->model_catalog_testimonial->getTestimonials();
+        $results = $this->model_catalog_club->getClubs();
 
         foreach ($results as $result) {
-            $data['testimonials'][] = array(
-                'testimonial_id'       => $result['testimonial_id'],
-                'name'      => $result['name'],
-                'designation'   => $result['designation'],
-                'sort_order'    => $result['sort_order'],
+            $data['clubs'][] = array(
+                'club_id'       => $result['club_id'],
+                'date'          => $result['date'],
+                'name'          => $result['club_name'],
+                'president'     => $result['president'],
+                'password'      => $result['password'],
+                'website'       => $result['website'],
+                'mobile'        => $result['mobile'],
+                'email'         => $result['email'],
                 'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-                'edit'          => $this->url->link('common/testimonial/edit', 'user_token=' . $this->session->data['user_token'] . '&testimonial_id=' . $result['testimonial_id'])
+                'edit'          => $this->url->link('catalog/club/edit', 'user_token=' . $this->session->data['user_token'] . '&club_id=' . $result['club_id'])
             );
         }
 
@@ -150,7 +154,7 @@ class ControllerCommonTestimonial extends PT_Controller
         $data['nav'] = $this->load->controller('common/nav');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('common/testimonial_list', $data));
+        $this->response->setOutput($this->load->view('catalog/club_list', $data));
     }
 
     protected function getForm()
@@ -160,7 +164,7 @@ class ControllerCommonTestimonial extends PT_Controller
         $this->document->addScript("view/dist/plugins/ckeditor/adapters/jquery.js");
         $this->document->addScript("view/dist/plugins/iCheck/icheck.min.js");
         
-        $data['text_form'] = !isset($this->request->get['testimonial_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+        $data['text_form'] = !isset($this->request->get['club_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         if (isset($this->error['warning'])) {
             $data['warning_err'] = $this->error['warning'];
@@ -168,16 +172,52 @@ class ControllerCommonTestimonial extends PT_Controller
             $data['warning_err'] = '';
         }
 
-        if (isset($this->error['designation'])) {
-            $data['designation_err'] = $this->error['designation'];
+        if (isset($this->error['president'])) {
+            $data['president_err'] = $this->error['president'];
         } else {
-            $data['designation_err'] = '';
+            $data['president_err'] = '';
         }
 
         if (isset($this->error['name'])) {
             $data['name_err'] = $this->error['name'];
         } else {
             $data['name_err'] = '';
+        }
+
+        if (isset($this->error['email'])) {
+            $data['email_err'] = $this->error['email'];
+        } else {
+            $data['email_err'] = '';
+        }
+
+        if (isset($this->error['date'])) {
+            $data['date_err'] = $this->error['date'];
+        } else {
+            $data['date_err'] = '';
+        }
+
+        if (isset($this->error['name'])) {
+            $data['name_err'] = $this->error['name'];
+        } else {
+            $data['name_err'] = '';
+        }
+
+        if (isset($this->error['password'])) {
+            $data['password_err'] = $this->error['password'];
+        } else {
+            $data['password_err'] = '';
+        }
+
+        if (isset($this->error['mobile'])) {
+            $data['mobile_err'] = $this->error['mobile'];
+        } else {
+            $data['mobile_err'] = '';
+        }
+
+        if (isset($this->error['website'])) {
+            $data['website_err'] = $this->error['website'];
+        } else {
+            $data['website_err'] = '';
         }
 
         $data['breadcrumbs'] = array();
@@ -189,68 +229,97 @@ class ControllerCommonTestimonial extends PT_Controller
 
         $data['breadcrumbs'][] = array(
             'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('common/testimonial', 'user_token=' . $this->session->data['user_token'])
+            'href'  => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token'])
         );
 
-        if (!isset($this->request->get['testimonial_id'])) {
-            $data['action'] = $this->url->link('common/testimonial/add', 'user_token=' . $this->session->data['user_token']);
+        if (!isset($this->request->get['club_id'])) {
+            $data['action'] = $this->url->link('catalog/club/add', 'user_token=' . $this->session->data['user_token']);
             $data['breadcrumbs'][] = array(
                 'text'  => $this->language->get('text_add'),
-                'href'  => $this->url->link('common/testimonial/add', 'user_token=' . $this->session->data['user_token'])
+                'href'  => $this->url->link('catalog/club/add', 'user_token=' . $this->session->data['user_token'])
             );
         } else {
-            $data['action'] = $this->url->link('common/testimonial/edit', 'user_token=' . $this->session->data['user_token'] . '&testimonial_id=' . $this->request->get['testimonial_id']);
+            $data['action'] = $this->url->link('catalog/club/edit', 'user_token=' . $this->session->data['user_token'] . '&club_id=' . $this->request->get['club_id']);
             $data['breadcrumbs'][] = array(
                 'text'  => $this->language->get('text_edit'),
-                'href'  => $this->url->link('common/testimonial/edit', 'user_token=' . $this->session->data['user_token'])
+                'href'  => $this->url->link('catalog/club/edit', 'user_token=' . $this->session->data['user_token'])
             );
         }
 
-        $data['cancel'] = $this->url->link('common/testimonial', 'user_token=' . $this->session->data['user_token']);
+        $data['cancel'] = $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token']);
 
-        if (isset($this->request->get['testimonial_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-            $testimonial_info = $this->model_catalog_testimonial->getTestimonial($this->request->get['testimonial_id']);
+        if (isset($this->request->get['club_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+            $club_info = $this->model_catalog_club->getClub($this->request->get['club_id']);
         }
         
         if (isset($this->request->post['name'])) {
             $data['name'] = $this->request->post['name'];
-        } elseif (!empty($testimonial_info)) {
-            $data['name'] = $testimonial_info['name'];
+        } elseif (!empty($club_info)) {
+            $data['name'] = $club_info['club_name'];
         } else {
             $data['name'] = '';
         }
         
-        if (isset($this->request->post['designation'])) {
-            $data['designation'] = $this->request->post['designation'];
-        } elseif (!empty($testimonial_info)) {
-            $data['designation'] = $testimonial_info['designation'];
+        if (isset($this->request->post['date'])) {
+            $data['date'] = $this->request->post['date'];
+        } elseif (!empty($club_info)) {
+            $data['date'] = $club_info['date'];
         } else {
-            $data['designation'] = '';
+            $data['date'] = '';
         }
         
-        if (isset($this->request->post['description'])) {
-            $data['description'] = $this->request->post['description'];
-        } elseif (!empty($testimonial_info)) {
-            $data['description'] = $testimonial_info['description'];
+        if (isset($this->request->post['president'])) {
+            $data['president'] = $this->request->post['president'];
+        } elseif (!empty($club_info)) {
+            $data['president'] = $club_info['president'];
         } else {
-            $data['description'] = '';
+            $data['president'] = '';
         }
-
-        if (isset($this->request->post['sort_order'])) {
-            $data['sort_order'] = $this->request->post['sort_order'];
-        } elseif (!empty($testimonial_info)) {
-            $data['sort_order'] = $testimonial_info['sort_order'];
+        
+        if (isset($this->request->post['president'])) {
+            $data['president'] = $this->request->post['president'];
+        } elseif (!empty($club_info)) {
+            $data['president'] = $club_info['president'];
         } else {
-            $data['sort_order'] = 0;
+            $data['president'] = '';
         }
-  
+        
+        if (isset($this->request->post['mobile'])) {
+            $data['mobile'] = $this->request->post['mobile'];
+        } elseif (!empty($club_info)) {
+            $data['mobile'] = $club_info['mobile'];
+        } else {
+            $data['mobile'] = '';
+        }
+        
+        if (isset($this->request->post['email'])) {
+            $data['email'] = $this->request->post['email'];
+        } elseif (!empty($club_info)) {
+            $data['email'] = $club_info['email'];
+        } else {
+            $data['email'] = '';
+        }
+        
+        if (isset($this->request->post['website'])) {
+            $data['website'] = $this->request->post['website'];
+        } elseif (!empty($club_info)) {
+            $data['website'] = $club_info['website'];
+        } else {
+            $data['website'] = '';
+        }
+        
+        if (isset($this->request->post['password'])) {
+            $data['password'] = $this->request->post['password'];
+        } else {
+            $data['password'] = '';
+        }
 
         $this->load->model('tool/image');
              
         if (isset($this->request->post['image'])) {
             $data['image'] = $this->request->post['image'];
-        } elseif (!empty($testimonial_info)) {
-            $data['image'] = $testimonial_info['image'];
+        } elseif (!empty($club_info)) {
+            $data['image'] = $club_info['image'];
         } else {
             $data['image'] = '';
         }
@@ -265,8 +334,8 @@ class ControllerCommonTestimonial extends PT_Controller
 
         if (isset($this->request->post['status'])) {
             $data['status'] = $this->request->post['status'];
-        } elseif (!empty($testimonial_info)) {
-            $data['status'] = $testimonial_info['status'];
+        } elseif (!empty($club_info)) {
+            $data['status'] = $club_info['status'];
         } else {
             $data['status'] = 0;
         }
@@ -275,12 +344,12 @@ class ControllerCommonTestimonial extends PT_Controller
         $data['nav'] = $this->load->controller('common/nav');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('common/testimonial_form', $data));
+        $this->response->setOutput($this->load->view('catalog/club_form', $data));
     }
 
     protected function validateForm()
     {
-        if (!$this->user->hasPermission('modify', 'common/testimonial')) {
+        if (!$this->user->hasPermission('modify', 'catalog/club')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
@@ -288,14 +357,14 @@ class ControllerCommonTestimonial extends PT_Controller
             $this->error['email'] = $this->language->get('error_email');
         }
 
-        $testimonial_info = $this->model_catalog_testimonial->getTestimonialByEmail($this->request->post['email']);
+        $club_info = $this->model_catalog_club->getClubByEmail($this->request->post['email']);
 
-        if (!isset($this->request->get['testimonial_id'])) {
-            if ($testimonial_info) {
+        if (!isset($this->request->get['club_id'])) {
+            if ($club_info) {
                 $this->error['warning'] = $this->language->get('error_exists_email');
             }
         } else {
-            if ($testimonial_info && ($this->request->get['testimonial_id'] != $testimonial_info['testimonial_id'])) {
+            if ($club_info && ($this->request->get['club_id'] != $club_info['club_id'])) {
                 $this->error['warning'] = $this->language->get('error_exists_email');
             }
         }
@@ -304,7 +373,7 @@ class ControllerCommonTestimonial extends PT_Controller
             $this->error['name'] = $this->language->get('error_name');
         }
 
-        if ($this->request->post['password'] || (!isset($this->request->get['testimonial_id']))) {
+        if ($this->request->post['password'] || (!isset($this->request->get['club_id']))) {
             if ((utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
                 $this->error['password'] = $this->language->get('error_password');
             }
@@ -319,12 +388,12 @@ class ControllerCommonTestimonial extends PT_Controller
 
     protected function validateDelete()
     {
-        if (!$this->user->hasPermission('delete', 'common/testimonial')) {
+        if (!$this->user->hasPermission('delete', 'catalog/club')) {
             $this->error['warning'] = $this->language->get('error_delete');
         }
 
-        foreach ($this->request->post['selected'] as $testimonial_id) {
-            if ($this->user->getId() == $testimonial_id) {
+        foreach ($this->request->post['selected'] as $club_id) {
+            if ($this->user->getId() == $club_id) {
                 $this->error['warning'] = $this->language->get('error_account');
             }
         }

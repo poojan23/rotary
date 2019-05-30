@@ -79,7 +79,51 @@ function db_schema()
 		'charset' => 'utf8',
 		'collate' => 'utf8_general_ci'
 	);
-
+        
+        $tables[] = array(
+        'name' => 'category',
+        'field' => array(
+                array(
+                        'name' => 'category_id',
+                        'type' => 'int(11)',
+                        'not_null' => true,
+                        'auto_increment' => true
+                ),
+                array(
+                        'name' => 'name',
+                        'type' => 'varchar(255)',
+                        'not_null' => true
+                ),
+                array(
+                        'name' => 'sort_order',
+                        'type' => 'int(3)',
+                        'not_null' => true,
+                        'default' => '0'
+                ),
+                array(
+                        'name' => 'status',
+                        'type' => 'tinyint(1)',
+                        'not_null' => true
+                ),
+                array(
+                        'name' => 'date_added',
+                        'type' => 'datetime',
+                        'not_null' => true
+                ),
+                array(
+                        'name' => 'date_modified',
+                        'type' => 'datetime',
+                        'not_null' => true
+                )
+        ),
+        'primary' => array(
+                'category_id'
+        ),
+        'engine' => 'InnoDB',
+        'charset' => 'utf8',
+        'collate' => 'utf8_general_ci'
+	);
+                
 	$tables[] = array(
 		'name' => 'country',
 		'field' => array(
@@ -128,83 +172,87 @@ function db_schema()
 		'charset' => 'utf8',
 		'collate' => 'utf8_general_ci'
 	);
-
+	
+                
 	$tables[] = array(
-		'name' => 'crawler',
+		'name' => 'club',
 		'field' => array(
 			array(
-				'name' => 'crawler_id',
+				'name' => 'club_id',
 				'type' => 'int(11)',
 				'not_null' => true,
 				'auto_increment' => true
 			),
 			array(
-				'name' => 'ip',
-				'type' => 'text',
+				'name' => 'club_name',
+				'type' => 'varchar(128)',
 				'not_null' => true
 			),
-			array(
-				'name' => 'url',
-				'type' => 'text',
+                        array(
+                                'name' => 'date',
+                                'type' => 'date',
+                                'not_null' => true
+                        ),
+                        array(
+				'name' => 'president',
+				'type' => 'varchar(128)',
 				'not_null' => true
 			),
-			array(
-				'name' => 'referer',
-				'type' => 'text',
-				'not_null' => true
-			),
-			array(
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			)
-		),
-		'primary' => array(
-			'crawler_id'
-		),
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
-	);
-
-	$tables[] = array(
-		'name' => 'enquiry',
-		'field' => array(
-			array(
-				'name' => 'enquiry_id',
+                        array(
+				'name' => 'mobile',
 				'type' => 'int(11)',
-				'not_null' => true,
-				'auto_increment' => true
-			),
-			array(
-				'name' => 'name',
-				'type' => 'varchar(32)',
 				'not_null' => true
 			),
-			array(
+                        array(
 				'name' => 'email',
 				'type' => 'varchar(96)',
 				'not_null' => true
 			),
 			array(
-				'name' => 'message',
-				'type' => 'text',
+				'name' => 'password',
+				'type' => 'varchar(255)',
 				'not_null' => true
 			),
 			array(
+				'name' => 'website',
+				'type' => 'varchar(96)',
+				'not_null' => true
+			),
+                        array(
+				'name' => 'image',
+				'type' => 'varchar(255)',
+				'not_null' => true
+			),
+                        array(
+				'name' => 'ip',
+				'type' => 'varchar(255)',
+				'not_null' => true
+			),
+			array(
+				'name' => 'status',
+				'type' => 'tinyint(1)',
+				'not_null' => true,
+				'default' => '1'
+			),
+                        array(
 				'name' => 'date_added',
+				'type' => 'datetime',
+				'not_null' => true
+			),
+			array(
+				'name' => 'date_modified',
 				'type' => 'datetime',
 				'not_null' => true
 			)
 		),
 		'primary' => array(
-			'enquiry_id'
+			'club_id'
 		),
 		'engine' => 'InnoDB',
 		'charset' => 'utf8',
 		'collate' => 'utf8_general_ci'
 	);
-
+	
 	$tables[] = array(
 		'name' => 'event',
 		'field' => array(
@@ -399,26 +447,50 @@ function db_schema()
 		'charset' => 'utf8',
 		'collate' => 'utf8_general_ci'
 	);
-
-	$tables[] = array(
-		'name' => 'service',
+        
+        $tables[] = array(
+		'name' => 'member',
 		'field' => array(
 			array(
-				'name' => 'service_id',
+				'name' => 'member_id',
 				'type' => 'int(11)',
 				'not_null' => true,
 				'auto_increment' => true
 			),
-			array(
-				'name' => 'image',
-				'type' => 'varchar(255)',
+                        array(
+				'name' => 'club_id',
+				'type' => 'int(11)',
+				'not_null' => true
+			),
+                        array(
+				'name' => 'date',
+				'type' => 'date',
+				'not_null' => true
+			),
+                        array(
+				'name' => 'induction',
+				'type' => 'int(11)',
+				'not_null' => true
+			),
+                        array(
+				'name' => 'unlist',
+				'type' => 'int(11)',
 				'not_null' => true
 			),
 			array(
-				'name' => 'sort_order',
-				'type' => 'int(3)',
-				'not_null' => true,
-				'default' => '0'
+				'name' => 'net',
+				'type' => 'int(11)',
+				'not_null' => true
+			),
+			array(
+				'name' => 'points',
+				'type' => 'float',
+				'not_null' => true
+			),
+			array(
+				'name' => 'review',
+				'type' => 'float',
+				'not_null' => true
 			),
 			array(
 				'name' => 'status',
@@ -430,69 +502,138 @@ function db_schema()
 				'name' => 'date_added',
 				'type' => 'datetime',
 				'not_null' => true
+			)
+		),
+		'primary' => array(
+			'member_id'
+		),
+		'engine' => 'InnoDB',
+		'charset' => 'utf8',
+		'collate' => 'utf8_general_ci'
+	);
+        
+        $tables[] = array(
+		'name' => 'projects',
+		'field' => array(
+			array(
+				'name' => 'project_id',
+				'type' => 'int(11)',
+				'not_null' => true
 			),
 			array(
-				'name' => 'date_modified',
+				'name' => 'club_id',
+				'type' => 'int(11)',
+				'not_null' => true
+			),
+                        array(
+				'name' => 'date',
+				'type' => 'date',
+				'not_null' => true
+			),
+			array(
+				'name' => 'title',
+				'type' => 'varchar(255)',
+				'not_null' => true
+			),
+			array(
+				'name' => 'description',
+				'type' => 'text',
+				'not_null' => true
+			),
+			array(
+				'name' => 'amount',
+				'type' => 'float',
+				'not_null' => true
+			),
+			array(
+				'name' => 'no_of_beneficiary',
+				'type' => 'int',
+				'not_null' => true
+			),
+			array(
+				'name' => 'review',
+				'type' => 'float',
+				'not_null' => true
+			),
+			array(
+				'name' => 'status',
+				'type' => 'tinyint(1)',
+				'not_null' => true,
+				'default' => '1'
+			),
+			array(
+				'name' => 'date_added',
 				'type' => 'datetime',
 				'not_null' => true
 			)
 		),
 		'primary' => array(
-			'service_id'
+			'project_id',
 		),
+
 		'engine' => 'InnoDB',
 		'charset' => 'utf8',
 		'collate' => 'utf8_general_ci'
 	);
-
-	$tables[] = array(
-		'name' => 'service_description',
+        
+        $tables[] = array(
+		'name' => 'project_image',
 		'field' => array(
 			array(
-				'name' => 'service_id',
+				'name' => 'project_image_id',
 				'type' => 'int(11)',
 				'not_null' => true
 			),
 			array(
-				'name' => 'language_id',
+				'name' => 'project_id',
 				'type' => 'int(11)',
 				'not_null' => true
 			),
 			array(
-				'name' => 'name',
-				'type' => 'varchar(64)',
-				'not_null' => true
-			),
-			array(
-				'name' => 'description',
-				'type' => 'mediumtext',
-				'not_null' => true
-			),
-			array(
-				'name' => 'meta_title',
+				'name' => 'image',
 				'type' => 'varchar(255)',
 				'not_null' => true
 			),
 			array(
-				'name' => 'meta_description',
-				'type' => 'varchar(255)',
+				'name' => 'sort_order',
+				'type' => 'int(3)',
+				'not_null' => true,
+				'default' => '0'
+			)
+		),
+		'primary' => array(
+			'project_image_id',
+		),
+
+		'engine' => 'InnoDB',
+		'charset' => 'utf8',
+		'collate' => 'utf8_general_ci'
+	);
+        
+        $tables[] = array(
+		'name' => 'project_to_category',
+		'field' => array(
+			array(
+				'name' => 'project_id',
+				'type' => 'int(11)',
 				'not_null' => true
 			),
 			array(
-				'name' => 'meta_keyword',
-				'type' => 'varchar(255)',
+				'name' => 'category_id',
+				'type' => 'int(11)',
 				'not_null' => true
 			)
 		),
 		'primary' => array(
-			'service_id',
-			'language_id'
+			'project_id',
+			'category_id'
 		),
+
 		'engine' => 'InnoDB',
 		'charset' => 'utf8',
 		'collate' => 'utf8_general_ci'
 	);
-
+        
 	$tables[] = array(
 		'name' => 'session',
 		'field' => array(
@@ -563,41 +704,45 @@ function db_schema()
 		'charset' => 'utf8',
 		'collate' => 'utf8_general_ci'
 	);
-
-	$tables[] = array(
-		'name' => 'team',
+        
+        $tables[] = array(
+		'name' => 'trf',
 		'field' => array(
 			array(
-				'name' => 'team_id',
+				'name' => 'trf_id',
 				'type' => 'int(11)',
 				'not_null' => true,
 				'auto_increment' => true
 			),
-			array(
-				'name' => 'name',
-				'type' => 'varchar(32)',
+                        array(
+				'name' => 'club_id',
+				'type' => 'int(11)',
+				'not_null' => true
+			),
+                        array(
+				'name' => 'date',
+				'type' => 'date',
+				'not_null' => true
+			),
+                        array(
+				'name' => 'amount_inr',
+				'type' => 'float',
+				'not_null' => true
+			),
+                        array(
+				'name' => 'exchange_rate',
+				'type' => 'float',
+				'not_null' => true
+			),
+                        array(
+				'name' => 'amount_usd',
+				'type' => 'float',
 				'not_null' => true
 			),
 			array(
-				'name' => 'image',
-				'type' => 'varchar(255)',
+				'name' => 'review',
+				'type' => 'float',
 				'not_null' => true
-			),
-			array(
-				'name' => 'designation',
-				'type' => 'varchar(96)',
-				'not_null' => true
-			),
-			array(
-				'name' => 'description',
-				'type' => 'mediumtext',
-				'not_null' => true
-			),
-			array(
-				'name' => 'sort_order',
-				'type' => 'int(3)',
-				'not_null' => true,
-				'default' => '0'
 			),
 			array(
 				'name' => 'status',
@@ -609,130 +754,16 @@ function db_schema()
 				'name' => 'date_added',
 				'type' => 'datetime',
 				'not_null' => true
-			),
-			array(
-				'name' => 'date_modified',
-				'type' => 'datetime',
-				'not_null' => true
 			)
 		),
 		'primary' => array(
-			'team_id'
-		),
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
-	);
-
-	$tables[] = array(
-		'name' => 'testimonial',
-		'field' => array(
-			array(
-				'name' => 'testimonial_id',
-				'type' => 'int(11)',
-				'not_null' => true,
-				'auto_increment' => true
-			),
-			array(
-				'name' => 'name',
-				'type' => 'varchar(32)',
-				'not_null' => true
-			),
-			array(
-				'name' => 'image',
-				'type' => 'varchar(255)',
-				'not_null' => true
-			),
-			array(
-				'name' => 'designation',
-				'type' => 'varchar(96)',
-				'not_null' => true
-			),
-			array(
-				'name' => 'description',
-				'type' => 'mediumtext',
-				'not_null' => true
-			),
-			array(
-				'name' => 'sort_order',
-				'type' => 'int(3)',
-				'not_null' => true,
-				'default' => '0'
-			),
-			array(
-				'name' => 'status',
-				'type' => 'tinyint(1)',
-				'not_null' => true,
-				'default' => '1'
-			),
-			array(
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			),
-			array(
-				'name' => 'date_modified',
-				'type' => 'datetime',
-				'not_null' => true
-			)
-		),
-		'primary' => array(
-			'testimonial_id'
+			'trf_id'
 		),
 		'engine' => 'InnoDB',
 		'charset' => 'utf8',
 		'collate' => 'utf8_general_ci'
 	);
         
-	$tables[] = array(
-		'name' => 'translation',
-		'field' => array(
-			array(
-				'name' => 'translation_id',
-				'type' => 'int(11)',
-				'not_null' => true,
-				'auto_increment' => true
-			),
-                        array(
-				'name' => 'store_id',
-				'type' => 'int(11)',
-				'not_null' => true,
-				'default' => '0'
-			),
-                        array(
-				'name' => 'language_id',
-				'type' => 'int(11)',
-				'not_null' => true
-			),
-			array(
-				'name' => 'route',
-				'type' => 'varchar(64)',
-				'not_null' => true
-			),
-			array(
-				'name' => 'key',
-				'type' => 'varchar(64)',
-				'not_null' => true
-			),
-			array(
-				'name' => 'value',
-				'type' => 'text',
-				'not_null' => true
-			),
-			array(
-				'name' => 'date_added',
-				'type' => 'datetime',
-				'not_null' => true
-			),
-		),
-		'primary' => array(
-			'translation_id'
-		),
-		'engine' => 'InnoDB',
-		'charset' => 'utf8',
-		'collate' => 'utf8_general_ci'
-	);
-
 	$tables[] = array(
 		'name' => 'unique_visitor',
 		'field' => array(
@@ -891,6 +922,37 @@ function db_schema()
 		),
 		'primary' => array(
 			'user_group_id'
+		),
+		'engine' => 'InnoDB',
+		'charset' => 'utf8',
+		'collate' => 'utf8_general_ci'
+	);
+        
+        $tables[] = array(
+		'name' => 'user_to_club',
+		'field' => array(
+			array(
+				'name' => 'user_id',
+				'type' => 'int(11)',
+				'not_null' => true
+			),
+			array(
+				'name' => 'club_id',
+				'type' => 'int(11)',
+				'not_null' => true
+			)
+		),
+		'primary' => array(
+			'user_id',
+			'club_id'
+		),
+		'index' => array(
+			array(
+				'name' => 'club_id',
+				'key' => array(
+					'club_id'
+				)
+			)
 		),
 		'engine' => 'InnoDB',
 		'charset' => 'utf8',

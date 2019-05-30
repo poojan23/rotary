@@ -4,30 +4,20 @@ class ModelCatalogTeam extends PT_Model
 {
     public function addTeam($data)
     {
-        $this->db->query("INSERT INTO " . DB_PREFIX . "team SET  name = '" . $this->db->escape((string)$data['name']) . "',designation = '" . $this->db->escape((string)$data['designation']) . "',description = '" . $this->db->escape((string)$data['description']) . "',sort_order = '" . (int)$data['sort_order'] . "', status = '" . (isset($data['status']) ? (int)$data['status'] : 0) . "', date_modified = NOW(), date_added = NOW()");
+        $query = $this->db->query("INSERT INTO " . DB_PREFIX . "team SET  name = '" . $this->db->escape((string)$data['name']) . "', club_id = '" . ((int)$data['club_id']) . "', position = '" . $this->db->escape((string)$data['position']) . "',mobile = '" . $this->db->escape((string)$data['mobile']) . "',email = '" . $this->db->escape((string)$data['email']) . "', status = '" . (isset($data['status']) ? (int)$data['status'] : 0) . "', date_modified = NOW(), date_added = NOW()");
 
-        $team_id = $this->db->lastInsertId();
-
-        if (isset($data['image'])) {
-            $this->db->query("UPDATE " . DB_PREFIX . "team SET image = '" . $this->db->escape((string)$data['image']) . "' WHERE team_id = '" . (int)$team_id . "'");
-        }
-
-        return $team_id;
+        return $query;
     }
 
     public function editTeam($team_id, $data)
     {
-        $this->db->query("UPDATE " . DB_PREFIX . "team SET  name = '" . $this->db->escape((string)$data['name']) . "',designation = '" . $this->db->escape((string)$data['designation']) . "',description = '" . $this->db->escape((string)$data['description']) . "',sort_order = '" . (int)$data['sort_order'] . "', status = '" . (isset($data['status']) ? (int)$data['status'] : 0) . "', date_modified = NOW() WHERE team_id = '" . (int)$team_id . "'");
-
-        if (isset($data['image'])) {
-            $this->db->query("UPDATE " . DB_PREFIX . "team SET image = '" . $this->db->escape((string)$data['image']) . "' WHERE team_id = '" . (int)$team_id . "'");
-        }
+    
+        $this->db->query("UPDATE " . DB_PREFIX . "team SET name = '" . $this->db->escape((string)$data['name']) . "', club_id = '" . ((int)$data['club_id']) . "', position = '" . $this->db->escape((string)$data['position']) . "',mobile = '" . $this->db->escape((string)$data['mobile']) . "',email = '" . $this->db->escape((string)$data['email']) . "', status = '" . (isset($data['status']) ? (int)$data['status'] : 0) . "', date_modified = NOW() WHERE team_id = '" . (int)$team_id . "'");
     }
 
     public function deleteTeam($team_id)
     {
         $this->db->query("DELETE FROM " . DB_PREFIX . "team WHERE team_id = '" . (int)$team_id . "'");
-        $this->db->query("DELETE FROM " . DB_PREFIX . "seo_url WHERE query = 'team_id=" . (int)$team_id . "'");
 
         $this->cache->delete('team');
     }
@@ -40,7 +30,7 @@ class ModelCatalogTeam extends PT_Model
     }
     public function getTeams()
     {
-        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "team WHERE status = '1' ORDER BY sort_order");
+        $query = $this->db->query("SELECT  t.*,c.club_name FROM " . DB_PREFIX . "team t LEFT JOIN " . DB_PREFIX . "club c ON t.club_id = c.club_id WHERE t.status = '1'");
 
         return $query->rows;
     }
