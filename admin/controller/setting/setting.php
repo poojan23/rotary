@@ -724,15 +724,21 @@ class ControllerSettingSetting extends PT_Controller
             $data['config_visitor_icon'] = $this->config->get('config_visitor_icon');
         }
 
-        $this->load->model('tool/online');
-
-        $data['config_visitor'] = $this->model_tool_online->getTotalOnlines();
+//        $this->load->model('tool/online');
+//
+//        $data['config_visitor'] = $this->model_tool_online->getTotalOnlines();
 
         # Images
         if (isset($this->request->post['config_logo'])) {
             $data['config_logo'] = $this->request->post['config_logo'];
         } else {
             $data['config_logo'] = $this->config->get('config_logo');
+        }
+        
+        if (isset($this->request->post['config_logo'])) {
+            $data['config_district_logo'] = $this->request->post['config_district_logo'];
+        } else {
+            $data['config_district_logo'] = $this->config->get('config_district_logo');
         }
 
         $this->load->model('tool/image');
@@ -743,6 +749,11 @@ class ControllerSettingSetting extends PT_Controller
             $data['logo'] = $this->model_tool_image->resize(html_entity_decode($data['config_logo'], ENT_QUOTES, 'UTF-8'), 100, 100);
         } else {
             $data['logo'] = $data['placeholder'];
+        }
+        if (is_file(DIR_IMAGE . html_entity_decode($data['config_district_logo'], ENT_QUOTES, 'UTF-8'))) {
+            $data['district_logo'] = $this->model_tool_image->resize(html_entity_decode($data['config_district_logo'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        } else {
+            $data['district_logo'] = $data['placeholder'];
         }
 
         if (isset($this->request->post['config_icon'])) {
@@ -757,16 +768,16 @@ class ControllerSettingSetting extends PT_Controller
             $data['icon'] = $data['placeholder'];
         }
 
-        if (isset($this->request->post['config_logo_colour'])) {
-            $data['config_logo_colour'] = $this->request->post['config_logo_colour'];
+        if (isset($this->request->post['config_governor_logo'])) {
+            $data['config_governor_logo'] = $this->request->post['config_governor_logo'];
         } else {
-            $data['config_logo_colour'] = $this->config->get('config_logo_colour');
+            $data['config_governor_logo'] = $this->config->get('config_governor_logo');
         }
 
-        if (is_file(DIR_IMAGE . html_entity_decode($data['config_logo_colour'], ENT_QUOTES, 'UTF-8'))) {
-            $data['logo_colour'] = $this->model_tool_image->resize(html_entity_decode($data['config_logo_colour'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        if (is_file(DIR_IMAGE . html_entity_decode($data['config_governor_logo'], ENT_QUOTES, 'UTF-8'))) {
+            $data['logo_governor'] = $this->model_tool_image->resize(html_entity_decode($data['config_governor_logo'], ENT_QUOTES, 'UTF-8'), 100, 100);
         } else {
-            $data['logo_colour'] = $data['placeholder'];
+            $data['logo_governor'] = $data['placeholder'];
         }
 
         # Mail
