@@ -21,15 +21,23 @@ class ControllerCommonNav extends PT_Controller
 
             # Catalog
             $catalog = array();
-            
-            if ($this->user->hasPermission('access', 'catalog/center')) {
+                        
+            if ($this->user->hasPermission('access', 'catalog/club')) {
                 $catalog[] = array(
-                    'name'      => $this->language->get('text_center'),
-                    'href'      => $this->url->link('catalog/center', 'user_token=' . $this->session->data['user_token']),
+                    'name'      => $this->language->get('text_club'),
+                    'href'      => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token']),
                     'children'  => array()
                 );
             }
-            
+                        
+            if ($this->user->hasPermission('access', 'catalog/team')) {
+                $catalog[] = array(
+                    'name'      => $this->language->get('text_team'),
+                    'href'      => $this->url->link('catalog/team', 'user_token=' . $this->session->data['user_token']),
+                    'children'  => array()
+                );
+            }
+                        
             if ($this->user->hasPermission('access', 'catalog/citation')) {
                 $catalog[] = array(
                     'name'      => $this->language->get('text_citation'),
@@ -38,26 +46,27 @@ class ControllerCommonNav extends PT_Controller
                 );
             }
             
-            if ($this->user->hasPermission('access', 'catalog/club')) {
-                $catalog[] = array(
-                    'name'      => $this->language->get('text_club'),
-                    'href'      => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token']),
-                    'children'  => array()
-                );
-            }
-            
-            if ($this->user->hasPermission('access', 'catalog/team')) {
-                $catalog[] = array(
-                    'name'      => $this->language->get('text_team'),
-                    'href'      => $this->url->link('catalog/team', 'user_token=' . $this->session->data['user_token']),
-                    'children'  => array()
-                );
-            }
-            
             if ($this->user->hasPermission('access', 'catalog/information')) {
                 $catalog[] = array(
                     'name'      => $this->language->get('text_information'),
                     'href'      => $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token']),
+                    'children'  => array()
+                );
+            }
+           
+
+            if ($this->user->hasPermission('access', 'catalog/governor')) {
+                $catalog[] = array(
+                    'name'      => $this->language->get('text_governor'),
+                    'href'      => $this->url->link('catalog/governor', 'user_token=' . $this->session->data['user_token']),
+                    'children'  => array()
+                );
+            }
+            
+            if ($this->user->hasPermission('access', 'catalog/center')) {
+                $catalog[] = array(
+                    'name'      => $this->language->get('text_center'),
+                    'href'      => $this->url->link('catalog/center', 'user_token=' . $this->session->data['user_token']),
                     'children'  => array()
                 );
             }

@@ -11,7 +11,6 @@ class ModelCatalogTeam extends PT_Model
 
     public function editTeam($team_id, $data)
     {
-    
         $this->db->query("UPDATE " . DB_PREFIX . "team SET name = '" . $this->db->escape((string)$data['name']) . "', club_id = '" . ((int)$data['club_id']) . "', position = '" . $this->db->escape((string)$data['position']) . "',mobile = '" . $this->db->escape((string)$data['mobile']) . "',email = '" . $this->db->escape((string)$data['email']) . "', status = '" . (isset($data['status']) ? (int)$data['status'] : 0) . "', date_modified = NOW() WHERE team_id = '" . (int)$team_id . "'");
     }
 
@@ -33,96 +32,5 @@ class ModelCatalogTeam extends PT_Model
         $query = $this->db->query("SELECT  t.*,c.club_name FROM " . DB_PREFIX . "team t LEFT JOIN " . DB_PREFIX . "club c ON t.club_id = c.club_id WHERE t.status = '1'");
 
         return $query->rows;
-    }
-
-//    public function getServices($data = array())
-//    {
-//        if ($data) {
-//            $sql = "SELECT *, (SELECT igd.name FROM " . DB_PREFIX . "team_group_description igd WHERE igd.team_group_id = i.team_group_id AND igd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS team_group FROM " . DB_PREFIX . "team i LEFT JOIN " . DB_PREFIX . "team_description id ON (i.team_id = id.team_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "'";
-//
-//            $sort_data = array(
-//                'id.title',
-//                'i.sort_order'
-//            );
-//
-//            if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
-//                $sql .= " ORDER BY " . $data['sort'];
-//            } else {
-//                $sql .= " ORDER BY id.title";
-//            }
-//
-//            if (isset($data['order']) && ($data['order'] == 'DESC')) {
-//                $sql .= " DESC";
-//            } else {
-//                $sql .= " ASC";
-//            }
-//
-//            if (isset($data['start']) || isset($data['limit'])) {
-//                if ($data['start'] < 0) {
-//                    $data['start'] = 0;
-//                }
-//
-//                if ($data['limit'] < 1) {
-//                    $data['limit'] = 20;
-//                }
-//
-//                $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
-//            }
-//
-//            $query = $this->db->query($sql);
-//
-//            return $query->rows;
-//        } else {
-//            $team_data = $this->cache->get('team.' . (int)$this->config->get('config_language_id'));
-//
-//            if (!$team_data) {
-//                $query = $this->db->query("SELECT *, (SELECT igd.title FROM " . DB_PREFIX . "team_group_description igd WHERE igd.team_group_id = i.team_group_id AND igd.language_id = '" . (int)$this->config->get('config_language_id') . "') AS team_group FROM " . DB_PREFIX . "team i LEFT JOIN " . DB_PREFIX . "team_description id ON (i.team_id = id.team_id) WHERE id.language_id = '" . (int)$this->config->get('config_language_id') . "' ORDER BY id.title");
-//
-//                $team_data = $query->rows;
-//
-//                $this->cache->set('team.' . (int)$this->config->get('config_language_id'), $team_data);
-//            }
-//
-//            return $team_data;
-//        }
-//    }
-
-    public function getTeamDescriptions($team_id)
-    {
-        $team_description_data = array();
-
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "team_description WHERE team_id = '" . (int)$team_id . "'");
-
-        foreach ($query->rows as $result) {
-            $team_description_data[$result['language_id']] = array(
-                'title'             => $result['title'],
-                'description'       => $result['description'],
-                'meta_title'        => $result['meta_title'],
-                'meta_description'  => $result['meta_description'],
-                'meta_keyword'      => $result['meta_keyword']
-            );
-        }
-
-        return $team_description_data;
-    }
-
-    public function getTeamSeoUrls($team_id)
-    {
-        $team_seo_url_data = array();
-
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE query = 'team_id=" . (int)$team_id . "'");
-
-        foreach ($query->rows as $result) {
-            $team_seo_url_data[$result['language_id']] = $result['keyword'];
-        }
-
-        return $team_seo_url_data;
-    }
-
-    public function getTotalTeams()
-    {
-        $query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "team");
-
-        return $query->row['total'];
     }
 }

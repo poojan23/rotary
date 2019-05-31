@@ -73,3 +73,4 @@ $_['text_store']                = 'Setting';
 $_['text_club']                 = 'Core Club';
 $_['text_citation']             = "DG's Citation Criteria";
 $_['text_center']               = "Rotary Center's";
+$_['text_governor']             = "Past District Governor";
