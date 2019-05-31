@@ -53,7 +53,14 @@ class ControllerCommonNav extends PT_Controller
                     'children'  => array()
                 );
             }
-           
+            
+            if ($this->user->hasPermission('access', 'catalog/information_group')) {
+                $catalog[] = array(
+                    'name'      => $this->language->get('text_information_group'),
+                    'href'      => $this->url->link('catalog/information_group', 'user_token=' . $this->session->data['user_token']),
+                    'children'  => array()
+                );
+            }
 
             if ($this->user->hasPermission('access', 'catalog/governor')) {
                 $catalog[] = array(

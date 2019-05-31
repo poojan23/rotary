@@ -11,13 +11,13 @@ $_['text_edit']                 = 'Edit Information Group';
 $_['text_keyword']              = 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.';
 
 # Column
-$_['column_title']              = 'Information Group Title';
+$_['column_group_name']         = 'Information Group Title';
 $_['column_footer_title']       = 'Information Group Footer Title';
 $_['column_sort_order']         = 'Sort Order';
 $_['column_action']             = 'Action';
 
 # Entry
-$_['entry_title']               = 'Title';
+$_['entry_group_name']          = 'Group Title';
 $_['entry_title_footer']        = 'Footer Title';
 $_['entry_description']         = 'Description';
 $_['entry_meta_title']          = 'Meta Title';
@@ -34,3 +34,6 @@ $_['entry_keyword']             = 'Keyword';
 # Help
 $_['help_top']                  = 'Display in the top menu bar.';
 $_['help_bottom']               = 'Display in the bottom footer.';
+
+#Error
+$_['entry_group_err']               = 'Display in the bottom footer.';
