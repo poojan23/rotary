@@ -227,7 +227,19 @@ class ControllerCatalogInformation extends PT_Controller
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
+        
+        if (isset($this->request->post['information_group_id'])) {
+            $data['information_group_id'] = $this->request->post['information_group_id'];
+        } elseif (!empty($information_info)) {
+            $data['information_group_id'] = $information_info['information_group_id'];
+        } else {
+            $data['information_group_id'] = '';
+        }
 
+        $this->load->model('catalog/information_group');
+
+        $data['information_groups'] = $this->model_catalog_information_group->getInformationGroups();
+        
         if (isset($this->request->post['information_description'])) {
             $data['information_description'] = $this->request->post['information_description'];
         } elseif (!empty($information_info)) {

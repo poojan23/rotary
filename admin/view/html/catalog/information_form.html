@@ -102,6 +102,26 @@
                                     <div class="tab-content">
                                         <?php foreach($languages as $language) : ?>
                                         <div class="tab-pane" id="language<?php echo $language['language_id']; ?>">
+                                            <div class="form-group row">
+                                                <label for="input-information-group" class="col-sm-2 col-form-label">
+                                                    <?php echo $entry_information_group; ?></label>
+
+                                                <div class="col-sm-10">
+                                                    <select name="information_group_id" class="form-control" id="input-club">
+                                                        <?php foreach($information_groups as $information_group) : ?>
+                                                        <?php if($information_group['information_group_id'] == $information_group_id) : ?>
+                                                        <option value="<?php echo $information_group['information_group_id']; ?>" selected="selected">
+                                                            <?php echo $information_group['group_name']; ?>
+                                                        </option>
+                                                        <?php else : ?>
+                                                        <option value="<?php echo $information_group['information_group_id']; ?>">
+                                                            <?php echo $information_group['group_name']; ?>
+                                                        </option>
+                                                        <?php endif; ?>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="form-group row required">
                                                 <label for="input-title<?php echo $language['language_id']; ?>"
                                                     class="col-sm-2 col-form-label"><?php echo $entry_title; ?></label>
