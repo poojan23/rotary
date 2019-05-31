@@ -24,7 +24,6 @@ class ControllerCatalogTeam extends PT_Controller
         $this->load->model('catalog/team');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-
             $this->model_catalog_team->addTeam($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -44,7 +43,6 @@ class ControllerCatalogTeam extends PT_Controller
         $this->load->model('catalog/team');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-//            print_r( $this->request->post);exit;
             $this->model_catalog_team->editTeam($this->request->get['team_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');

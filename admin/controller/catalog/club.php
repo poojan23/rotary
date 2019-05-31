@@ -24,7 +24,6 @@ class ControllerCatalogClub extends PT_Controller
         $this->load->model('catalog/club');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-//            print_r($this->request->post);exit;
             $this->model_catalog_club->addClub($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');

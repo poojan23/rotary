@@ -24,7 +24,6 @@ class ControllerCatalogGovernor extends PT_Controller
         $this->load->model('catalog/governor');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-
             $this->model_catalog_governor->addGovernor($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -44,7 +43,6 @@ class ControllerCatalogGovernor extends PT_Controller
         $this->load->model('catalog/governor');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-            
             $this->model_catalog_governor->editGovernor($this->request->get['governor_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');

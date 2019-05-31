@@ -24,7 +24,6 @@ class ControllerCatalogCitation extends PT_Controller
         $this->load->model('catalog/citation');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-
             $this->model_catalog_citation->addCitation($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -44,7 +43,6 @@ class ControllerCatalogCitation extends PT_Controller
         $this->load->model('catalog/citation');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-//            print_r( $this->request->post);exit;
             $this->model_catalog_citation->editCitation($this->request->get['citation_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');

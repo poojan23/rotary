@@ -24,7 +24,6 @@ class ControllerCatalogCenter extends PT_Controller
         $this->load->model('catalog/center');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-            
             $this->model_catalog_center->addCenter($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -44,7 +43,6 @@ class ControllerCatalogCenter extends PT_Controller
         $this->load->model('catalog/center');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-//            print_r( $this->request->post);exit;
             $this->model_catalog_center->editCenter($this->request->get['center_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
