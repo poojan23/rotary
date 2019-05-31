@@ -1,10 +1,202 @@
 <body>
-    <!--
-=================================
-            PRELOADER
-=================================
--->
+    <header id="header" class="desktop-view">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo-ir">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <a href="https://www.rotary.org" target="_blank">
+                            <?php if(isset($logo) && isset($logo_colour)) : ?>
+                            <img class="img-responsive logo-img" src="<?php echo $logo; ?>"
+                                alt="<?php echo $name; ?>">
+                            <?php else : ?>
+                            <?php echo $name; ?>
+                            <?php endif; ?>
+                        </a>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="header-logo-district">
+                            <a>
+                                <?php if(isset($logo_colour)) : ?>
+                                <img class="img-responsive star-img" src="<?php echo $logo_colour; ?>" alt="<?php echo $name; ?>">
+                                <?php else : ?>
+                                <?php echo $name; ?>
+                                <?php endif; ?>
+                            </a>
+                            <a href="district3141/district-governors/district-governor.php">
+                                <img class="img-responsive user-img" src="template/view/dist/images/shashikumarsharma.jpg" alt="Shashi Kumar Sharma">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="header-bottom">
+                <div class="menu-desk">
+                    <ul id="list-menu">
+                        <li><a href="<?php echo $home; ?>"><?php echo $text_home; ?></a></li>
+                        <li class="sub-menu-parent">
+                            <a href="district3141/about-district-3141.php">District 3141</a>
+                            <ul class="sub-menu drop1">
+                                <li><a href="district3141/about-rotary.php">Overview</a></li>
+                                <li><a href="district3141/about-district-3141.php">About District 3141</a></li>
+                                <li><a href="district3141/team3141/core-team18-19.php">Core Team 18-19</a></li>
+                                <li><a href="district3141/clubs3141/club3141.php">Club In 3141</a></li>
+                                <li><a href="district3141/membership.php">Membership</a></li>
+                                <li><a href="district3141/district-governors/district-governor.php">District Governors</a></li>
+                                <li><a href="district3141/dg-citation-criteria.php">DG's Citation Criteria</a></li>
+                                <li><a href="district3141/inner-wheel-representative.php">Inner Wheel Representative</a></li>
+                                <li><a href="district3141/district-rotaract.php">Dist Rotaract Representative</a></li>
+                                <li><a href="district3141/rotary-centres.php">Rotary Centers</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu-parent">
+                            <a href="rotary-international/about-rotary-international.php">Rotary International</a>
+                            <ul class="sub-menu drop2">
+                                <li><a href="rotary-international/about-rotary-international.php">About Rotary International</a></li>
+                                <li><a href="rotary-international/ri-president-18-19.php">RI President 2018-19</a></li>
+                                <li><a href="rotary-international/ri-president-monthly-message.php">RI President's Monthly Msg</a></li>
+                                <li><a href="rotary-international/ri-president-elect.php">RI President Elect 2019-20</a></li>
+                                <li><a href="rotary-international/rotary-south-asia-office.php">Rotary South Asia Office</a></li>
+                                <li><a href="rotary-international/general-secretary.php">General Secretary</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu-parent">
+                            <a href="get-involved/get-involved.php">Get Involved</a>
+                            <ul class="sub-menu drop3">
+                                <li><a href="get-involved/rotaract-clubs3141.php">Rotaract Clubs Of 3141</a></li>
+                                <li><a href="get-involved/interact-clubs3141.php">Interact Clubs Of 3141</a></li>
+                                <li><a href="get-involved/district-thrust-area.php">District Thrust Area</a></li>
+                                <li><a href="get-involved/why_join_rotary.php">Why Join Rotary</a></li>
+                                <li><a href="get-involved/join-rotary-apply-now.php">Join Rotary-Apply Now</a></li>
+                                <li><a href="get-involved/rotary_seva_muhim.php">Rotary Seva Muhim</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu-parent">
+                            <a href="history-of-the-rotary-foundation.php">TRF</a>
+                            <ul class="sub-menu drop4">
+                                <li><a href="history-of-the-rotary-foundation.php">History of TRF</a></li>
+                                <li><a href="https://www.rotary.org/en/about-rotary/our-leaders/trustees" target="_blank">TRF Trustee</a></li>
+                                <li><a href="https://www.rotary.org/en/donate/recognition" target="_blank">Donor Recognition</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu-parent">
+                            <a href="get-involved/district-thrust-area.php">Projects</a>
+                        </li>
+                        <li class="sub-menu-parent">
+                            <a href="https://www.rotary.org/en/our-causes" target="_blank">Our Causes</a>
+                        </li>
+                        <li class="sub-menu-parent">
+                            <a href="events.php">Events</a>
+                        </li>
+                        <li class="sub-menu-parent">
+                            <a href="downloads/powerpoint-presentations.php">Downloads</a>
+                            <ul class="sub-menu drop6">
+                                <li><a href="downloads/powerpoint-presentations.php">Powerpoint Presentations</a></li>
+                                <li><a href="downloads/logo-&-graphics.php">Logo &amp; Graphics</a></li>
+                                <li><a href="downloads/pdf-download.php">Pdf Download</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu-parent">
+                            <a href="gallery/photo-gallery.php">Gallery</a>
+                            <ul class="sub-menu drop7">
+                                <li><a href="gallery/photo-gallery.php">Photo Gallery</a></li>
+                                <li><a href="gallery/video-gallery.php">Video Gallery</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="<?php echo $contact; ?>"><?php echo $text_contact; ?></a></li>
+                        <li class="sub-menu-parent">
+                            <a href="javascript:;">Archives</a>
+                            <ul class="sub-menu drop8">
+                                <li><a href="gml_2017_18.php">GML 2017-18</a></li>
+                                <li><a href="gallery_2017_18.php">Gallery 2017-18</a></li>
+                                <li><a href="download_logo_graphics_2017_18.php">Download Logo 2017-18</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu-parent">
+                            <a href="javascript:;"><?php echo $text_home; ?></a>
+                            <ul class="sub-menu drop8">
+                                <li><a href="admin/"><i class="fa fa-user-circle header-fa"></i>&nbsp;<?php echo $text_admin; ?></a></li>
+                                <li><a href="login.php/"><i class="fa fa-user-circle header-fa"></i>&nbsp;<?php echo $text_club; ?></a></li>
+                                <li><a href="https://my.rotary.org/en/user/login?destination=user/profile/edit" target="_blank"><i class="fa fa-user-circle header-fa"></i>&nbsp;<?php echo $text_member; ?></a></li>
+                            </ul>
+                        </li>
+                         <li>
+                            <div class="search" id="search">
+                                <a href="javascript:;" class="top" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Search">
+                                    <i class="fa fa-search header-fa" data-toggle="modal"  data-target="#myModal"></i>  
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <header id="header" class="mobile-view">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo-ir">
+                    <!--<div class="row">-->
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <a href="https://www.rotary.org" target="_blank"><img class="img-responsive logo-img" src="template/view/dist/images/logo.png"></a>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12">
+                            <div class="header-logo-district">
+                                <a>
+                                    <img class="img-responsive star-img" src="template/view/dist/images/miracle.jpg">
+                                </a>
+                                <a href="district3141/district-governors/district-governor.php">
+                                    <img class="img-responsive user-img" src="template/view/dist/images/shashikumarsharma.jpg" alt="Shashi Kumar Sharma">
+                                </a>
+                            </div>
+                        </div>
+                    <!--</div>-->
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="header-bottom">
+                <div class="menu-icon">
+                    <i class="fa fa-bars"></i>
+                    Menu
+                </div>
+                <ul>
+                    <li>
+                        <div class="search" id="search">
+                            <a href="javascript:;" class="top" data-placement="bottom" data-toggle="tooltip" data-original-title="Search">
+                                <i class="fa fa-search header-fa" data-toggle="modal"  data-target="#myModal"></i>  
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <nav class="nav open">
+            <ul>
+                <li><a href="admin/">Admin Login</a></li>
+                <li><a href="admin/">Club Login</a></li>
+                <li><a href="https://my.rotary.org/en/user/login?destination=user/profile/edit" target="_blank">Member Login</a></li>
+                <li><a href="https://www.rotarydist3141.org.in/rotary_site">Home</a></li>
+                <li><a href="district3141/about-district-3141.php">District 3141</a></li>
+                <li><a href="district3141/membership.php">Membership</a></li>
+                <li><a href="district3141/district-governors/district-governor.php">District Governor</a></li>
+                <li><a href="district3141/dg-citation-criteria.php">DG's Citation Crietria</a></li>
+                <li><a href="get-involved/get-involved.php">Get Involved</a></li>
+                <li><a href="rotary-international/about-rotary-international.php">Rotary International</a></li>
+                <li><a href="history-of-the-rotary-foundation.php">TRF</a></li>
+                <li><a href="get-involved/district-thrust-area.php">Projects</a></li>
+                <li> <a href="https://www.rotary.org/en/our-causes" target="_blank">Our Causes</a></li>
+                <li><a href="events.php">Events</a></li>
+                <li><a href="downloads/powerpoint-presentations.php">Downloads</a></li>
+                <li><a href="gallery/photo-gallery.php">Gallery</a></li>
+                <li><a href="contact.php">Contact</a></li>
+                <li><a href="archives.php">Archives</a></li>
+            </ul>
+        </nav>
+    </header>
 
+<!--
     <div class="loading">
         <div class="loading-text">
             <span class="loading-text-words">L</span>
@@ -15,16 +207,16 @@
             <span class="loading-text-words">N</span>
             <span class="loading-text-words">G</span>
         </div>
-    </div>
+    </div>-->
 
     <!-- End Preloader -->
 
-    <div id="top"></div>
+<!--    <div id="top"></div>-->
     <!--=========================*
             Header
 *===========================-->
-    <header id="rt_header">
-        <!-- Navigation Bar -->
+<!--    <header id="rt_header">
+         Navigation Bar 
         <nav>
             <div class="navbar-wrapper" id="navigation">
                 <div class="navbar navbar-default navbar-fixed-top reveal-menu-home" role="navigation">
@@ -51,7 +243,7 @@
                                             <?php endif; ?>
                                         </a>
                                     </div>
-                                </div> <!-- .navbar-header -->
+                                </div>  .navbar-header 
                                 <div class="navbar-collapse collapse">
                                     <ul class="nav navbar-nav navbar-right">
                                         <li class="active"><a href="index.html#top"><?php echo $text_home; ?></a></li>
@@ -61,18 +253,18 @@
                                         <li><a href="index.html#rt_team"><?php echo $text_team; ?></a></li>
                                         <li><a href="index.html#rt_testimonial"><?php echo $text_testimonial; ?></a>
                                         </li>
-                                        <!-- <li><a href="index.html#rt_blog"><?php echo $text_blog; ?></a></li> -->
+                                         <li><a href="index.html#rt_blog"><?php echo $text_blog; ?></a></li> 
                                         <li><a href="index.html#rt_contact"><?php echo $text_contact; ?></a></li>
                                     </ul>
                                 </div>
-                            </div> <!-- .col-md-12 -->
-                        </div> <!-- .row -->
-                    </div> <!-- .container -->
-                </div> <!-- .navbar -->
-            </div> <!-- .navbar-wrapper -->
+                            </div>  .col-md-12 
+                        </div>  .row 
+                    </div>  .container 
+                </div>  .navbar 
+            </div>  .navbar-wrapper 
         </nav>
-        <!-- End Navigation -->
-    </header>
+         End Navigation 
+    </header>-->
     <!--=========================*
            End Header
 *===========================-->

@@ -1,6 +1,6 @@
 <?php
 # Heading Title
-$_['heading_title']         = 'Be Digital Be Visible - a tagline of Popaya™ Technologies';
+$_['heading_title']         = 'Home - Rotary District 3141';
 
 # Text
 $_['text_success']          = 'Your message has been successfully sent!';
