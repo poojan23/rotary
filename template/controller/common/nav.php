@@ -16,7 +16,8 @@ class ControllerCommonNav extends PT_Controller
             $data['logo_colour'] = '';
         }
 
-        $data['home'] = $this->url->link('common/home', 'language=' . $this->config->get('config_language'));
+        $data['home'] = $this->url->link('common/home');
+        $data['contact'] = $this->url->link('information/contact');
 
         return $this->load->view('common/nav', $data);
     }
