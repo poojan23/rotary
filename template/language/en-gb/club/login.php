@@ -1,20 +1,21 @@
 <?php
-# Heading Title
-$_['heading_title']         = 'Club Login';
+ # Heading
 $_['text_home']             = 'Home';
+$_['heading_title']         = 'Club Login';
 
 # Text
-// $_['text_success']          = 'Your message has been successfully sent!';
-// $_['text_website']          = 'Websites';
-// $_['text_software']         = 'Softwares';
-// $_['text_customer']         = 'Happy Clients';
-// $_['text_visitor']          = 'Visitors';
-// $_['text_location']         = 'Location';
-// $_['text_open']             = 'Available Time';
-// $_['text_phone']            = 'Phone';
-// $_['text_email']            = 'Email';
+$_['text_heading']          = '<b>Popaya</b>&trade; Technologies';
+$_['text_login']            = 'Sign in to start your session';
+$_['text_forgotten']        = 'Forgot Password';
 
-// # Errors
-// $_['error_name']            = 'Name must be between 3 and 32 characters!';
-// $_['error_email']           = 'E-Mail Address does not appear to be valid!';
-// $_['error_message']         = 'Message must be between 10 and 3000 characters!';
+# Entry
+$_['entry_email']           = 'E-Mail Address';
+$_['entry_password']        = 'Password';
+$_['entry_remember']        = 'Remember Me';
+
+# Button
+$_['button_login']          = 'Sign In';
+
+# Error
+$_['error_login']           = 'No match for Email and/or Password!';
+$_['error_token']           = 'Invalid token session. Please login again!';

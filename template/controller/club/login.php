@@ -2,6 +2,8 @@
 
 class ControllerClubLogin extends PT_Controller
 {
+    private $error = array();
+
     public function index()
     {
         $this->load->language('club/login');
@@ -20,33 +22,18 @@ class ControllerClubLogin extends PT_Controller
             'href' => $this->url->link('club/login')
         );
 
-      
-
-        if ($this->user->isLogged() && isset($this->request->get['user_token']) && ($this->request->get['user_token'] == $this->session->data['user_token'])) {
-            $this->response->redirect($this->url->link('club/dashboard', 'user_token=' . $this->session->data['user_token']));
+    
+        if ($this->customer->isLogged()) {
+            $this->response->redirect($this->url->link('club/dashboard'));
         }
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-
-            $this->session->data['user_token'] = token(32);
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validate()) {
 
             if (isset($this->request->post['redirect']) && (strpos($this->request->post['redirect'], HTTP_SERVER) === 0)) {
-                $this->response->redirect($this->request->post['redirect'] . '&user_token=' . $this->session->data['user_token']);
+                $this->response->redirect($this->request->post['redirect']);
             } else {
-                $this->response->redirect($this->url->link('club/dashboard', 'user_token=' . $this->session->data['user_token']));
+                $this->response->redirect($this->url->link('club/dashboard'));
             }
-        }
-
-        if ((isset($this->session->data['user_token']) && !isset($this->request->get['user_token'])) || ((isset($this->request->get['user_token']) && (isset($this->session->data['user_token']) && ($this->request->get['user_token'] != $this->session->data['user_token']))))) {
-            $this->error['warning'] = $this->language->get('error_token');
-        } elseif (isset($this->error['warning'])) {
-            $data['warning_err'] = $this->error['warning'];
-        } elseif (isset($this->session->data['error'])) {
-            $data['warning_err'] = $this->session->data['error'];
-
-            unset($this->session->data['error']);
-        } else {
-            $data['warning_err'] = '';
         }
 
         if (isset($this->session->data['success'])) {
@@ -75,7 +62,7 @@ class ControllerClubLogin extends PT_Controller
             $route = $this->request->get['url'];
 
             unset($this->request->get['url']);
-            unset($this->request->get['user_token']);
+            // unset($this->request->get['user_token']);
 
             $url = '';
 
@@ -106,7 +93,7 @@ class ControllerClubLogin extends PT_Controller
     }
      protected function validate()
     {
-        if (!isset($this->request->post['email']) || !isset($this->request->post['password']) || !$this->user->login($this->request->post['email'], html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8'))) {
+        if (!isset($this->request->post['email']) || !isset($this->request->post['password']) || !$this->customer->login($this->request->post['email'], html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8'))) {
             $this->error['warning'] = $this->language->get('error_login');
         }
 

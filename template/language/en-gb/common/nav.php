@@ -6,3 +6,4 @@ $_['text_admin']                  = 'Admin Login';
 $_['text_club']                   = 'Club Login';
 $_['text_member']                 = 'Member Login';
 $_['text_contact']                = 'Contact';
+$_['text_dashboard']              = 'Club Dashboard';

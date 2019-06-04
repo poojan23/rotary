@@ -17,7 +17,7 @@ class ControllerCommonNav extends PT_Controller
             $data['district_logo'] = '';
             $data['governor_logo'] = '';
         }
-        
+
         $data['home'] = $this->url->link('common/home');
         $data['contact'] = $this->url->link('information/contact');
         $data['club'] = $this->url->link('club/login');
