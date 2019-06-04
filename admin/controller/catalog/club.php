@@ -120,6 +120,8 @@ class ControllerCatalogClub extends PT_Controller
                 'date'          => $result['date'],
                 'name'          => $result['club_name'],
                 'president'     => $result['president'],
+                'secretary'     => $result['district_secretary'],
+                'governor'      => $result['assistant_governor'],
                 'password'      => $result['password'],
                 'website'       => $result['website'],
                 'mobile'        => $result['mobile'],
@@ -195,10 +197,22 @@ class ControllerCatalogClub extends PT_Controller
             $data['date_err'] = '';
         }
 
+        if (isset($this->error['secretary'])) {
+            $data['secretary_err'] = $this->error['secretary'];
+        } else {
+            $data['secretary_err'] = '';
+        }
+
         if (isset($this->error['name'])) {
             $data['name_err'] = $this->error['name'];
         } else {
             $data['name_err'] = '';
+        }
+
+        if (isset($this->error['governor'])) {
+            $data['governor_err'] = $this->error['governor'];
+        } else {
+            $data['governor_err'] = '';
         }
 
         if (isset($this->error['password'])) {
@@ -257,6 +271,22 @@ class ControllerCatalogClub extends PT_Controller
             $data['name'] = $club_info['club_name'];
         } else {
             $data['name'] = '';
+        }
+        
+        if (isset($this->request->post['secretary'])) {
+            $data['secretary'] = $this->request->post['secretary'];
+        } elseif (!empty($club_info)) {
+            $data['secretary'] = $club_info['district_secretary'];
+        } else {
+            $data['secretary'] = '';
+        }
+        
+        if (isset($this->request->post['governor'])) {
+            $data['governor'] = $this->request->post['governor'];
+        } elseif (!empty($club_info)) {
+            $data['governor'] = $club_info['assistant_governor'];
+        } else {
+            $data['governor'] = '';
         }
         
         if (isset($this->request->post['date'])) {
