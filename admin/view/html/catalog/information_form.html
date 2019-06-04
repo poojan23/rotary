@@ -343,14 +343,14 @@
                 dataType: 'json',
                 success: function (json) {
                     json.unshift({
-                        information_group_id: 0,
+                        information_id: 0,
                         title: 'None'
                     });
 
                     response($.map(json, function (item) {
                         return {
                             label: item['title'],
-                            value: item['information_group_id']
+                            value: item['information_id']
                         }
                     }));
                 }

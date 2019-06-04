@@ -405,7 +405,7 @@ class ControllerCatalogInformation extends PT_Controller {
           
             foreach ($results as $result) {
                 $json[] = array(
-                    'information_group_id' => $result['information_group_id'],
+                    'information_id' => $result['information_id'],
                     'title' => strip_tags(html_entity_decode($result['title'], ENT_QUOTES, 'UTF-8'))
                 );
             }
