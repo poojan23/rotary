@@ -103,6 +103,36 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
+                            
+                            <div class="form-group row required">
+                                <label for="input-secretory" class="col-sm-2 col-form-label">
+                                    <?php echo $entry_secretory; ?></label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" name="secretory" value="<?php echo $secretory; ?>"
+                                           placeholder="<?php echo $entry_secretory; ?>" class="form-control"
+                                           id="input-secretory" />
+                                    <?php if($secretory_err) : ?>
+                                    <span class="help-block">
+                                        <?php echo $secretory_err; ?></span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row required">
+                                <label for="input-governor" class="col-sm-2 col-form-label">
+                                    <?php echo $entry_governor; ?></label>
+
+                                <div class="col-sm-10">
+                                    <input type="text" name="governor" value="<?php echo $governor; ?>"
+                                           placeholder="<?php echo $entry_governor; ?>" class="form-control"
+                                           id="input-governor" />
+                                    <?php if($governor_err) : ?>
+                                    <span class="help-block">
+                                        <?php echo $governor_err; ?></span>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
                            
                             <div class="form-group row required">
                                 <label for="input-president" class="col-sm-2 col-form-label">
