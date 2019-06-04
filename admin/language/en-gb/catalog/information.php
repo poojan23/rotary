@@ -20,6 +20,7 @@ $_['column_action']             = 'Action';
 
 # Entry
 $_['entry_title']               = 'Title';
+$_['entry_parent']              = 'Parent';
 $_['entry_information_group']   = 'Information Group';
 $_['entry_title_footer']        = 'Footer Title';
 $_['entry_description']         = 'Description';

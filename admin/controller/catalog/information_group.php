@@ -24,6 +24,7 @@ class ControllerCatalogInformationGroup extends PT_Controller
         $this->load->model('catalog/information_group');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+//            print_r($this->request->post);exit;
             $this->model_catalog_information_group->addInformationGroup($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -172,6 +173,12 @@ class ControllerCatalogInformationGroup extends PT_Controller
             $data['group_name_err'] = array();
         }
 
+        if (isset($this->error['url'])) {
+            $data['url_err'] = $this->error['url'];
+        } else {
+            $data['url_err'] = array();
+        }
+
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
@@ -207,13 +214,25 @@ class ControllerCatalogInformationGroup extends PT_Controller
         $data['user_token'] = $this->session->data['user_token'];
 
         $this->load->model('localisation/language');
+        
+        $this->load->model('catalog/information');
 
+        $data['pages'] = $this->model_catalog_information->getInformations();
+        
         if (isset($this->request->post['group_name'])) {
             $data['group_name'] = $this->request->post['group_name'];
         } elseif (!empty($information_group_info)) {
             $data['group_name'] = $information_group_info['group_name'];
         } else {
             $data['group_name'] = '';
+        }
+
+        if (isset($this->request->post['information_id'])) {
+            $data['information_id'] = $this->request->post['information_id'];
+        } elseif (!empty($information_group_info)) {
+            $data['information_id'] = $information_group_info['information_id'];
+        } else {
+            $data['information_id'] = '';
         }
 
         if (isset($this->request->post['sort_order'])) {

@@ -18,6 +18,7 @@ $_['column_action']             = 'Action';
 
 # Entry
 $_['entry_group_name']          = 'Group Title';
+$_['entry_page']                = 'Page';
 $_['entry_title_footer']        = 'Footer Title';
 $_['entry_description']         = 'Description';
 $_['entry_meta_title']          = 'Meta Title';
@@ -36,4 +37,4 @@ $_['help_top']                  = 'Display in the top menu bar.';
 $_['help_bottom']               = 'Display in the bottom footer.';
 
 #Error
-$_['entry_group_err']               = 'Display in the bottom footer.';
+$_['entry_group_err']           = 'Display in the bottom footer.';
