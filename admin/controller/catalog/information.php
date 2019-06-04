@@ -1,11 +1,10 @@
 <?php
 
-class ControllerCatalogInformation extends PT_Controller
-{
+class ControllerCatalogInformation extends PT_Controller {
+
     private $error = array();
 
-    public function index()
-    {
+    public function index() {
         $this->load->language('catalog/information');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -15,8 +14,7 @@ class ControllerCatalogInformation extends PT_Controller
         $this->getList();
     }
 
-    public function add()
-    {
+    public function add() {
         $this->load->language('catalog/information');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -24,6 +22,7 @@ class ControllerCatalogInformation extends PT_Controller
         $this->load->model('catalog/information');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+            
             $this->model_catalog_information->addInformation($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -34,8 +33,7 @@ class ControllerCatalogInformation extends PT_Controller
         $this->getForm();
     }
 
-    public function edit()
-    {
+    public function edit() {
         $this->load->language('catalog/information');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -53,8 +51,7 @@ class ControllerCatalogInformation extends PT_Controller
         $this->getForm();
     }
 
-    public function delete()
-    {
+    public function delete() {
         $this->load->language('catalog/information');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -74,8 +71,7 @@ class ControllerCatalogInformation extends PT_Controller
         $this->getList();
     }
 
-    protected function getList()
-    {
+    protected function getList() {
         $this->document->addStyle("view/dist/plugins/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css");
         $this->document->addStyle("view/dist/plugins/DataTables/Buttons-1.5.6/css/buttons.bootstrap4.min.css");
         $this->document->addStyle("view/dist/plugins/DataTables/FixedHeader-3.1.4/css/fixedHeader.bootstrap4.min.css");
@@ -98,13 +94,13 @@ class ControllerCatalogInformation extends PT_Controller
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('text_home'),
-            'href'  => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
         );
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'])
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'])
         );
 
         $data['add'] = $this->url->link('catalog/information/add', 'user_token=' . $this->session->data['user_token']);
@@ -113,14 +109,14 @@ class ControllerCatalogInformation extends PT_Controller
         $data['informations'] = array();
 
         $results = $this->model_catalog_information->getInformations();
-      
+
         foreach ($results as $result) {
             $data['informations'][] = array(
-                'information_id'  => $result['information_id'],
-                'title'                 => $result['title'],
-                'sort_order'            => $result['sort_order'],
-                'edit'                  => $this->url->link('catalog/information/edit', 'user_token=' . $this->session->data['user_token'] . '&information_id=' . $result['information_id']),
-                'delete'                => $this->url->link('catalog/information/delete', 'user_token=' . $this->session->data['user_token'] . '&information_id=' . $result['information_id'])
+                'information_id' => $result['information_id'],
+                'title' => $result['title'],
+                'sort_order' => $result['sort_order'],
+                'edit' => $this->url->link('catalog/information/edit', 'user_token=' . $this->session->data['user_token'] . '&information_id=' . $result['information_id']),
+                'delete' => $this->url->link('catalog/information/delete', 'user_token=' . $this->session->data['user_token'] . '&information_id=' . $result['information_id'])
             );
         }
 
@@ -139,7 +135,7 @@ class ControllerCatalogInformation extends PT_Controller
         }
 
         if (isset($this->request->post['selected'])) {
-            $data['selected'] = (array)$this->request->post['selected'];
+            $data['selected'] = (array) $this->request->post['selected'];
         } else {
             $data['selected'] = array();
         }
@@ -151,8 +147,7 @@ class ControllerCatalogInformation extends PT_Controller
         $this->response->setOutput($this->load->view('catalog/information_list', $data));
     }
 
-    protected function getForm()
-    {
+    protected function getForm() {
         $this->document->addStyle("view/dist/plugins/iCheck/all.css");
         $this->document->addScript("view/dist/plugins/ckeditor/ckeditor.js");
         $this->document->addScript("view/dist/plugins/ckeditor/adapters/jquery.js");
@@ -193,26 +188,26 @@ class ControllerCatalogInformation extends PT_Controller
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('text_home'),
-            'href'  => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
         );
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'])
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('catalog/information', 'user_token=' . $this->session->data['user_token'])
         );
 
         if (!isset($this->request->get['information_id'])) {
             $data['action'] = $this->url->link('catalog/information/add', 'user_token=' . $this->session->data['user_token']);
             $data['breadcrumbs'][] = array(
-                'text'  => $this->language->get('text_add'),
-                'href'  => $this->url->link('catalog/information/add', 'user_token=' . $this->session->data['user_token'])
+                'text' => $this->language->get('text_add'),
+                'href' => $this->url->link('catalog/information/add', 'user_token=' . $this->session->data['user_token'])
             );
         } else {
             $data['action'] = $this->url->link('catalog/information/edit', 'user_token=' . $this->session->data['user_token'] . '&information_id=' . $this->request->get['information_id']);
             $data['breadcrumbs'][] = array(
-                'text'  => $this->language->get('text_edit'),
-                'href'  => $this->url->link('catalog/information/edit', 'user_token=' . $this->session->data['user_token'] . '&information_id=' . $this->request->get['information_id'])
+                'text' => $this->language->get('text_edit'),
+                'href' => $this->url->link('catalog/information/edit', 'user_token=' . $this->session->data['user_token'] . '&information_id=' . $this->request->get['information_id'])
             );
         }
 
@@ -221,13 +216,13 @@ class ControllerCatalogInformation extends PT_Controller
         if (isset($this->request->get['information_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $information_info = $this->model_catalog_information->getInformation($this->request->get['information_id']);
         }
-       
+
         $data['user_token'] = $this->session->data['user_token'];
 
         $this->load->model('localisation/language');
 
         $data['languages'] = $this->model_localisation_language->getLanguages();
-        
+
         if (isset($this->request->post['information_group_id'])) {
             $data['information_group_id'] = $this->request->post['information_group_id'];
         } elseif (!empty($information_info)) {
@@ -239,7 +234,7 @@ class ControllerCatalogInformation extends PT_Controller
         $this->load->model('catalog/information_group');
 
         $data['information_groups'] = $this->model_catalog_information_group->getInformationGroups();
-        
+
         if (isset($this->request->post['information_description'])) {
             $data['information_description'] = $this->request->post['information_description'];
         } elseif (!empty($information_info)) {
@@ -248,6 +243,21 @@ class ControllerCatalogInformation extends PT_Controller
             $data['information_description'] = array();
         }
 
+        if (isset($this->request->post['parent_id'])) {
+            $data['parent_id'] = $this->request->post['parent_id'];
+        } elseif (!empty($information_info)) {
+            $data['parent_id'] = $information_info['parent_id'];
+        } else {
+            $data['parent_id'] = 0;
+        }
+        
+        if (isset($this->request->post['path'])) {
+            $data['path'] = $this->request->post['path'];
+        } elseif (!empty($information_info)) {
+            $data['path'] = $information_info['title'];
+        } else {
+            $data['path'] = '';
+        }
         if (isset($this->request->post['image'])) {
             $data['image'] = $this->request->post['image'];
         } elseif (!empty($information_info)) {
@@ -297,8 +307,7 @@ class ControllerCatalogInformation extends PT_Controller
         $this->response->setOutput($this->load->view('catalog/information_form', $data));
     }
 
-    protected function validateForm()
-    {
+    protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'catalog/information')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
@@ -325,7 +334,7 @@ class ControllerCatalogInformation extends PT_Controller
                     $seo_urls = $this->model_design_seo_url->getSeoUrlsByKeyword($keyword);
 
                     foreach ($seo_urls as $seo_url) {
-                        if (($seo_url['language_id'] == $language_id) && (!isset($this->request->get['information_id']) || ($seo_url['query'] != 'information_id=' . (int)$this->request->get['information_id']))) {
+                        if (($seo_url['language_id'] == $language_id) && (!isset($this->request->get['information_id']) || ($seo_url['query'] != 'information_id=' . (int) $this->request->get['information_id']))) {
                             $this->error['keyword'][$language_id] = $this->language->get('error_keyword');
 
                             break;
@@ -344,8 +353,7 @@ class ControllerCatalogInformation extends PT_Controller
         return !$this->error;
     }
 
-    protected function validateDelete()
-    {
+    protected function validateDelete() {
         if (!$this->user->hasPermission('delete', 'catalog/information')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
@@ -353,8 +361,7 @@ class ControllerCatalogInformation extends PT_Controller
         return !$this->error;
     }
 
-    public function icons()
-    {
+    public function icons() {
         $json = array();
 
         if (!$json) {
@@ -365,8 +372,8 @@ class ControllerCatalogInformation extends PT_Controller
 
             foreach ($matches as $match) {
                 $json[] = array(
-                    'icon'  => $match[1],
-                    'css'  => implode(array(str_replace('\\', '&#x', $match[2]), ';'))
+                    'icon' => $match[1],
+                    'css' => implode(array(str_replace('\\', '&#x', $match[2]), ';'))
                 );
             }
 
@@ -388,27 +395,18 @@ class ControllerCatalogInformation extends PT_Controller
         $this->response->setOutput(json_encode($json));
     }
 
-    public function autocomplete()
-    {
+    public function autocomplete() {
         $json = array();
 
         if (isset($this->request->get['filter_name'])) {
             $this->load->model('catalog/information');
 
-            $filter_data = array(
-                'filter_name'   => $this->request->get['filter_name'],
-                'sort'          => 'name',
-                'order'         => 'ASC',
-                'start'         => 0,
-                'limit'         => 5
-            );
-
-            $results = $this->model_catalog_information->getInformations($filter_data);
-
+            $results = $this->model_catalog_information->getInformations();
+          
             foreach ($results as $result) {
                 $json[] = array(
-                    'information_id'  => $result['information_id'],
-                    'title'                 => strip_tags(html_entity_decode($result['title'], ENT_QUOTES, 'UTF-8'))
+                    'information_group_id' => $result['information_group_id'],
+                    'title' => strip_tags(html_entity_decode($result['title'], ENT_QUOTES, 'UTF-8'))
                 );
             }
         }
@@ -424,4 +422,5 @@ class ControllerCatalogInformation extends PT_Controller
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
     }
+
 }
