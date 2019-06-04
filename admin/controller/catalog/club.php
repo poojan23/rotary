@@ -120,7 +120,7 @@ class ControllerCatalogClub extends PT_Controller
                 'date'          => $result['date'],
                 'name'          => $result['club_name'],
                 'president'     => $result['president'],
-                'secretory'     => $result['district_secretory'],
+                'secretary'     => $result['district_secretary'],
                 'governor'      => $result['assistant_governor'],
                 'password'      => $result['password'],
                 'website'       => $result['website'],
@@ -197,10 +197,10 @@ class ControllerCatalogClub extends PT_Controller
             $data['date_err'] = '';
         }
 
-        if (isset($this->error['secretory'])) {
-            $data['secretory_err'] = $this->error['secretory'];
+        if (isset($this->error['secretary'])) {
+            $data['secretary_err'] = $this->error['secretary'];
         } else {
-            $data['secretory_err'] = '';
+            $data['secretary_err'] = '';
         }
 
         if (isset($this->error['name'])) {
@@ -273,12 +273,12 @@ class ControllerCatalogClub extends PT_Controller
             $data['name'] = '';
         }
         
-        if (isset($this->request->post['secretory'])) {
-            $data['secretory'] = $this->request->post['secretory'];
+        if (isset($this->request->post['secretary'])) {
+            $data['secretary'] = $this->request->post['secretary'];
         } elseif (!empty($club_info)) {
-            $data['secretory'] = $club_info['district_secretory'];
+            $data['secretary'] = $club_info['district_secretary'];
         } else {
-            $data['secretory'] = '';
+            $data['secretary'] = '';
         }
         
         if (isset($this->request->post['governor'])) {
