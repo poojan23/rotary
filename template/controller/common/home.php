@@ -15,15 +15,16 @@ class ControllerCommonHome extends PT_Controller
 
         $data['projects'] = array();
 
-        $results = $this->model_design_banner->getBanner(3, 0, 8);
-
+        $results = $this->model_design_banner->getBanner(7, 0, 8);
+//        print_r($results); exit;
         foreach ($results as $result) {
-            if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
+//            if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
                 $data['projects'][] = array(
                     'title' => $result['title'],
-                    'image' => $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 750, 1335)
+                    'image' => $result['image']
+//                    'image' => $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 1140, 605)
                 );
-            }
+//            }
         }
 
         # Team
@@ -83,8 +84,8 @@ class ControllerCommonHome extends PT_Controller
         $data['client_icon'] = $this->config->get('config_client_icon');
         $data['client'] = $this->config->get('config_client');
 
-        $data['visitor_icon'] = $this->config->get('config_visitor_icon');
-        $data['visitor'] = ($this->model_tool_online->getTotalOnlines() > 9999) ? '9999' : $this->model_tool_online->getTotalOnlines();
+//        $data['visitor_icon'] = $this->config->get('config_visitor_icon');
+//        $data['visitor'] = ($this->model_tool_online->getTotalOnlines() > 9999) ? '9999' : $this->model_tool_online->getTotalOnlines();
 
         # Blog
 

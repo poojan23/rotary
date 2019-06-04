@@ -95,8 +95,8 @@ class ControllerInformationContact extends PT_Controller
         $data['client_icon'] = $this->config->get('config_client_icon');
         $data['client'] = $this->config->get('config_client');
 
-        $data['visitor_icon'] = $this->config->get('config_visitor_icon');
-        $data['visitor'] = ($this->model_tool_online->getTotalOnlines() > 9999) ? '9999' : $this->model_tool_online->getTotalOnlines();
+//        $data['visitor_icon'] = $this->config->get('config_visitor_icon');
+//        $data['visitor'] = ($this->model_tool_online->getTotalOnlines() > 9999) ? '9999' : $this->model_tool_online->getTotalOnlines();
 
         # Blog
 

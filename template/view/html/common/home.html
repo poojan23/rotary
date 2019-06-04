@@ -5,7 +5,14 @@
         <div class="container">
             <div class="header-banner">
                 <div class="fullscreen-carousel owl-carousel owl-theme owl-center owl-loaded owl-text-select-on">
-                    <div class="item images-1">
+                    <?php if($projects) : ?>
+                    <?php foreach($projects as $project) : ?>
+                    <div class="item">
+                        <img src="image/<?php echo $project['image']; ?>" alt="<?php echo $project['title']; ?>" class="images-responsive slider-image-size">
+                    </div>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
+<!--                    <div class="item images-1">
                         <img src="template/view/dist/images/banner/IMG-20190223-WA0142.jpg" class="images-responsive slider-image-size">
                     </div>
                     <div class="item images-2">
@@ -22,7 +29,7 @@
                     </div>
                     <div class="item images-6">
                         <img src="template/view/dist/images/banner/IMG-20190224-WA0135.jpg" class="images-responsive slider-image-size">
-                    </div>
+                    </div>-->
                 </div>
             </div>
             <div class="quote-banner" id="pagescroll">

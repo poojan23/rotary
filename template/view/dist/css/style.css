@@ -1069,7 +1069,7 @@ a:hover, a:focus {
 .contact h3 {
     padding: 6px 9px;
     margin: 0px;
-    background-color: #0068c7;
+    background-color: #17468f;
     color: #fff;
     text-transform: uppercase;
     font-size: 15px;
@@ -1088,12 +1088,12 @@ a:hover, a:focus {
     float: left;
     margin-bottom: 0px;
     font-size: 22px;
-    color: #0068c7;
+    color: #17468f;
 }
 .contact ul li .con-fa {
     width: 8%;
     font-size: 20px;
-    color: #0068c7;
+    color: #17468f;
 }
 /*end contact page*/
 .map {
