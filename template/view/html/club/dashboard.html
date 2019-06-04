@@ -1,0 +1,220 @@
+<?php echo $header; ?>
+<?php echo $nav; ?>
+<div id="page-content-wrapper">
+    <div class="page-content">
+        <div class="container">
+            <div class="banner-img-08 banner-img-size"></div>
+            <div class="page-breadcum" id="content">
+                <?php for($i = 0; $i < count($breadcrumbs); $i++) : ?>
+                <?php if($i != (count($breadcrumbs) - 1)) : ?>
+                <?php if($i == 0) : ?>
+                <a href="<?php echo $breadcrumbs[$i]['href']; ?>"><?php echo $breadcrumbs[$i]['text']; ?></a>
+                <?php else : ?>
+                <i class="fa fa-chevron-right"></i>
+                <a href="<?php echo $breadcrumbs[$i]['href']; ?>"><?php echo $breadcrumbs[$i]['text']; ?></a>
+                <?php endif; ?>
+                <?php else : ?>
+                <i class="fa fa-chevron-right"></i>
+                <?php echo $breadcrumbs[$i]['text']; ?>
+                <?php endif; ?>
+                <?php endfor; ?>
+            </div>
+            <div class="about-desc-section">
+                <div class="about-desc-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-3 mt-20">
+                                <div class="club-login-details">
+                                    <div class="page-title">Club Details</div>
+                                    <p class="seprate-p"><b>Rotary Club of Deonar</b></p>
+                                    <p class="combine-p"><span><i class="fa fa-clock-o"></i> 06/01/2018</span><span
+                                            class="pull-right"><i class="fa fa-trophy"></i> 5555555</span></p>
+                                    <p class="combine-p"><span><i class="fa fa-mobile"></i> <a href="tel:919820000672">
+                                                +91 98200
+                                                00672</a></span></p>
+                                    <p class="combine-p"><span><i class="fa fa-envelope-o"></i><a
+                                                href="mailto:rtnliladhar@gmail.com"> rtnliladhar@gmail.com</a></span>
+                                    </p>
+                                    <hr class="featurette-divider">
+                                    <p class="seprate-p"><b>President</b> - Liladhar Parab</p>
+                                    <p class="seprate-p"><b>Ass. Governor</b> - Dr Shankar Chawla</p>
+                                    <p class="seprate-p"><b>Dist. Secretary</b> - Dr Shankar Chawla</p>
+                                </div>
+                                <div id="mobile-menu">
+                                    <a href="javascript:;" class="bars"><i class="fa fa-bars mobile-bars"></i></a>
+                                    <div class="mobile-drop">
+                                        <ul id="page-menu">
+                                            <li><a href="<?php echo $base_url; ?>/club_dashboard.php"
+                                                    class="active-menu">Dashboard</a></li>
+                                            <li><a href="<?php echo $base_url; ?>/club_members.php">Members</a></li>
+                                            <li><a href="<?php echo $base_url; ?>/club_trf.php">TRF</a></li>
+                                            <li><a href="<?php echo $base_url; ?>/club_projects.php">Projects</a></li>
+                                            <li><a href="<?php echo $base_url; ?>/club_profile.php">Profile</a></li>
+                                            <li><a href="<?php echo $base_url; ?>/club_logout.php">Logout</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="desktop-drop">
+                                    <ul id="page-menu">
+                                        <li><a href="<?php echo $base_url; ?>/club_dashboard.php"
+                                                class="active-menu">Dashboard</a>
+                                        </li>
+                                        <li><a href="<?php echo $base_url; ?>/club_members.php">Members</a></li>
+                                        <li><a href="<?php echo $base_url; ?>/club_trf.php">TRF</a></li>
+                                        <li><a href="<?php echo $base_url; ?>/club_projects.php">Projects</a></li>
+                                        <li><a href="<?php echo $base_url; ?>/club_profile.php">Profile</a></li>
+                                        <li><a href="<?php echo $base_url; ?>/club_logout.php">Logout</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-9 mt-20">
+                                <div class="about-page-content">
+                                    <div class="page-title">
+                                        Club Dashboard
+                                    </div>
+                                    <div class="club-page-content">
+                                        <div class="row dashboard-stats">
+                                            <div class="col-md-4 col-sm-4">
+                                                <section class="panel panel-box">
+                                                    <div class="panel-left panel-icon bg-success">
+                                                        <i class="fa fa-dollar text-large stat-icon success-text"></i>
+                                                    </div>
+                                                    <div class="panel-right panel-icon bg-reverse">
+                                                        <p class="size-h1 no-margin countdown_first">6791</p>
+                                                        <p class="text-muted no-margin text"><span>TRF</span></p>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <section class="panel panel-box">
+                                                    <div class="panel-left panel-icon bg-danger">
+                                                        <i
+                                                            class="fa fa-shopping-cart text-large stat-icon danger-text"></i>
+                                                    </div>
+                                                    <div class="panel-right panel-icon bg-reverse">
+                                                        <p class="size-h1 no-margin countdown_second">594</p>
+                                                        <p class="text-muted no-margin text"><span>Projects</span></p>
+                                                    </div>
+                                                </section>
+
+                                            </div>
+                                            <div class="col-md-4 col-sm-4">
+                                                <section class="panel panel-box">
+                                                    <div class="panel-left panel-icon bg-info">
+                                                        <i class="fa fa-users text-large stat-icon info-text"></i>
+                                                    </div>
+                                                    <div class="panel-right panel-icon bg-reverse">
+                                                        <p class="size-h1 no-margin countdown_fourth">999</p>
+                                                        <p class="text-muted no-margin text"><span>Members</span></p>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="club-page-content">
+                                        <div class="page-title">
+                                            Latest Members
+                                        </div>
+                                        <div class="table-design-row">
+                                            <table id="exampleclub" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr</th>
+                                                        <th>Month</th>
+                                                        <th>Members Inducted </th>
+                                                        <th>Members Unlisted </th>
+                                                        <th>Net Growth </th>
+                                                        <th>Points</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>May - 2019</td>
+                                                        <td>15</td>
+                                                        <td>5</td>
+                                                        <td>10</td>
+                                                        <td>20</td>
+                                                        <td><a href="#" data-toggle="tooltip" title=""
+                                                                class="btn btn-login btn-xs btn-bold"
+                                                                data-original-title="View Members"><i
+                                                                    class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="club-page-content">
+                                        <div class="page-title">
+                                            Latest TRF Contribution
+                                        </div>
+                                        <div class="table-design-row">
+                                            <table id="exampleclub2" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr</th>
+                                                        <th>Month</th>
+                                                        <th>TRF Contribution</th>
+                                                        <th>Points</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>May - 2019</td>
+                                                        <td>1500</td>
+                                                        <td>15</td>
+                                                        <td><a href="#" data-toggle="tooltip" title=""
+                                                                class="btn btn-login btn-xs btn-bold"
+                                                                data-original-title="View TRF Contribution"><i
+                                                                    class="fa fa-eye"></i></a></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="club-page-content">
+                                        <div class="page-title">
+                                            Latest Projects
+                                        </div>
+                                        <div class="table-design-row">
+                                            <table id="exampleclub3" class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Sr</th>
+                                                        <th>Month</th>
+                                                        <th>Projects Title</th>
+                                                        <th>Projects Cost</th>
+                                                        <th>Category</th>
+                                                        <th>Points</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>May - 2019</td>
+                                                        <td>Medical</td>
+                                                        <td>1500</td>
+                                                        <td>Medical</td>
+                                                        <td>100</td>
+                                                        <td><a href="#" data-toggle="tooltip" title=""
+                                                                class="btn btn-login btn-xs btn-bold"
+                                                                data-original-title="View Projects"><i
+                                                                    class="fa fa-eye"></i></a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php echo $footer; ?>
