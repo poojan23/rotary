@@ -2452,6 +2452,9 @@ label.login-m {
 .club-login-details p {
     padding: 4px 0;
 }
+p.combine-p a {
+    color: #000;
+}
 .form-title-sub {
     padding: 7px 9px;
     box-shadow: 1px 1px 1px 1px #eee;

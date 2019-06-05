@@ -62,10 +62,10 @@
                                 <div class="desktop-drop">
                                     <ul id="page-menu">
                                         <li>
-                                            <a href="<?php echo $dashbaord; ?>"
-                                                class="active-menu"><?php echo $text_dashboard; ?></a>
+                                            <a href="<?php echo $dashbaord; ?>"><?php echo $text_dashboard; ?></a>
                                         </li>
-                                        <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
+                                        <li><a href="<?php echo $member; ?>"
+                                                class="active-menu"><?php echo $text_member; ?></a></li>
                                         <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
                                         <li><a href="<?php echo $project; ?>"><?php echo $text_project; ?></a></li>
                                         <li><a href="<?php echo $profile; ?>"><?php echo $text_profile; ?></a></li>
@@ -80,8 +80,8 @@
                                     </div>
                                     <div class="club-page-content">
                                         <div class="form-title">
-                                            <a href="<?php echo $base_url; ?>/add_members.php" data-toggle="tooltip"
-                                                title="" class="btn btn-login btn-sm btn-bold"
+                                            <a href="<?php echo $add_member; ?>" data-toggle="tooltip" title=""
+                                                class="btn btn-login btn-sm btn-bold"
                                                 data-original-title="Add New Members"><i class="fa fa-plus"></i></a>
                                         </div>
                                         <div class="table-design-row">
@@ -98,30 +98,22 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    <?php $n=1; ?>
+                                                    <?php foreach($members as $member): ?>
                                                     <tr>
-                                                        <td>1</td>
-                                                        <td>May - 2019</td>
-                                                        <td>15</td>
-                                                        <td>5</td>
-                                                        <td>10</td>
-                                                        <td>20</td>
-                                                        <td><a href="#" data-toggle="tooltip" title=""
-                                                                class="btn btn-login btn-xs btn-bold"
+                                                        <td><?php echo $n++; ?></td>
+                                                        <td><?php echo $member['date']; ?></td>
+                                                        <td><?php echo $member['induction']; ?></td>
+                                                        <td><?php echo $member['unlist']; ?></td>
+                                                        <td><?php echo $member['net']; ?></td>
+                                                        <td><?php echo $member['points']; ?></td>
+                                                        <td><a href="<?php echo $member['view']; ?>"
+                                                                data-toggle="tooltip" title="View Members"
+                                                                class=" btn btn-login btn-xs btn-bold"
                                                                 data-original-title="View Members"><i
                                                                     class="fa fa-eye"></i></a></td>
                                                     </tr>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>June - 2019</td>
-                                                        <td>15</td>
-                                                        <td>5</td>
-                                                        <td>10</td>
-                                                        <td>20</td>
-                                                        <td><a href="#" data-toggle="tooltip" title=""
-                                                                class="btn btn-login btn-xs btn-bold"
-                                                                data-original-title="View Members"><i
-                                                                    class="fa fa-eye"></i></a></td>
-                                                    </tr>
+                                                    <?php endforeach; ?>
                                                 </tbody>
                                             </table>
                                         </div>
