@@ -23,7 +23,7 @@ class ControllerCatalogClub extends PT_Controller
 
         $this->load->model('catalog/club');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_club->addClub($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -42,7 +42,7 @@ class ControllerCatalogClub extends PT_Controller
 
         $this->load->model('catalog/club');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_club->editClub($this->request->get['club_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -366,7 +366,7 @@ class ControllerCatalogClub extends PT_Controller
         } elseif (!empty($club_info)) {
             $data['status'] = $club_info['status'];
         } else {
-            $data['status'] = 0;
+            $data['status'] = true;
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -382,36 +382,41 @@ class ControllerCatalogClub extends PT_Controller
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
+        if ((utf8_strlen(trim($this->request->post['name'])) < 1) || (utf8_strlen(trim($this->request->post['name'])) > 32)) {
+            $this->error['name'] = $this->language->get('error_name');
+        }
+
+        if ((utf8_strlen(trim($this->request->post['secretary'])) < 1) || (utf8_strlen(trim($this->request->post['secretary'])) > 32)) {
+            $this->error['secretary'] = $this->language->get('error_secretary');
+        }
+
+        if ((utf8_strlen(trim($this->request->post['governor'])) < 1) || (utf8_strlen(trim($this->request->post['governor'])) > 32)) {
+            $this->error['governor'] = $this->language->get('error_governor');
+        }
+
+        if ((utf8_strlen(trim($this->request->post['president'])) < 1) || (utf8_strlen(trim($this->request->post['president'])) > 32)) {
+            $this->error['president'] = $this->language->get('error_president');
+        }
+        
+
+        if ((utf8_strlen(trim($this->request->post['mobile'])) < 1) || (utf8_strlen(trim($this->request->post['mobile'])) > 11)) {
+            $this->error['mobile'] = $this->language->get('error_mobile');
+        }
+        
         if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
             $this->error['email'] = $this->language->get('error_email');
         }
 
-        $club_info = $this->model_catalog_club->getClubByEmail($this->request->post['email']);
-
-        if (!isset($this->request->get['club_id'])) {
-            if ($club_info) {
-                $this->error['warning'] = $this->language->get('error_exists_email');
-            }
-        } else {
-            if ($club_info && ($this->request->get['club_id'] != $club_info['club_id'])) {
-                $this->error['warning'] = $this->language->get('error_exists_email');
-            }
-        }
-
-        if ((utf8_strlen(trim($this->request->post['name'])) < 1) || (utf8_strlen(trim($this->request->post['name'])) > 32)) {
-            $this->error['name'] = $this->language->get('error_name');
-        }
 
         if ($this->request->post['password'] || (!isset($this->request->get['club_id']))) {
             if ((utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
                 $this->error['password'] = $this->language->get('error_password');
             }
-
-            if ($this->request->post['password'] != $this->request->post['confirm']) {
-                $this->error['confirm'] = $this->language->get('error_confirm');
-            }
         }
-
+        
+        if ((utf8_strlen(trim($this->request->post['website'])) < 1) || (utf8_strlen(trim($this->request->post['website'])) > 32)) {
+            $this->error['website'] = $this->language->get('error_website');
+        }
         return !$this->error;
     }
 

@@ -23,7 +23,7 @@ class ControllerCatalogCitation extends PT_Controller
 
         $this->load->model('catalog/citation');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_citation->addCitation($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -42,7 +42,7 @@ class ControllerCatalogCitation extends PT_Controller
 
         $this->load->model('catalog/citation');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_citation->editCitation($this->request->get['citation_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -231,7 +231,7 @@ class ControllerCatalogCitation extends PT_Controller
         } elseif (!empty($citation_info)) {
             $data['status'] = $citation_info['status'];
         } else {
-            $data['status'] = 0;
+            $data['status'] = true;
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -247,34 +247,12 @@ class ControllerCatalogCitation extends PT_Controller
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if ((utf8_strlen($this->request->post['name']) > 96) || !filter_var($this->request->post['name'], FILTER_VALIDATE_EMAIL)) {
-            $this->error['email'] = $this->language->get('error_name');
+        if ((utf8_strlen(trim($this->request->post['content'])) < 1) || (utf8_strlen(trim($this->request->post['content'])) > 255)) {
+            $this->error['content'] = $this->language->get('error_content');
         }
 
-        $citation_info = $this->model_catalog_citation->getCitationByEmail($this->request->post['email']);
-
-        if (!isset($this->request->get['citation_id'])) {
-            if ($citation_info) {
-                $this->error['warning'] = $this->language->get('error_exists_email');
-            }
-        } else {
-            if ($citation_info && ($this->request->get['citation_id'] != $citation_info['citation_id'])) {
-                $this->error['warning'] = $this->language->get('error_exists_email');
-            }
-        }
-
-        if ((utf8_strlen(trim($this->request->post['name'])) < 1) || (utf8_strlen(trim($this->request->post['name'])) > 32)) {
-            $this->error['name'] = $this->language->get('error_name');
-        }
-
-        if ($this->request->post['password'] || (!isset($this->request->get['citation_id']))) {
-            if ((utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) < 4) || (utf8_strlen(html_entity_decode($this->request->post['password'], ENT_QUOTES, 'UTF-8')) > 40)) {
-                $this->error['password'] = $this->language->get('error_password');
-            }
-
-            if ($this->request->post['password'] != $this->request->post['confirm']) {
-                $this->error['confirm'] = $this->language->get('error_confirm');
-            }
+        if ((utf8_strlen(trim($this->request->post['value'])) < 1) || (utf8_strlen(trim($this->request->post['value'])) > 255)) {
+            $this->error['value'] = $this->language->get('error_value');
         }
 
         return !$this->error;

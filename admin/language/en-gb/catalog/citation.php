@@ -26,3 +26,7 @@ $_['entry_keyword']             = 'Keyword';
 
 # Help
 $_['help_bottom']               = 'Display in the bottom footer.';
+
+#Error
+$_['error_content']            = 'Content must be between 1 and 255 characters!';
+$_['error_value']              = 'Value must be between 1 and 255 characters!';

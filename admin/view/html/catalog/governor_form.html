@@ -80,9 +80,12 @@
                                     <?php echo $entry_year; ?></label>
 
                                 <div class="col-sm-10">
-                                    <input type="month" name="year" value="<?php echo $year; ?>"
-                                            class="form-control"
-                                           id="input-year" />
+                                    <?php $curr_date = date("Y-m");?>
+                                    <?php if ($year): ?>
+                                    <input type="month" name="year" value="<?php echo $year; ?>" class="form-control" id="input-year" />
+                                    <?php else : ?>
+                                    <input type="month" name="year" value="<?php echo $curr_date; ?>" class="form-control" id="input-year" />
+                                    <?php endif; ?>
                                     <?php if($year_err) : ?>
                                     <span class="help-block">
                                         <?php echo $year_err; ?></span>
