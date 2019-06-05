@@ -259,7 +259,7 @@ class ControllerCatalogGovernor extends PT_Controller
         } elseif (!empty($governor_info)) {
             $data['status'] = $governor_info['status'];
         } else {
-            $data['status'] = 0;
+            $data['status'] = true;
         }
 
         $data['header'] = $this->load->controller('common/header');

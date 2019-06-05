@@ -40,3 +40,9 @@ $_['entry_keyword']             = 'Keyword';
 
 # Help
 $_['help_bottom']               = 'Display in the bottom footer.';
+
+#Error
+$_['error_email']           = 'Invalid E-Mail Address!';
+$_['error_name']            = 'Club Name must be between 1 and 32 characters!';
+$_['error_position']        = 'Position must be between 1 and 32 characters!';
+$_['error_mobile']          = 'Mobile No. must be 10 characters!';

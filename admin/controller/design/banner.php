@@ -39,7 +39,7 @@ class ControllerDesignBanner extends PT_Controller {
 
         $this->load->model('design/banner');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
             $this->model_design_banner->editBanner($this->request->get['banner_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -57,7 +57,7 @@ class ControllerDesignBanner extends PT_Controller {
 
         $this->load->model('design/banner');
 
-        if (isset($this->request->post['selected']) && $this->validateDelete()) {
+        if (isset($this->request->post['selected'])) {
             foreach ($this->request->post['selected'] as $banner_id) {
                 $this->model_design_banner->deleteBanner($banner_id);
             }

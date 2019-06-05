@@ -42,5 +42,10 @@ $_['help_bottom']               = 'Display in the bottom footer.';
 
 #Error
 $_['error_email']           = 'Invalid E-Mail Address!';
-$_['error_name']            = 'Name must be between 1 and 32 characters!';
+$_['error_name']            = 'Club Name must be between 1 and 32 characters!';
+$_['error_secretary']       = 'District Secretary Name must be between 1 and 32 characters!';
+$_['error_governor']        = 'Assistance Governor Name must be between 1 and 32 characters!';
+$_['error_president']       = 'President Name must be between 1 and 32 characters!';
+$_['error_website']         = 'Website must be between 1 and 32 characters!';
+$_['error_mobile']          = 'Mobile No. must be 10 characters!';
 $_['error_password']        = 'Password must be between 4 and 40 characters!';
