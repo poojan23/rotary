@@ -30,3 +30,10 @@ $_['entry_status']              = 'Status';
 
 # Help
 $_['help_bottom']               = 'Display in the bottom footer.';
+
+#Error
+$_['error_warning']             = 'Warning: Please check the form carefully for errors!';
+$_['error_permission']          = 'Warning: You do not have permission to modify information!';
+$_['error_email']               = 'Invalid E-Mail Address!';
+$_['error_person']              = 'Contact Person Name must be between 1 and 32 characters!';
+$_['error_mobile']              = 'Mobile No. must be between 1 and 10 characters!';

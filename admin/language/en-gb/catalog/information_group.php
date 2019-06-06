@@ -37,4 +37,5 @@ $_['help_top']                  = 'Display in the top menu bar.';
 $_['help_bottom']               = 'Display in the bottom footer.';
 
 #Error
-$_['entry_group_err']           = 'Display in the bottom footer.';
+$_['error_warning']          = 'Warning: Please check the form carefully for errors!';
+$_['error_group_name']          = 'Information Group Title must be between 1 and 64 characters!';

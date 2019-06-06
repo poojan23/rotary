@@ -114,7 +114,7 @@
                                            placeholder="<?php echo $entry_contact_person; ?>" class="form-control"
                                            id="input-contact-person" />
                                     <?php if($contact_person_err) : ?>
-                                    <span class="help-block">
+                                    <span class="invalid-tooltip">
                                         <?php echo $contact_person_err; ?></span>
                                     <?php endif; ?>
                                 </div>
@@ -129,7 +129,7 @@
                                            placeholder="<?php echo $entry_mobile; ?>" class="form-control"
                                            id="input-mobile" />
                                     <?php if($mobile_err) : ?>
-                                    <span class="help-block">
+                                    <span class="invalid-tooltip">
                                         <?php echo $mobile_err; ?></span>
                                     <?php endif; ?>
                                 </div>
@@ -144,7 +144,7 @@
                                            placeholder="<?php echo $entry_email; ?>" class="form-control"
                                            id="input-email" />
                                     <?php if($email_err) : ?>
-                                    <span class="help-block">
+                                    <span class="invalid-tooltip">
                                         <?php echo $email_err; ?></span>
                                     <?php endif; ?>
                                 </div>

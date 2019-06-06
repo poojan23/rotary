@@ -21,8 +21,7 @@ class ControllerCatalogInformationGroup extends PT_Controller {
 
         $this->load->model('catalog/information_group');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-//            print_r($this->request->post);exit;
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_information_group->addInformationGroup($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -40,7 +39,7 @@ class ControllerCatalogInformationGroup extends PT_Controller {
 
         $this->load->model('catalog/information_group');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
             $this->model_catalog_information_group->editInformationGroup($this->request->get['information_group_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
@@ -57,7 +56,7 @@ class ControllerCatalogInformationGroup extends PT_Controller {
         $this->document->setTitle($this->language->get('heading_title'));
 
         $this->load->model('catalog/information_group');
-
+       
         if (isset($this->request->post['selected'])) {
             foreach ($this->request->post['selected'] as $information_group_id) {
                 $this->model_catalog_information_group->deleteInformationGroup($information_group_id);
@@ -204,7 +203,7 @@ class ControllerCatalogInformationGroup extends PT_Controller {
         if (isset($this->request->get['information_group_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $information_group_info = $this->model_catalog_information_group->getInformationGroup($this->request->get['information_group_id']);
         }
-
+      
         $data['user_token'] = $this->session->data['user_token'];
 
         $this->load->model('localisation/language');
@@ -267,39 +266,9 @@ class ControllerCatalogInformationGroup extends PT_Controller {
         if (!$this->user->hasPermission('modify', 'catalog/information_group')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
-
-        foreach ($this->request->post['information_group_description'] as $language_id => $value) {
-            if ((utf8_strlen($value['title']) < 1) || (utf8_strlen($value['title']) > 64)) {
-                $this->error['title'][$language_id] = $this->language->get('error_title');
-            }
-
-            if ((utf8_strlen($value['description']) < 1) || (utf8_strlen($value['description']) > 64)) {
-                $this->error['description'][$language_id] = $this->language->get('error_description');
-            }
-
-            if ((utf8_strlen($value['meta_title']) < 1) || (utf8_strlen($value['meta_title']) > 255)) {
-                $this->error['meta_title'][$language_id] = $this->language->get('error_meta_title');
-            }
-        }
-
-        if ($this->request->post['information_group_seo_url']) {
-            $this->load->model('design/seo_url');
-
-            foreach ($this->request->post['information_group_seo_url'] as $language_id => $keyword) {
-                if ($keyword) {
-                    $seo_urls = $this->model_design_seo_url->getSeoUrlsByKeyword($keyword);
-
-                    foreach ($seo_urls as $seo_url) {
-                        if (($seo_url['language_id'] == $language_id) && (!isset($this->request->get['information_group_id']) || ($seo_url['query'] != 'information_group_id=' . (int) $this->request->get['information_group_id']))) {
-                            $this->error['keyword'][$language_id] = $this->language->get('error_keyword');
-
-                            break;
-                        }
-                    }
-                } else {
-                    $this->error['keyword'][$language_id] = $this->language->get('error_seo');
-                }
-            }
+        
+        if ((utf8_strlen(trim($this->request->post['group_name'])) < 1) || (utf8_strlen(trim($this->request->post['group_name'])) > 32)) {
+            $this->error['group_name'] = $this->language->get('error_group_name');
         }
 
         if ($this->error && !isset($this->error['warning'])) {
