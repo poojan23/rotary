@@ -28,3 +28,9 @@ $_['entry_status']              = 'Status';
 
 # Help
 $_['help_bottom']               = 'Display in the bottom footer.';
+
+// Error
+$_['error_warning']             = 'Warning: Please check the form carefully for errors!';
+$_['error_permission']          = 'Warning: You do not have permission to modify information!';
+$_['error_rotarian']            = 'Rotarian Name must be between 1 and 64 characters!';
+$_['error_classification']      = 'Classification must be between 1 and 64 characters!';

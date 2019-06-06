@@ -1,34 +1,34 @@
 <?php
 
-class ControllerCatalogCenter extends PT_Controller
+class ControllerCatalogCategory extends PT_Controller
 {
     private $error = array();
 
     public function index()
     {
-        $this->load->language('catalog/center');
+        $this->load->language('catalog/category');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/center');
+        $this->load->model('catalog/category');
 
         $this->getList();
     }
 
     public function add()
     {
-        $this->load->language('catalog/center');
+        $this->load->language('catalog/category');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/center');
+        $this->load->model('catalog/category');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-            $this->model_catalog_center->addCenter($this->request->post);
+            $this->model_catalog_category->addCategory($this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('catalog/center', 'user_token=' . $this->session->data['user_token']));
+            $this->response->redirect($this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token']));
         }
 
         $this->getForm();
@@ -36,18 +36,18 @@ class ControllerCatalogCenter extends PT_Controller
 
     public function edit()
     {
-        $this->load->language('catalog/center');
+        $this->load->language('catalog/category');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/center');
+        $this->load->model('catalog/category');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
-            $this->model_catalog_center->editCenter($this->request->get['center_id'], $this->request->post);
+            $this->model_catalog_category->editCategory($this->request->get['category_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('catalog/center', 'user_token=' . $this->session->data['user_token']));
+            $this->response->redirect($this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token']));
         }
 
         $this->getForm();
@@ -55,20 +55,20 @@ class ControllerCatalogCenter extends PT_Controller
 
     public function delete()
     {
-        $this->load->language('catalog/center');
+        $this->load->language('catalog/category');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
-        $this->load->model('catalog/center');
+        $this->load->model('catalog/category');
 
         if (isset($this->request->post['selected'])) {
-            foreach ($this->request->post['selected'] as $center_id) {
-                $this->model_catalog_center->deleteCenter($center_id);
+            foreach ($this->request->post['selected'] as $category_id) {
+                $this->model_catalog_category->deleteCategory($category_id);
             }
 
             $this->session->data['success'] = $this->language->get('text_success');
 
-            $this->response->redirect($this->url->link('catalog/center', 'user_token=' . $this->session->data['user_token']));
+            $this->response->redirect($this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token']));
         }
 
         $this->getList();
@@ -104,26 +104,24 @@ class ControllerCatalogCenter extends PT_Controller
 
         $data['breadcrumbs'][] = array(
             'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('catalog/center', 'user_token=' . $this->session->data['user_token'])
+            'href'  => $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'])
         );
 
-        $data['add'] = $this->url->link('catalog/center/add', 'user_token=' . $this->session->data['user_token']);
-        $data['delete'] = $this->url->link('catalog/center/delete', 'user_token=' . $this->session->data['user_token']);
+        $data['add'] = $this->url->link('catalog/category/add', 'user_token=' . $this->session->data['user_token']);
+        $data['delete'] = $this->url->link('catalog/category/delete', 'user_token=' . $this->session->data['user_token']);
 
-        $data['centers'] = array();
+        $data['categories'] = array();
 
-        $results = $this->model_catalog_center->getCenters();
-        
+        $results = $this->model_catalog_category->getCategorys();
+
         foreach ($results as $result) {
-            $data['centers'][] = array(
-                'center_id'     => $result['center_id'],
-                'club_name'     => $result['club_name'],
-                'address'       => $result['address'],
-                'contact_person'=> $result['contact_person'],
-                'mobile'        => $result['mobile'],
-                'email'         => $result['email'],
+            $data['categories'][] = array(
+                'category_id'   => $result['category_id'],
+                'name'          => $result['name'],
+                'sort_order'    => $result['sort_order'],
                 'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-                'edit'          => $this->url->link('catalog/center/edit', 'user_token=' . $this->session->data['user_token'] . '&center_id=' . $result['center_id'])
+                'edit'          => $this->url->link('catalog/category/edit', 'user_token=' . $this->session->data['user_token'] . '&category_id=' . $result['category_id']),
+                'delete'        => $this->url->link('catalog/category/delete', 'user_token=' . $this->session->data['user_token'] . '&category_id=' . $result['category_id'])
             );
         }
 
@@ -151,7 +149,7 @@ class ControllerCatalogCenter extends PT_Controller
         $data['nav'] = $this->load->controller('common/nav');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('catalog/center_list', $data));
+        $this->response->setOutput($this->load->view('catalog/category_list', $data));
     }
 
     protected function getForm()
@@ -161,7 +159,7 @@ class ControllerCatalogCenter extends PT_Controller
         $this->document->addScript("view/dist/plugins/ckeditor/adapters/jquery.js");
         $this->document->addScript("view/dist/plugins/iCheck/icheck.min.js");
         
-        $data['text_form'] = !isset($this->request->get['center_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+        $data['text_form'] = !isset($this->request->get['category_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         if (isset($this->error['warning'])) {
             $data['warning_err'] = $this->error['warning'];
@@ -169,29 +167,12 @@ class ControllerCatalogCenter extends PT_Controller
             $data['warning_err'] = '';
         }
 
-        if (isset($this->error['person'])) {
-            $data['contact_person_err'] = $this->error['person'];
+        if (isset($this->error['name'])) {
+            $data['name_err'] = $this->error['name'];
         } else {
-            $data['contact_person_err'] = '';
+            $data['name_err'] = '';
         }
 
-        if (isset($this->error['address'])) {
-            $data['address_err'] = $this->error['address'];
-        } else {
-            $data['address_err'] = '';
-        }
-        
-        if (isset($this->error['email'])) {
-            $data['email_err'] = $this->error['email'];
-        } else {
-            $data['email_err'] = '';
-        }
-        
-        if (isset($this->error['mobile'])) {
-            $data['mobile_err'] = $this->error['mobile'];
-        } else {
-            $data['mobile_err'] = '';
-        }
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
@@ -201,104 +182,68 @@ class ControllerCatalogCenter extends PT_Controller
 
         $data['breadcrumbs'][] = array(
             'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('catalog/center', 'user_token=' . $this->session->data['user_token'])
+            'href'  => $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token'])
         );
 
-        if (!isset($this->request->get['center_id'])) {
-            $data['action'] = $this->url->link('catalog/center/add', 'user_token=' . $this->session->data['user_token']);
+        if (!isset($this->request->get['category_id'])) {
+            $data['action'] = $this->url->link('catalog/category/add', 'user_token=' . $this->session->data['user_token']);
             $data['breadcrumbs'][] = array(
                 'text'  => $this->language->get('text_add'),
-                'href'  => $this->url->link('catalog/center/add', 'user_token=' . $this->session->data['user_token'])
+                'href'  => $this->url->link('catalog/category/add', 'user_token=' . $this->session->data['user_token'])
             );
         } else {
-            $data['action'] = $this->url->link('catalog/center/edit', 'user_token=' . $this->session->data['user_token'] . '&center_id=' . $this->request->get['center_id']);
+            $data['action'] = $this->url->link('catalog/category/edit', 'user_token=' . $this->session->data['user_token'] . '&category_id=' . $this->request->get['category_id']);
             $data['breadcrumbs'][] = array(
                 'text'  => $this->language->get('text_edit'),
-                'href'  => $this->url->link('catalog/center/edit', 'user_token=' . $this->session->data['user_token'])
+                'href'  => $this->url->link('catalog/category/edit', 'user_token=' . $this->session->data['user_token'])
             );
         }
 
-        $data['cancel'] = $this->url->link('catalog/center', 'user_token=' . $this->session->data['user_token']);
+        $data['cancel'] = $this->url->link('catalog/category', 'user_token=' . $this->session->data['user_token']);
 
-        if (isset($this->request->get['center_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-            $center_info = $this->model_catalog_center->getCenter($this->request->get['center_id']);
+        if (isset($this->request->get['category_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+            $category_info = $this->model_catalog_category->getCategory($this->request->get['category_id']);
         }
 
-        if (isset($this->request->post['address'])) {
-            $data['address'] = $this->request->post['address'];
-        } elseif (!empty($center_info)) {
-            $data['address'] = $center_info['address'];
+        if (isset($this->request->post['name'])) {
+            $data['name'] = $this->request->post['name'];
+        } elseif (!empty($category_info)) {
+            $data['name'] = $category_info['name'];
         } else {
-            $data['address'] = '';
-        }
-        
-        if (isset($this->request->post['club_id'])) {
-            $data['club_id'] = $this->request->post['club_id'];
-        } elseif (!empty($center_info)) {
-            $data['club_id'] = $center_info['club_id'];
-        } else {
-            $data['club_id'] = '';
-        }
-
-        $this->load->model('catalog/club');
-
-        $data['clubs'] = $this->model_catalog_club->getClubs();
-
-        if (isset($this->request->post['person'])) {
-            $data['person'] = $this->request->post['person'];
-        } elseif (!empty($center_info)) {
-            $data['person'] = $center_info['contact_person'];
-        } else {
-            $data['person'] = '';
+            $data['name'] = '';
         }
         
-        if (isset($this->request->post['email'])) {
-            $data['email'] = $this->request->post['email'];
-        } elseif (!empty($center_info)) {
-            $data['email'] = $center_info['email'];
+        if (isset($this->request->post['sort_order'])) {
+            $data['sort_order'] = $this->request->post['sort_order'];
+        } elseif (!empty($category_info)) {
+            $data['sort_order'] = $category_info['sort_order'];
         } else {
-            $data['email'] = '';
-        }
-        
-        if (isset($this->request->post['mobile'])) {
-            $data['mobile'] = $this->request->post['email'];
-        } elseif (!empty($center_info)) {
-            $data['mobile'] = $center_info['mobile'];
-        } else {
-            $data['mobile'] = '';
+            $data['sort_order'] = 0;
         }
 
         if (isset($this->request->post['status'])) {
             $data['status'] = $this->request->post['status'];
-        } elseif (!empty($center_info)) {
-            $data['status'] = $center_info['status'];
+        } elseif (!empty($category_info)) {
+            $data['status'] = $category_info['status'];
         } else {
-            $data['status'] = 0;
+            $data['status'] = true;
         }
 
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');
         $data['footer'] = $this->load->controller('common/footer');
 
-        $this->response->setOutput($this->load->view('catalog/center_form', $data));
+        $this->response->setOutput($this->load->view('catalog/category_form', $data));
     }
 
     protected function validateForm()
     {
-        if (!$this->user->hasPermission('modify', 'catalog/center')) {
+        if (!$this->user->hasPermission('modify', 'catalog/category')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
 
-        if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
-            $this->error['email'] = $this->language->get('error_email');
-        }
-
-        if ((utf8_strlen(trim($this->request->post['person'])) < 1) || (utf8_strlen(trim($this->request->post['person'])) > 32)) {
-            $this->error['person'] = $this->language->get('error_person');
-        }
-
-        if ((utf8_strlen(trim($this->request->post['mobile'])) < 1) || (utf8_strlen(trim($this->request->post['mobile'])) > 11)) {
-            $this->error['mobile'] = $this->language->get('error_mobile');
+        if ((utf8_strlen(trim($this->request->post['name'])) < 1) || (utf8_strlen(trim($this->request->post['name'])) > 64)) {
+            $this->error['name'] = $this->language->get('error_name');
         }
 
         return !$this->error;
@@ -306,12 +251,12 @@ class ControllerCatalogCenter extends PT_Controller
 
     protected function validateDelete()
     {
-        if (!$this->user->hasPermission('delete', 'catalog/center')) {
+        if (!$this->user->hasPermission('delete', 'catalog/category')) {
             $this->error['warning'] = $this->language->get('error_delete');
         }
 
-        foreach ($this->request->post['selected'] as $center_id) {
-            if ($this->user->getId() == $center_id) {
+        foreach ($this->request->post['selected'] as $category_id) {
+            if ($this->user->getId() == $category_id) {
                 $this->error['warning'] = $this->language->get('error_account');
             }
         }

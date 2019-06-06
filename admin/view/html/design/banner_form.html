@@ -83,10 +83,10 @@
                                         <input type="text" name="name" value="<?php echo $name; ?>"
                                                placeholder="<?php echo $entry_name; ?>" class="form-control"
                                                id="input-email" />
-                                        <!--<?php if($email_err) : ?>-->
-                                        <span class="help-block">
-                                            <!--<?php echo $email_err; ?></span>-->
-                                            <!--<?php endif; ?>-->
+                                        <?php if($error_name) : ?>
+                                        <span class="invalid-tooltip">
+                                            <?php echo $error_name; ?></span>
+                                            <?php endif; ?>
                                     </div>
                                 </div>
                                 <hr >
