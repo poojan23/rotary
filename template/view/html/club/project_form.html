@@ -51,9 +51,9 @@
                                                 <a href="<?php echo $dashbaord; ?>"><?php echo $text_dashboard; ?></a>
                                             </li>
                                             <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
-                                            <li><a href="<?php echo $trf; ?>"
-                                                    class="active-menu"><?php echo $text_trf; ?></a></li>
-                                            <li><a href="<?php echo $project; ?>"><?php echo $text_project; ?></a></li>
+                                            <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
+                                            <li><a href="<?php echo $project; ?>"
+                                                    class="active-menu"><?php echo $text_project; ?></a></li>
                                             <li><a href="<?php echo $profile; ?>"><?php echo $text_profile; ?></a></li>
                                             <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
                                         </ul>
@@ -65,9 +65,9 @@
                                             <a href="<?php echo $dashbaord; ?>"><?php echo $text_dashboard; ?></a>
                                         </li>
                                         <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
-                                        <li><a href="<?php echo $trf; ?>"
-                                                class="active-menu"><?php echo $text_trf; ?></a></li>
-                                        <li><a href="<?php echo $project; ?>"><?php echo $text_project; ?></a></li>
+                                        <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
+                                        <li><a href="<?php echo $project; ?>"
+                                                class="active-menu"><?php echo $text_project; ?></a></li>
                                         <li><a href="<?php echo $profile; ?>"><?php echo $text_profile; ?></a></li>
                                         <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
                                     </ul>
@@ -120,7 +120,7 @@
                                                 <label for="description" class="col-sm-3 col-form-label">Description
                                                     :</label>
                                                 <div class="col-sm-9">
-                                                    <textarea name="description" id="editor1"
+                                                    <textarea name="description" id="description" class="form-control"
                                                         placeholder="Need to have only simple text input"></textarea>
                                                 </div>
                                             </div>
@@ -147,23 +147,25 @@
                                             <div class="form-group row">
                                                 <label for="image" class="col-sm-3 col-form-label">Image:</label>
                                                 <div class="col-sm-9">
-                                                    <label>Need high resolution images, maximum two allowed</label>
                                                     <div class="img-section">
                                                         <div class="image-upload">
-                                                            <a class="img1" data-toggle="modal"
-                                                                data-target="#uploadModal">
-                                                                <img id="preview1" src="upload/no_image.png">
+                                                            <a class="img-thumbnail" id="thumb-img1">
+                                                                <img id="preview1" src="<?php echo $thumb; ?>">
                                                             </a>
-                                                            <input type="hidden" id="input_img1" value="">
+                                                            <input type="hidden" id="input_img1" name="image[]"
+                                                                value="" />
                                                         </div>
                                                         <div class="image-upload">
-                                                            <a class="img2" data-toggle="modal"
+                                                            <a class="img-thumbnail" id="thumb-img2" data-toggle="modal"
                                                                 data-target="#uploadModal2">
-                                                                <img id="preview2" src="upload/no_image.png">
+                                                                <img id="preview2" src="<?php echo $thumb; ?>">
                                                             </a>
-                                                            <input type="hidden" id="input_img2" value="">
+                                                            <input type="hidden" id="input_img2" name="image[]"
+                                                                value="" />
                                                         </div>
                                                     </div>
+                                                    <small class="text-muted">Need high resolution images, maximum two
+                                                        allowed</small>
                                                 </div>
                                             </div>
                                             <hr class="featurette-divider">
@@ -177,7 +179,7 @@
                                                                 <input id="category" name="category[]"
                                                                     value="<?php echo $category['category_id']; ?>"
                                                                     type="checkbox">
-                                                                <label for="category">
+                                                                <label for="category[]">
                                                                     <?php echo $category['name']; ?>
                                                                 </label>
                                                             </div>
@@ -215,79 +217,65 @@
                 </div>
             </div>
             <?php echo $footer; ?>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+            <div id="uploadModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">File upload form</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form method='post' action='' enctype="multipart/form-data" id="form-upload">
+                                Select file : <input type="file" name="file[]" value="" /><br>
+                                <button type='button' class='btn btn-login' id='upload'
+                                    style="float: right !important;">Save</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
             <script>
-                $(function () {
+                $('.img-thumbnail').on('click', function () {
+                    var element = $(this),
+                        id = element.attr('id');
 
-                    $("#amount_inr, #exchange_rate").on("keydown keyup", sum);
+                    $('#uploadModal').modal('show');
 
-                    function sum() {
-                        $("#amount_usd").val(Number($("#amount_inr").val()) / Number($("#exchange_rate").val()));
-                    }
-                });
-            </script>
-            <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
-            <script type="text/javascript">
+                    $('#uploadModal').on('click', '#upload', function () {
+                        if (typeof timer != 'undefined') {
+                            clearInterval(timer);
+                        }
 
-            </script>
-            <script>
-                CKEDITOR.replace('editor1');
-            </script>
-            <script>
-                $(document).ready(function () {
-                    $('#upload').click(function () {
+                        timer = setInterval(function () {
+                            if ($('#form-upload input[name=\'file\']').val != '') {
+                                clearInterval(timer);
 
-                        var fd = new FormData();
-                        var files = $('#file1')[0].files[0];
-                        fd.append('file1', files);
+                                $.ajax({
+                                    url: 'index.php?url=club/upload',
+                                    type: 'POST',
+                                    dataType: 'json',
+                                    data: new FormData($('#form-upload')[0]),
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    success: function (json) {
+                                        if (json['error']) {
+                                            alert(json['error']);
+                                        }
 
-                        // AJAX request
-                        $.ajax({
-                            url: 'uploads.php',
-                            type: 'post',
-                            data: fd,
-                            contentType: false,
-                            processData: false,
-                            success: function (response) {
-                                if (response != 0) {
-                                    alert(response);
-                                    // Show image preview
-                                    //          $('#preview').append("<img src='"+response+"' width='100' height='100' style='display: inline-block;'>");
-                                    $('#preview1').attr('src', response);
-                                    $('#input_img1').attr('value', response);
-                                } else {
-                                    alert('file not uploaded');
-                                }
+                                        if (json['success']) {
+                                            alert(json['success']);
+
+                                            $('#' + id).find('img').attr('src', json['thumb']);
+                                            $('#' + id).next('input').val(json['target']);
+
+                                            $('#uploadModal').modal('hide');
+                                        }
+                                    }
+                                });
                             }
-                        });
-                    });
-                });
-                $(document).ready(function () {
-                    $('#upload2').click(function () {
-
-                        var fd = new FormData();
-                        var files = $('#file2')[0].files[0];
-                        fd.append('file2', files);
-
-                        // AJAX request
-                        $.ajax({
-                            url: 'uploads2.php',
-                            type: 'post',
-                            data: fd,
-                            contentType: false,
-                            processData: false,
-                            success: function (response2) {
-                                if (response2 != 0) {
-                                    alert(response2);
-                                    // Show image preview
-                                    //          $('#preview').append("<img src='"+response+"' width='100' height='100' style='display: inline-block;'>");
-                                    $('#preview2').attr('src', response2);
-                                    $('#input_img2').attr('value', response2);
-                                } else {
-                                    alert('file not uploaded');
-                                }
-                            }
-                        });
+                        }, 500);
                     });
                 });
             </script>

@@ -51,9 +51,9 @@
                                                 <a href="<?php echo $dashbaord; ?>"><?php echo $text_dashboard; ?></a>
                                             </li>
                                             <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
-                                            <li><a href="<?php echo $trf; ?>"
-                                                    class="active-menu"><?php echo $text_trf; ?></a></li>
-                                            <li><a href="<?php echo $project; ?>"><?php echo $text_project; ?></a></li>
+                                            <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
+                                            <li><a href="<?php echo $project; ?>"
+                                                    class="active-menu"><?php echo $text_project; ?></a></li>
                                             <li><a href="<?php echo $profile; ?>"><?php echo $text_profile; ?></a></li>
                                             <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
                                         </ul>
@@ -65,9 +65,9 @@
                                             <a href="<?php echo $dashbaord; ?>"><?php echo $text_dashboard; ?></a>
                                         </li>
                                         <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
-                                        <li><a href="<?php echo $trf; ?>"
-                                                class="active-menu"><?php echo $text_trf; ?></a></li>
-                                        <li><a href="<?php echo $project; ?>"><?php echo $text_project; ?></a></li>
+                                        <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
+                                        <li><a href="<?php echo $project; ?>"
+                                                class="active-menu"><?php echo $text_project; ?></a></li>
                                         <li><a href="<?php echo $profile; ?>"><?php echo $text_profile; ?></a></li>
                                         <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
                                     </ul>
@@ -80,7 +80,7 @@
                                     </div>
                                     <div class="club-page-content">
                                         <div class="form-title">
-                                            <a href="<?php echo $add_trf; ?>" data-toggle="tooltip" title=""
+                                            <a href="<?php echo $add_project; ?>" data-toggle="tooltip" title=""
                                                 class="btn btn-login btn-sm btn-bold"
                                                 data-original-title="Add New Project"><i class="fa fa-plus"></i>
                                                 Add New Project</a>
@@ -97,22 +97,23 @@
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
-                                                <!-- <tbody>
+                                                <tbody>
                                                     <?php $n=1; ?>
                                                     <?php foreach($projects as $project): ?>
                                                     <tr>
                                                         <td><?php echo $n++; ?></td>
                                                         <td><?php echo $project['date']; ?></td>
-                                                        <td><?php echo $project['amount_usd']; ?></td>
-                                                        <td><?php echo $project['points']; ?></td>
+                                                        <td><?php echo $project['title']; ?></td>
+                                                        <td><?php echo $project['amount']; ?></td>
+                                                        <td><?php echo $project['no_of_beneficiary']; ?></td>
                                                         <td><a href="<?php echo $project['view']; ?>"
-                                                                data-toggle="tooltip" title="View TRf Contribution"
+                                                                data-toggle="tooltip" title="View Project"
                                                                 class=" btn btn-login btn-xs btn-bold"
-                                                                data-original-title="View TRf Contribution"><i
+                                                                data-original-title="View Project"><i
                                                                     class="fa fa-eye"></i></a></td>
                                                     </tr>
                                                     <?php endforeach; ?>
-                                                </tbody> -->
+                                                </tbody>
                                             </table>
                                         </div>
                                     </div>

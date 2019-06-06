@@ -19,16 +19,16 @@ class ModelClubProject extends PT_Model {
         $query = $this->db->query("INSERT INTO " . DB_PREFIX . "projects SET club_id = '" . $this->db->escape((string)$data['club_id']) . "', date = '".$date. "',title = '" . $this->db->escape((string)$data['title']) . "',description = '" . $this->db->escape((string)$data['description']) . "',	amount = '" . $this->db->escape((string)$data['amount']) .  "',	no_of_beneficiary = '" . $this->db->escape((string)$data['no_of_beneficiary']) . "',points = '" . $this->db->escape((string)$data['points']) . "', date_added = NOW()");
         
         $project_id = $this->db->lastInsertId();
-
-        
-
-        // if (isset($data['image'])) {
-        //     $this->db->query("UPDATE " . DB_PREFIX . "information SET image = '" . $this->db->escape((string)$data['image']) . "' WHERE information_id = '" . (int)$information_id . "'");
-        // }
+        $i=1;
+        foreach ($this->request->post['image'] as $value) {
+            $this->db->query("INSERT INTO " . DB_PREFIX . "project_image SET project_id = '" . (int)$project_id . "', sort_order = '" . (int)$i++ . "', image = '" . $this->db->escape((string)$value) ."'");
+        }
 
         foreach ($this->request->post['category'] as $value) {
             $this->db->query("INSERT INTO " . DB_PREFIX . "project_to_category SET project_id = '" . (int)$project_id . "', category_id = '" . $this->db->escape((string)$value['category_id']) ."'");
         }
+
+
         $this->cache->delete('projects');
 
         return $project_id;
@@ -63,7 +63,9 @@ class ModelClubProject extends PT_Model {
 
         return $query->rows;
     }
-    //  public function getTotalProjectById($club_id)
+
+    
+    //  public function getTotalProject($club_id)
     // {
     //     $query = $this->db->query("SELECT DISTINCT SUM(amount_usd) as totaltrf FROM " . DB_PREFIX . "trf WHERE club_id = '" . (int)$club_id . "'");
 
