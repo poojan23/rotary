@@ -1,9 +1,8 @@
 <?php
 
-class ControllerClubTrf extends PT_Controller
-{
-    public function index()
-    {
+class ControllerClubTrf extends PT_Controller {
+
+    public function index() {
         $this->load->language('club/trf');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -13,11 +12,11 @@ class ControllerClubTrf extends PT_Controller
         if (!$this->customer->isLogged()) {
             $this->response->redirect($this->url->link('club/login'));
         }
-       
+
         $this->getList();
     }
-    public function add()
-    {
+
+    public function add() {
         $this->load->language('club/trf');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -33,18 +32,73 @@ class ControllerClubTrf extends PT_Controller
         $this->getForm();
     }
 
-protected function getList()
-    {
+    public function view() {
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('text_home'),
-            'href'  => $this->url->link('common/dashboard')
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/home')
         );
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('club/trf')
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('club/trf')
+        );
+
+
+        $data['club_id'] = $this->customer->getId();
+        $data['club_name'] = $this->customer->getFirstName();
+        $data['date'] = $this->customer->getDate();
+        $data['mobile'] = $this->customer->getMobile();
+        $data['email'] = $this->customer->getEmail();
+        $data['president'] = $this->customer->getPresident();
+        $data['assistant_governor'] = $this->customer->getAssistant();
+        $data['district_secretary'] = $this->customer->getDistrict();
+
+        $data['continue'] = $this->url->link('common/home');
+        $data['add_trf'] = $this->url->link('club/trf/add');
+        $data['dashboard'] = $this->url->link('club/dashboard');
+        $data['project'] = $this->url->link('club/project');
+        $data['trf'] = $this->url->link('club/trf');
+        $data['trf'] = $this->url->link('club/trf');
+        $data['profile'] = $this->url->link('club/profile');
+        $data['logout'] = $this->url->link('club/logout');
+
+        $this->load->language('club/trf');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('club/trf');
+
+             if (isset($this->request->get['trf_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+                $trf_info = $this->model_club_trf->getTrf($this->request->get['trf_id']);
+        }
+       
+//        $data['month'] = $trf_info['month'];
+//        $data['year'] = $trf_info['year'];
+        $data['amount_inr'] = $trf_info['amount_inr'];
+        $data['exchange_rate'] = $trf_info['exchange_rate'];
+        $data['amount_usd'] = $trf_info['amount_usd'];
+        $data['points'] = $trf_info['points'];
+
+        $data['header'] = $this->load->controller('common/header');
+        $data['nav'] = $this->load->controller('common/nav');
+        $data['footer'] = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->load->view('club/view_trf', $data));
+    }
+
+    protected function getList() {
+        $data['breadcrumbs'] = array();
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard')
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('club/trf')
         );
 
         $data['add'] = $this->url->link('club/trf/add');
@@ -55,11 +109,11 @@ protected function getList()
 
         foreach ($results as $result) {
             $data['trfs'][] = array(
-                'trf_id'    => $result['trf_id'],
-                'date'         => $result['date'],
-                'amount_usd'    => $result['amount_usd'],
-                'points'    => $result['points'],
-                'view'          => $this->url->link('club/trf/view', 'trf_id=' . $result['trf_id'])
+                'trf_id' => $result['trf_id'],
+                'date' => $result['date'],
+                'amount_usd' => $result['amount_usd'],
+                'points' => $result['points'],
+                'view' => $this->url->link('club/trf/view', 'trf_id=' . $result['trf_id'])
             );
         }
 
@@ -78,7 +132,7 @@ protected function getList()
         }
 
         if (isset($this->request->post['selected'])) {
-            $data['selected'] = (array)$this->request->post['selected'];
+            $data['selected'] = (array) $this->request->post['selected'];
         } else {
             $data['selected'] = array();
         }
@@ -100,7 +154,7 @@ protected function getList()
             'href' => $this->url->link('common/home')
         );
 
-         $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('club/trf')
         );
@@ -111,7 +165,7 @@ protected function getList()
         $data['dashboard'] = $this->url->link('club/dashboard');
         $data['project'] = $this->url->link('club/project');
         $data['trf'] = $this->url->link('club/trf');
-        $data['member'] = $this->url->link('club/member');
+        $data['trf'] = $this->url->link('club/trf');
         $data['profile'] = $this->url->link('club/profile');
         $data['logout'] = $this->url->link('club/logout');
 
@@ -122,11 +176,10 @@ protected function getList()
         $this->response->setOutput($this->load->view('club/trf', $data));
     }
 
-    protected function getForm()
-    {
+    protected function getForm() {
         $data['text_form'] = !isset($this->request->get['trf_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
-       $club_id = $this->customer->getId();
+        $club_id = $this->customer->getId();
 
         if (isset($this->error['warning'])) {
             $data['warning_err'] = $this->error['warning'];
@@ -145,22 +198,22 @@ protected function getList()
         } else {
             $data['year_err'] = '';
         }
-         if (isset($this->error['amount_inr'])) {
+        if (isset($this->error['amount_inr'])) {
             $data['amount_inr_err'] = $this->error['amount_inr'];
         } else {
             $data['amount_inr_err'] = '';
         }
-         if (isset($this->error['exchange_rate'])) {
+        if (isset($this->error['exchange_rate'])) {
             $data['exchange_rate_err'] = $this->error['exchange_rate'];
         } else {
             $data['exchange_rate_err'] = '';
         }
-         if (isset($this->error['amount_usd'])) {
+        if (isset($this->error['amount_usd'])) {
             $data['amount_usd_err'] = $this->error['amount_usd'];
         } else {
             $data['amount_usd_err'] = '';
         }
-         if (isset($this->error['points'])) {
+        if (isset($this->error['points'])) {
             $data['points_err'] = $this->error['points'];
         } else {
             $data['points_err'] = '';
@@ -169,35 +222,35 @@ protected function getList()
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('text_home'),
-            'href'  => $this->url->link('common/dashboard')
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard')
         );
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('club/trf')
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('club/trf')
         );
 
         if (!isset($this->request->get['trf_id'])) {
             $data['action'] = $this->url->link('club/trf/add');
             $data['breadcrumbs'][] = array(
-                'text'  => $this->language->get('text_add'),
-                'href'  => $this->url->link('club/trf/add')
+                'text' => $this->language->get('text_add'),
+                'href' => $this->url->link('club/trf/add')
             );
         } else {
             $data['action'] = $this->url->link('club/trf/edit' . '&trf_id=' . $this->request->get['trf_id']);
             $data['breadcrumbs'][] = array(
-                'text'  => $this->language->get('text_edit'),
-                'href'  => $this->url->link('club/trf/edit')
+                'text' => $this->language->get('text_edit'),
+                'href' => $this->url->link('club/trf/edit')
             );
         }
 
         $data['cancel'] = $this->url->link('club/trf');
 
         if (isset($this->request->get['trf_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-            $trf_info = $this->model_club_member->getMember($this->request->get['trf_id']);
+            $trf_info = $this->model_club_trf->getTrf($this->request->get['trf_id']);
         }
-        
+
         if (isset($this->request->post['month'])) {
             $data['month'] = $this->request->post['month'];
         } elseif (!empty($trf_info)) {
@@ -245,7 +298,7 @@ protected function getList()
             $data['amount_usd'] = '';
         }
 
-         if (isset($this->request->post['points'])) {
+        if (isset($this->request->post['points'])) {
             $data['points'] = $this->request->post['points'];
         } elseif (!empty($trf_info)) {
             $data['points'] = $trf_info['points'];
@@ -254,7 +307,7 @@ protected function getList()
         }
 
 
-         if (!$this->customer->isLogged()) {
+        if (!$this->customer->isLogged()) {
             $this->response->redirect($this->url->link('club/login'));
         }
 
@@ -270,11 +323,11 @@ protected function getList()
         $data['district_secretary'] = $this->customer->getDistrict();
 
         $data['continue'] = $this->url->link('common/home');
-        $data['add_member'] = $this->url->link('club/member/add');
+        $data['add_trf'] = $this->url->link('club/trf/add');
         $data['dashboard'] = $this->url->link('club/dashboard');
         $data['project'] = $this->url->link('club/project');
         $data['trf'] = $this->url->link('club/trf');
-        $data['member'] = $this->url->link('club/member');
+        $data['trf'] = $this->url->link('club/trf');
         $data['profile'] = $this->url->link('club/profile');
         $data['logout'] = $this->url->link('club/logout');
 
@@ -285,4 +338,5 @@ protected function getList()
 
         $this->response->setOutput($this->load->view('club/trf_form', $data));
     }
+
 }

@@ -1,9 +1,8 @@
 <?php
 
-class ControllerClubMember extends PT_Controller
-{
-    public function index()
-    {
+class ControllerClubMember extends PT_Controller {
+
+    public function index() {
         $this->load->language('club/member');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -11,11 +10,11 @@ class ControllerClubMember extends PT_Controller
         if (!$this->customer->isLogged()) {
             $this->response->redirect($this->url->link('club/login'));
         }
-       
+
         $this->getList();
     }
-    public function add()
-    {
+
+    public function add() {
         $this->load->language('club/member');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -23,29 +22,84 @@ class ControllerClubMember extends PT_Controller
         $this->load->model('club/member');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-            $this->model_club_member->addMember($this->request->post);
+            $this->model_club_member->viewMember($this->request->get['member_id'], $this->request->post);
 
             $this->response->redirect($this->url->link('club/member'));
         }
 
-
-         $this->getForm();
+        $this->getForm();
     }
 
-protected function getList()
-    {
+    public function view() {
+
+        $data['club_id'] = $this->customer->getId();
+        $data['club_name'] = $this->customer->getFirstName();
+        $data['date'] = $this->customer->getDate();
+        $data['mobile'] = $this->customer->getMobile();
+        $data['email'] = $this->customer->getEmail();
+        $data['president'] = $this->customer->getPresident();
+        $data['assistant_governor'] = $this->customer->getAssistant();
+        $data['district_secretary'] = $this->customer->getDistrict();
+
+        $data['breadcrumbs'] = array();
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/home')
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('club/member')
+        );
+
+
+        $data['continue'] = $this->url->link('common/home');
+        $data['add_member'] = $this->url->link('club/member/add');
+        $data['dashboard'] = $this->url->link('club/dashboard');
+        $data['project'] = $this->url->link('club/project');
+        $data['trf'] = $this->url->link('club/trf');
+        $data['member'] = $this->url->link('club/member');
+        $data['profile'] = $this->url->link('club/profile');
+        $data['logout'] = $this->url->link('club/logout');
+
+        $this->load->language('club/member');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('club/member');
+
+        if (isset($this->request->get['member_id'])) {
+            $member_info = $this->model_club_member->getMember($this->request->get['member_id']);
+        }
+ 
+//        $data['month'] = $member_info['month'];
+//        $data['year'] = $member_info['year'];
+        $data['member_induct'] = $member_info['induction'];
+        $data['member_unlist'] = $member_info['unlist'];
+        $data['net_growth'] = $member_info['net'];
+        $data['point_accumulate'] = $member_info['points'];
+
+        $data['header'] = $this->load->controller('common/header');
+        $data['nav'] = $this->load->controller('common/nav');
+        $data['footer'] = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->load->view('club/view_member', $data));
+    }
+
+    protected function getList() {
         $this->load->model('club/member');
 
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('text_home'),
-            'href'  => $this->url->link('common/dashboard')
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard')
         );
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('club/member')
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('club/member')
         );
 
         $data['add'] = $this->url->link('club/member/add');
@@ -58,13 +112,13 @@ protected function getList()
         // print_r($results);exit;
         foreach ($results as $result) {
             $data['members'][] = array(
-                'member_id'    => $result['member_id'],
-                'date'         => $result['date'],
-                'induction'    => $result['induction'],
-                'unlist'       => $result['unlist'],
-                'net'          => $result['net'],
-                'points'        => $result['points'],
-                'view'          => $this->url->link('club/member/view', 'member_id=' . $result['member_id'])
+                'member_id' => $result['member_id'],
+                'date' => $result['date'],
+                'induction' => $result['induction'],
+                'unlist' => $result['unlist'],
+                'net' => $result['net'],
+                'points' => $result['points'],
+                'view' => $this->url->link('club/member/view', 'member_id=' . $result['member_id'])
             );
         }
 
@@ -83,7 +137,7 @@ protected function getList()
         }
 
         if (isset($this->request->post['selected'])) {
-            $data['selected'] = (array)$this->request->post['selected'];
+            $data['selected'] = (array) $this->request->post['selected'];
         } else {
             $data['selected'] = array();
         }
@@ -105,7 +159,7 @@ protected function getList()
             'href' => $this->url->link('common/home')
         );
 
-         $data['breadcrumbs'][] = array(
+        $data['breadcrumbs'][] = array(
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('club/member')
         );
@@ -127,11 +181,10 @@ protected function getList()
         $this->response->setOutput($this->load->view('club/member', $data));
     }
 
-    protected function getForm()
-    {
+    protected function getForm() {
         $data['text_form'] = !isset($this->request->get['member_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
-       $club_id = $this->customer->getId();
+        $club_id = $this->customer->getId();
 
         if (isset($this->error['warning'])) {
             $data['warning_err'] = $this->error['warning'];
@@ -179,26 +232,26 @@ protected function getList()
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('text_home'),
-            'href'  => $this->url->link('common/dashboard')
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard')
         );
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('club/member')
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('club/member')
         );
 
         if (!isset($this->request->get['member_id'])) {
             $data['action'] = $this->url->link('club/member/add');
             $data['breadcrumbs'][] = array(
-                'text'  => $this->language->get('text_add'),
-                'href'  => $this->url->link('club/member/add')
+                'text' => $this->language->get('text_add'),
+                'href' => $this->url->link('club/member/add')
             );
         } else {
             $data['action'] = $this->url->link('club/member/edit' . '&member_id=' . $this->request->get['member_id']);
             $data['breadcrumbs'][] = array(
-                'text'  => $this->language->get('text_edit'),
-                'href'  => $this->url->link('club/member/edit')
+                'text' => $this->language->get('text_edit'),
+                'href' => $this->url->link('club/member/edit')
             );
         }
 
@@ -207,7 +260,7 @@ protected function getList()
         if (isset($this->request->get['member_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $member_info = $this->model_club_member->getMember($this->request->get['member_id']);
         }
-        
+
         if (isset($this->request->post['month'])) {
             $data['month'] = $this->request->post['month'];
         } elseif (!empty($member_info)) {
@@ -215,7 +268,7 @@ protected function getList()
         } else {
             $data['month'] = '';
         }
-        
+
         if (isset($this->request->post['year'])) {
             $data['year'] = $this->request->post['year'];
         } elseif (!empty($member_info)) {
@@ -253,9 +306,9 @@ protected function getList()
         } else {
             $data['point_accumulate'] = '';
         }
-        
 
-         if (!$this->customer->isLogged()) {
+
+        if (!$this->customer->isLogged()) {
             $this->response->redirect($this->url->link('club/login'));
         }
 
@@ -290,4 +343,5 @@ protected function getList()
 
         $this->response->setOutput($this->load->view('club/member_form', $data));
     }
+
 }
