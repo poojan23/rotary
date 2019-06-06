@@ -2,15 +2,37 @@
 
 class ModelClubProject extends PT_Model {
 
+    public function getCategories()
+    {
+        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "category WHERE status = '1' ORDER BY sort_order ASC");
+
+        return $query->rows;
+    }
 
      public function addProject($data)
     {
+        
+        // print_r($data); exit;
 
         $date = $this->db->escape((string)$data['year']).'-'. $this->db->escape((string)$data['month']);
        
-        $query = $this->db->query("INSERT INTO " . DB_PREFIX . "trf SET  club_id = '" . $this->db->escape((string)$data['club_id']) . "', date = '".$date. "',amount_inr = '" . $this->db->escape((string)$data['amount_inr']) . "',exchange_rate = '" . $this->db->escape((string)$data['exchange_rate']) . "',	amount_usd = '" . $this->db->escape((string)$data['amount_usd']) . "',points = '" . $this->db->escape((string)$data['points']) . "', date_added = NOW()");
+        $query = $this->db->query("INSERT INTO " . DB_PREFIX . "projects SET club_id = '" . $this->db->escape((string)$data['club_id']) . "', date = '".$date. "',title = '" . $this->db->escape((string)$data['title']) . "',description = '" . $this->db->escape((string)$data['description']) . "',	amount = '" . $this->db->escape((string)$data['amount']) .  "',	no_of_beneficiary = '" . $this->db->escape((string)$data['no_of_beneficiary']) . "',points = '" . $this->db->escape((string)$data['points']) . "', date_added = NOW()");
+        
+        $project_id = $this->db->lastInsertId();
 
-        return $query;
+        
+
+        // if (isset($data['image'])) {
+        //     $this->db->query("UPDATE " . DB_PREFIX . "information SET image = '" . $this->db->escape((string)$data['image']) . "' WHERE information_id = '" . (int)$information_id . "'");
+        // }
+
+        foreach ($this->request->post['category'] as $value) {
+            $this->db->query("INSERT INTO " . DB_PREFIX . "project_to_category SET project_id = '" . (int)$project_id . "', category_id = '" . $this->db->escape((string)$value['category_id']) ."'");
+        }
+        $this->cache->delete('projects');
+
+        return $project_id;
+        //return $query;
     }
 
     // public function editClub($club_id, $data)
@@ -37,7 +59,7 @@ class ModelClubProject extends PT_Model {
     // }
      public function getProjectById($club_id)
     {
-        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "project WHERE club_id = '" . (int)$club_id . "'");
+        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "projects WHERE club_id = '" . (int)$club_id . "' AND status='1'");
 
         return $query->rows;
     }

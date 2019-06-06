@@ -9,7 +9,7 @@ $_['text_trf']                  = 'TRF';
 $_['text_project']              = 'Projects';
 $_['text_profile']              = 'Profile';
 $_['text_logout']               = 'Logout';
-$_['text_latest_member']               = 'Latest Members';
+$_['text_latest_member']               = 'Latest Members Added';
 $_['text_latest_trf']               = 'Latest TRF Contribution';
 $_['text_latest_project']               = 'Latest Projects';
 # Text

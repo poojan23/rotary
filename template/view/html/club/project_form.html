@@ -108,10 +108,97 @@
                                                 </div>
                                             </div>
                                             <hr class="featurette-divider">
+                                            <div class="form-group row">
+                                                <label for="title" class="col-sm-3 col-form-label">Projects
+                                                    Title:</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" name="title" id="title">
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
+                                            <div class="form-group row">
+                                                <label for="description" class="col-sm-3 col-form-label">Description
+                                                    :</label>
+                                                <div class="col-sm-9">
+                                                    <textarea name="description" id="editor1"
+                                                        placeholder="Need to have only simple text input"></textarea>
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
+                                            <div class="form-group row">
+                                                <label for="amount" class="col-sm-3 col-form-label">Project Cost
+                                                    (&#8377;)
+                                                    :</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" name="amount" id="amount">
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
+                                            <div class="form-group row">
+                                                <label for="no_of_beneficiary" class="col-sm-3 col-form-label">Number of
+                                                    beneficiaries
+                                                    :</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" name="no_of_beneficiary"
+                                                        id="no_of_beneficiary">
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
+                                            <div class="form-group row">
+                                                <label for="image" class="col-sm-3 col-form-label">Image:</label>
+                                                <div class="col-sm-9">
+                                                    <label>Need high resolution images, maximum two allowed</label>
+                                                    <div class="img-section">
+                                                        <div class="image-upload">
+                                                            <a class="img1" data-toggle="modal"
+                                                                data-target="#uploadModal">
+                                                                <img id="preview1" src="upload/no_image.png">
+                                                            </a>
+                                                            <input type="hidden" id="input_img1" value="">
+                                                        </div>
+                                                        <div class="image-upload">
+                                                            <a class="img2" data-toggle="modal"
+                                                                data-target="#uploadModal2">
+                                                                <img id="preview2" src="upload/no_image.png">
+                                                            </a>
+                                                            <input type="hidden" id="input_img2" value="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
+                                            <div class="form-group row">
+                                                <label for="category" class="col-sm-3 col-form-label">Category :</label>
+                                                <div class="col-sm-9">
+                                                    <div class="row">
+                                                        <?php foreach($categoires as $category): ?>
+                                                        <div class="col-sm-6">
+                                                            <div class="checkbox checkbox-primary">
+                                                                <input id="category" name="category[]"
+                                                                    value="<?php echo $category['category_id']; ?>"
+                                                                    type="checkbox">
+                                                                <label for="category">
+                                                                    <?php echo $category['name']; ?>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <?php endforeach; ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
+                                            <div class="form-group row">
+                                                <label for="points" class="col-sm-3 col-form-label">Citation points
+                                                    accrued
+                                                    :</label>
+                                                <div class="col-sm-9">
+                                                    <input type="number" class="form-control" id="points" name="points">
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
 
                                             <input type="hidden" name="club_id" id="club_id"
                                                 value="<?php echo $club_id; ?>">
-                                            <hr class="featurette-divider">
                                             <div class="form-group row">
                                                 <!-- <label for="" class="col-sm-6 pull-left">
                                                     Total Projects : <?php echo round(implode(" ",$total_project)); ?>
@@ -137,5 +224,70 @@
                     function sum() {
                         $("#amount_usd").val(Number($("#amount_inr").val()) / Number($("#exchange_rate").val()));
                     }
+                });
+            </script>
+            <script src="https://cdn.ckeditor.com/4.11.4/standard/ckeditor.js"></script>
+            <script type="text/javascript">
+
+            </script>
+            <script>
+                CKEDITOR.replace('editor1');
+            </script>
+            <script>
+                $(document).ready(function () {
+                    $('#upload').click(function () {
+
+                        var fd = new FormData();
+                        var files = $('#file1')[0].files[0];
+                        fd.append('file1', files);
+
+                        // AJAX request
+                        $.ajax({
+                            url: 'uploads.php',
+                            type: 'post',
+                            data: fd,
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                if (response != 0) {
+                                    alert(response);
+                                    // Show image preview
+                                    //          $('#preview').append("<img src='"+response+"' width='100' height='100' style='display: inline-block;'>");
+                                    $('#preview1').attr('src', response);
+                                    $('#input_img1').attr('value', response);
+                                } else {
+                                    alert('file not uploaded');
+                                }
+                            }
+                        });
+                    });
+                });
+                $(document).ready(function () {
+                    $('#upload2').click(function () {
+
+                        var fd = new FormData();
+                        var files = $('#file2')[0].files[0];
+                        fd.append('file2', files);
+
+                        // AJAX request
+                        $.ajax({
+                            url: 'uploads2.php',
+                            type: 'post',
+                            data: fd,
+                            contentType: false,
+                            processData: false,
+                            success: function (response2) {
+                                if (response2 != 0) {
+                                    alert(response2);
+                                    // Show image preview
+                                    //          $('#preview').append("<img src='"+response+"' width='100' height='100' style='display: inline-block;'>");
+                                    $('#preview2').attr('src', response2);
+                                    $('#input_img2').attr('value', response2);
+                                } else {
+                                    alert('file not uploaded');
+                                }
+                            }
+                        });
+                    });
                 });
             </script>

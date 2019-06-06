@@ -25,6 +25,7 @@ class ControllerClubProject extends PT_Controller
         $this->load->model('club/project');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+
             $this->model_club_project->addProject($this->request->post);
 
             $this->response->redirect($this->url->link('club/project'));
@@ -52,7 +53,7 @@ protected function getList()
         $data['projects'] = array();
 
         $results = $this->model_club_project->getProjectById($this->customer->getId());
-
+        
         foreach ($results as $result) {
             $data['projects'][] = array(
                 'project_id'    => $result['project_id'],
@@ -110,7 +111,7 @@ protected function getList()
 
 
         $data['continue'] = $this->url->link('common/home');
-        $data['add_trf'] = $this->url->link('club/project/add');
+        $data['add_project'] = $this->url->link('club/project/add');
         $data['dashboard'] = $this->url->link('club/dashboard');
         $data['project'] = $this->url->link('club/project');
         $data['trf'] = $this->url->link('club/project');
@@ -131,8 +132,21 @@ protected function getList()
 
         $data['text_form'] = !isset($this->request->get['project_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
-       $club_id = $this->customer->getId();
+        $club_id = $this->customer->getId();
+        
+        #category 
+        $data['categoires'] = array();
 
+        $results = $this->model_club_project->getCategories();
+
+        foreach ($results as $result) {
+            $data['categoires'][] = array(
+                'category_id'    => $result['category_id'],
+                'name'         => $result['name']
+            );
+        }
+        
+        #form 
         if (isset($this->error['warning'])) {
             $data['warning_err'] = $this->error['warning'];
         } else {
@@ -150,26 +164,7 @@ protected function getList()
         } else {
             $data['year_err'] = '';
         }
-        //  if (isset($this->error['amount_inr'])) {
-        //     $data['amount_inr_err'] = $this->error['amount_inr'];
-        // } else {
-        //     $data['amount_inr_err'] = '';
-        // }
-        //  if (isset($this->error['exchange_rate'])) {
-        //     $data['exchange_rate_err'] = $this->error['exchange_rate'];
-        // } else {
-        //     $data['exchange_rate_err'] = '';
-        // }
-        //  if (isset($this->error['amount_usd'])) {
-        //     $data['amount_usd_err'] = $this->error['amount_usd'];
-        // } else {
-        //     $data['amount_usd_err'] = '';
-        // }
-        //  if (isset($this->error['points'])) {
-        //     $data['points_err'] = $this->error['points'];
-        // } else {
-        //     $data['points_err'] = '';
-        // }
+
 
         $data['breadcrumbs'] = array();
 
@@ -200,70 +195,28 @@ protected function getList()
         $data['cancel'] = $this->url->link('club/project');
 
         if (isset($this->request->get['project_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-            $trf_info = $this->model_club_member->getMember($this->request->get['project_id']);
+            $project_info = $this->model_club_project->getMember($this->request->get['project_id']);
         }
         
         if (isset($this->request->post['month'])) {
             $data['month'] = $this->request->post['month'];
-        } elseif (!empty($trf_info)) {
-            $data['month'] = $trf_info['month'];
+        } elseif (!empty($project_info)) {
+            $data['month'] = $project_info['month'];
         } else {
             $data['month'] = '';
         }
 
         if (isset($this->request->post['year'])) {
             $data['year'] = $this->request->post['year'];
-        } elseif (!empty($trf_info)) {
-            $data['year'] = $trf_info['year'];
+        } elseif (!empty($project_info)) {
+            $data['year'] = $project_info['year'];
         } else {
             $data['year'] = '';
         }
 
-        // if (isset($this->request->post['month'])) {
-        //     $data['month'] = $this->request->post['month'];
-        // } elseif (!empty($trf_info)) {
-        //     $data['month'] = $trf_info['month'];
-        // } else {
-        //     $data['month'] = '';
-        // }
-
-        // if (isset($this->request->post['amount_inr'])) {
-        //     $data['amount_inr'] = $this->request->post['amount_inr'];
-        // } elseif (!empty($trf_info)) {
-        //     $data['amount_inr'] = $trf_info['amount_inr'];
-        // } else {
-        //     $data['amount_inr'] = '';
-        // }
-
-        // if (isset($this->request->post['exchange_rate'])) {
-        //     $data['exchange_rate'] = $this->request->post['exchange_rate'];
-        // } elseif (!empty($trf_info)) {
-        //     $data['exchange_rate'] = $trf_info['exchange_rate'];
-        // } else {
-        //     $data['exchange_rate'] = '';
-        // }
-        // if (isset($this->request->post['amount_usd'])) {
-        //     $data['amount_usd'] = $this->request->post['amount_usd'];
-        // } elseif (!empty($trf_info)) {
-        //     $data['amount_usd'] = $trf_info['amount_usd'];
-        // } else {
-        //     $data['amount_usd'] = '';
-        // }
-
-        //  if (isset($this->request->post['points'])) {
-        //     $data['points'] = $this->request->post['points'];
-        // } elseif (!empty($trf_info)) {
-        //     $data['points'] = $trf_info['points'];
-        // } else {
-        //     $data['points'] = '';
-        // }
-
-
         if (!$this->customer->isLogged()) {
             $this->response->redirect($this->url->link('club/login'));
         }
-
-        // $data['total_project'] = $this->model_club_project->getTotalProjectById($club_id);
 
         $data['club_id'] = $this->customer->getId();
         $data['club_name'] = $this->customer->getFirstName();
