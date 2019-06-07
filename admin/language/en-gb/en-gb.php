@@ -157,6 +157,9 @@ $_['tab_recurring']                 = 'Recurring';
 $_['tab_action']                    = 'Action';
 $_['tab_google']                    = 'Google';
 $_['tab_video']                     = 'Video';
+$_['tab_member']                    = 'Member';
+$_['tab_project']                   = 'Project';
+$_['tab_trf']                       = 'TRF';
 
 /* When doing translations only include the matching language code */
 

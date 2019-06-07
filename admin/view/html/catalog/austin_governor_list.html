@@ -1,6 +1,5 @@
 <?php echo $header; ?>
 <?php echo $nav; ?>
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -56,13 +55,11 @@
                 <?php endif; ?>
 
                 <div class="clearfix">
-                     <?php if($user_group =='Administrator') : ?>
                     <a href="<?php echo $add; ?>" data-toggle="tooltip" title="<?php echo $button_add; ?>"
                         class="btn btn-primary btn-bold"><i class="fa fa-plus"></i></a>
                     <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>"
-                        class="btn btn-danger btn-bold" onclick="confirm('<?php echo $text_confirm; ?>') ? $('#form-club-group').submit() :
+                        class="btn btn-danger btn-bold" onclick="confirm('<?php echo $text_confirm; ?>') ? $('#form-governor-group').submit() :
                         false;"><i class="fa fa-trash-alt"></i></button>
-                        <?php endif; ?>
                     <div class="float-right tableTools-container"></div>
                 </div>
             </div>
@@ -77,84 +74,47 @@
                     <!-- /.card-header -->
                     <div class="card-body">
                         <form action="<?php echo $delete; ?>" method="POST" enctype="multipart/form-data"
-                            id="form-club-group">
+                            id="form-governor-group">
                             <div class="table-responsive">
-                                <table id="table_club" class="table table-bordered table-hover">
+                                <table id="table_governor" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>
-                                            <th style="width: 1px;" class="text-center no-sort"><input type="checkbox"
+                                            <th style="width: 1px;" class="text-governor no-sort"><input type="checkbox"
                                                     onclick="$('input[name*=\'selected\']').trigger('click');" /></th>
-                                            <th>
-                                                <?php echo $column_date; ?>
-                                            </th>
+                                            
                                             <th>
                                                 <?php echo $column_name; ?>
-                                            </th>
-                                            <th>
-                                                <?php echo $column_president; ?>
-                                            </th>
-                                            <th>
-                                                <?php echo $column_mobile; ?>
-                                            </th>
-                                            <th>
-                                                <?php echo $column_email; ?>
-                                            </th>
-                                            <th>
-                                                <?php echo $column_website; ?>
-                                            </th>
+                                            </th>                                          
                                             <th class="no-sort">
                                                 <?php echo $column_action; ?>
                                             </th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if($clubs) : ?>
-                                        <?php foreach($clubs as $club) : ?>
+                                        <?php if($austingovernors) : ?>
+                                        <?php foreach($austingovernors as $austingovernor) : ?>
                                         <tr>
-                                            <td class="text-center">
-                                                <?php if(in_array($club['club_id'], $selected)) : ?>
+                                            <td class="text-governor">
+                                                <?php if(in_array($austingovernor['austin_governor_id'], $selected)) : ?>
                                                 <input type="checkbox" name="selected[]"
-                                                    value="<?php echo $club['club_id']; ?>"
+                                                    value="<?php echo $austingovernor['austin_governor_id']; ?>"
                                                     checked="checked" />
                                                 <?php else : ?>
                                                 <input type="checkbox" name="selected[]"
-                                                    value="<?php echo $club['club_id']; ?>" />
+                                                    value="<?php echo $austingovernor['austin_governor_id']; ?>" />
                                                 <?php endif; ?>
                                             </td>
                                             <td class="text-left">
-                                                <?php echo $club['date']; ?>
+                                                <?php echo $austingovernor['name']; ?>
                                             </td>
-                                            <td class="text-left">
-                                                <?php echo $club['name']; ?>
-                                            </td>
-                                            <td class="text-left">
-                                                <?php echo $club['president']; ?>
-                                            </td>
-                                            <td class="text-left">
-                                                <?php echo $club['mobile']; ?>
-                                            </td>
-                                            <td class="text-left">
-                                                <?php echo $club['email']; ?>
-                                            </td>
-                                            <td class="text-left">
-                                                <?php echo $club['website']; ?>
-                                            </td>
-                                            <td class="text-left">
-                                                <?php if($user_group =='Austin Governor') : ?>
-                                                <a href="<?php echo $club['view']; ?>"
-                                                   data-toggle="tooltip" title="<?php echo $button_view; ?>"
-                                                   class="btn btn-primary"><i class="fa fa-eye"></i></a>
-                                                <?php else : ?>
-                                                <a href="<?php echo $club['edit']; ?>"
-                                                   data-toggle="tooltip" title="<?php echo $button_edit; ?>"
-                                                   class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a>
-                                                <?php endif ; ?>
-                                            </td>
+                                            <td class="text-left"><a href="<?php echo $austingovernor['edit']; ?>"
+                                                    data-toggle="tooltip" title="<?php echo $button_edit; ?>"
+                                                    class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a></td>
                                         </tr>
                                         <?php endforeach; ?>
                                         <?php else : ?>
                                         <tr>
-                                            <td class="text-center" colspan="5">
+                                            <td class="text-governor" colspan="5">
                                                 <?php echo $text_no_results; ?>
                                             </td>
                                         </tr>
@@ -178,7 +138,7 @@
 <?php echo $footer; ?>
 <script type="text/javascript">
     $(function () {
-        var table = $('#table_club').DataTable({
+        var table = $('#table_governor').DataTable({
             "order": [
                 [1, 'asc']
             ],
@@ -253,7 +213,7 @@
         var defaultCopyAction = table.button(1).action();
         /*table.button(1).action(function (e, dt, button, config) {
             defaultCopyAction(e, dt, button, config);
-            $('.dt-button-info').addClass('bg.olive text-center text-white');
+            $('.dt-button-info').addClass('bg.olive text-governor text-white');
         });*/
 
         var defaultColvisAction = table.button(0).action();
@@ -283,7 +243,7 @@
             });
         }, 500);
 
-        $(document).on('click', '#table_club .dropdown-toggle', function (e) {
+        $(document).on('click', '#table_governor .dropdown-toggle', function (e) {
             e.stopImmediatePropagation();
             e.stopPropagation();
             e.preventDefault();

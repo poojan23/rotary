@@ -24,6 +24,7 @@ $_['column_action']             = 'Action';
 # Entry
 $_['entry_date']                = 'Date';
 $_['entry_name']                = 'Rotary Club Of';
+$_['entry_austin_governor']     = 'Austin Governor';
 $_['entry_secretary']           = 'District Secretary';
 $_['entry_governor']            = 'Assistance Governor';
 $_['entry_title_footer']        = 'Footer Title';

@@ -74,84 +74,18 @@
                     <form action="<?php echo $action; ?>" method="POST" enctype="multipart/form-data"
                           id="form-team" class="form-horizontal">
                         <div class="card-body">
+            
                             <div class="form-group row required">
-                                <label for="input-name" class="col-sm-2 col-form-label">
+                                <label for="input-austin-governor" class="col-sm-2 col-form-label">
                                     <?php echo $entry_name; ?></label>
 
                                 <div class="col-sm-10">
-                                    <input type="text" name="name" value="<?php echo $name; ?>"
+                                    <input type="text" name="austin_governor" value="<?php echo $austin_governor; ?>"
                                            placeholder="<?php echo $entry_name; ?>" class="form-control"
-                                           id="input-name" />
-                                    <?php if($name_err) : ?>
+                                           id="input-austin-governor" />
+                                    <?php if($austin_governor_err) : ?>
                                     <span class="invalid-tooltip">
-                                        <?php echo $name_err; ?></span>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group row">
-                                <label for="input-club" class="col-sm-2 col-form-label">
-                                    <?php echo $entry_club; ?></label>
-
-                                <div class="col-sm-10">
-                                    <select name="club_id" class="form-control" id="input-club">
-                                        <?php foreach($clubs as $club) : ?>
-                                        <?php if($club['club_id'] == $club_id) : ?>
-                                        <option value="<?php echo $club['club_id']; ?>" selected="selected">
-                                            <?php echo $club['club_name']; ?>
-                                        </option>
-                                        <?php else : ?>
-                                        <option value="<?php echo $club['club_id']; ?>">
-                                            <?php echo $club['club_name']; ?>
-                                        </option>
-                                        <?php endif; ?>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group row required">
-                                <label for="input-position" class="col-sm-2 col-form-label">
-                                    <?php echo $entry_position; ?></label>
-
-                                <div class="col-sm-10">
-                                    <input type="text" name="position" value="<?php echo $position; ?>"
-                                           placeholder="<?php echo $entry_position; ?>" class="form-control"
-                                           id="input-position" />
-                                    <?php if($position_err) : ?>
-                                    <span class="invalid-tooltip">
-                                        <?php echo $position_err; ?></span>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            
-                             
-                            <div class="form-group row required">
-                                <label for="input-mobile" class="col-sm-2 col-form-label">
-                                    <?php echo $entry_mobile; ?></label>
-
-                                <div class="col-sm-10">
-                                    <input type="text" name="mobile" value="<?php echo $mobile; ?>"
-                                           placeholder="<?php echo $entry_mobile; ?>" class="form-control"
-                                           id="input-mobile" />
-                                    <?php if($mobile_err) : ?>
-                                    <span class="invalid-tooltip">
-                                        <?php echo $mobile_err; ?></span>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-
-                            <div class="form-group row required">
-                                <label for="input-email" class="col-sm-2 col-form-label">
-                                    <?php echo $entry_email; ?></label>
-
-                                <div class="col-sm-10">
-                                    <input type="email" name="email" value="<?php echo $email; ?>"
-                                           placeholder="<?php echo $entry_email; ?>" class="form-control"
-                                           id="input-email" />
-                                    <?php if($email_err) : ?>
-                                    <span class="invalid-tooltip">
-                                        <?php echo $email_err; ?></span>
+                                        <?php echo $austin_governor_err; ?></span>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -194,10 +128,12 @@
 </div>
 <!-- /.content-wrapper -->
 <?php echo $footer; ?>
+
 <script type="text/javascript">
     $('textarea[data-toggle=\'ckeditor\']').ckeditor();
 
     $('input[name=\'icon\']').iCheck({
         radioClass: 'iradio_square-blue'
     });
+    
 </script>
