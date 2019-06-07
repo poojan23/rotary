@@ -74,4 +74,5 @@ $_['text_club']                 = 'Core Club';
 $_['text_citation']             = "DG's Citation Criteria";
 $_['text_center']               = "Rotary Center's";
 $_['text_governor']             = "Past District Governor";
+$_['text_austin_governor']      = "Austin Governor";
 $_['text_category']             = "Category";

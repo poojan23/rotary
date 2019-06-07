@@ -273,6 +273,18 @@ class ControllerCatalogClub extends PT_Controller
             $data['name'] = '';
         }
         
+        if (isset($this->request->post['austin_governor_id'])) {
+            $data['austin_governor_id'] = $this->request->post['austin_governor_id'];
+        } elseif (!empty($club_info)) {
+            $data['austin_governor_id'] = $club_info['austin_governor_id'];
+        } else {
+            $data['austin_governor_id'] = '';
+        }
+        
+        $this->load->model('catalog/austin_governor');
+        
+        $data['austin_governors'] = $this->model_catalog_austin_governor->getAustinGovernors();
+        
         if (isset($this->request->post['secretary'])) {
             $data['secretary'] = $this->request->post['secretary'];
         } elseif (!empty($club_info)) {

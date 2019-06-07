@@ -22,6 +22,14 @@ class ControllerCommonNav extends PT_Controller
             # Catalog
             $catalog = array();
                         
+            if ($this->user->hasPermission('access', 'catalog/austin_governor')) {
+                $catalog[] = array(
+                    'name'      => $this->language->get('text_austin_governor'),
+                    'href'      => $this->url->link('catalog/austin_governor', 'user_token=' . $this->session->data['user_token']),
+                    'children'  => array()
+                );
+            }
+            
             if ($this->user->hasPermission('access', 'catalog/category')) {
                 $catalog[] = array(
                     'name'      => $this->language->get('text_category'),
