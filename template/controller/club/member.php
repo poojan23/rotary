@@ -22,7 +22,7 @@ class ControllerClubMember extends PT_Controller {
         $this->load->model('club/member');
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-            $this->model_club_member->viewMember($this->request->get['member_id'], $this->request->post);
+            $this->model_club_member->addMember($this->request->post);
 
             $this->response->redirect($this->url->link('club/member'));
         }
@@ -32,14 +32,26 @@ class ControllerClubMember extends PT_Controller {
 
     public function view() {
 
+         
         $data['club_id'] = $this->customer->getId();
         $data['club_name'] = $this->customer->getFirstName();
         $data['date'] = $this->customer->getDate();
         $data['mobile'] = $this->customer->getMobile();
         $data['email'] = $this->customer->getEmail();
+        $data['image'] = $this->customer->getImage();
         $data['president'] = $this->customer->getPresident();
         $data['assistant_governor'] = $this->customer->getAssistant();
         $data['district_secretary'] = $this->customer->getDistrict();
+        
+        $this->load->model('tool/image');
+
+        $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
+
+        if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
+            $data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        } else {
+            $data['thumb'] = $data['placeholder'];
+        }
 
         $data['breadcrumbs'] = array();
 
@@ -52,6 +64,8 @@ class ControllerClubMember extends PT_Controller {
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('club/member')
         );
+
+        $data['cancel'] = $this->url->link('club/member');
 
 
         $data['continue'] = $this->url->link('common/home');
@@ -75,6 +89,13 @@ class ControllerClubMember extends PT_Controller {
  
 //        $data['month'] = $member_info['month'];
 //        $data['year'] = $member_info['year'];
+        $date = $member_info['date'];
+    
+        $date = explode('-', $date);
+
+        $data['year'] = $date[0];
+        $data['month']   = $date[1];
+
         $data['member_induct'] = $member_info['induction'];
         $data['member_unlist'] = $member_info['unlist'];
         $data['net_growth'] = $member_info['net'];
@@ -90,6 +111,8 @@ class ControllerClubMember extends PT_Controller {
     protected function getList() {
         $this->load->model('club/member');
 
+
+
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
@@ -101,6 +124,27 @@ class ControllerClubMember extends PT_Controller {
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('club/member')
         );
+
+        
+        $data['club_id'] = $this->customer->getId();
+        $data['club_name'] = $this->customer->getFirstName();
+        $data['date'] = $this->customer->getDate();
+        $data['mobile'] = $this->customer->getMobile();
+        $data['email'] = $this->customer->getEmail();
+        $data['image'] = $this->customer->getImage();
+        $data['president'] = $this->customer->getPresident();
+        $data['assistant_governor'] = $this->customer->getAssistant();
+        $data['district_secretary'] = $this->customer->getDistrict();
+        
+        $this->load->model('tool/image');
+
+        $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
+
+        if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
+            $data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        } else {
+            $data['thumb'] = $data['placeholder'];
+        }
 
         $data['add'] = $this->url->link('club/member/add');
 
@@ -142,16 +186,6 @@ class ControllerClubMember extends PT_Controller {
             $data['selected'] = array();
         }
 
-
-        $data['club_id'] = $this->customer->getId();
-        $data['club_name'] = $this->customer->getFirstName();
-        $data['date'] = $this->customer->getDate();
-        $data['mobile'] = $this->customer->getMobile();
-        $data['email'] = $this->customer->getEmail();
-        $data['president'] = $this->customer->getPresident();
-        $data['assistant_governor'] = $this->customer->getAssistant();
-        $data['district_secretary'] = $this->customer->getDistrict();
-
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
@@ -185,6 +219,26 @@ class ControllerClubMember extends PT_Controller {
         $data['text_form'] = !isset($this->request->get['member_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         $club_id = $this->customer->getId();
+
+        $data['club_id'] = $this->customer->getId();
+        $data['club_name'] = $this->customer->getFirstName();
+        $data['date'] = $this->customer->getDate();
+        $data['mobile'] = $this->customer->getMobile();
+        $data['email'] = $this->customer->getEmail();
+        $data['image'] = $this->customer->getImage();
+        $data['president'] = $this->customer->getPresident();
+        $data['assistant_governor'] = $this->customer->getAssistant();
+        $data['district_secretary'] = $this->customer->getDistrict();
+        
+        $this->load->model('tool/image');
+
+        $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
+
+        if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
+            $data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        } else {
+            $data['thumb'] = $data['placeholder'];
+        }
 
         if (isset($this->error['warning'])) {
             $data['warning_err'] = $this->error['warning'];
@@ -314,18 +368,11 @@ class ControllerClubMember extends PT_Controller {
 
         $data['total_members'] = $this->model_club_member->getTotalMemberById($club_id);
 
-
+        // print_r($data['total_members']);
 
         // print_r($data['total_members']); exit;
 
-        $data['club_id'] = $this->customer->getId();
-        $data['club_name'] = $this->customer->getFirstName();
-        $data['date'] = $this->customer->getDate();
-        $data['mobile'] = $this->customer->getMobile();
-        $data['email'] = $this->customer->getEmail();
-        $data['president'] = $this->customer->getPresident();
-        $data['assistant_governor'] = $this->customer->getAssistant();
-        $data['district_secretary'] = $this->customer->getDistrict();
+       
 
         $data['continue'] = $this->url->link('common/home');
         $data['add_member'] = $this->url->link('club/member/add');

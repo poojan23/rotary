@@ -1,17 +1,18 @@
 <?php
 # Heading Title
-$_['heading_title']             = 'Club Dashboard';
+$_['heading_title']             = 'Club Profile';   
 
-# Text
-$_['text_dashboard']            = 'Club Dashboard';
+#page title
 $_['text_home']                 = 'Home';
+
+#page menu
 $_['text_dashboard']            = 'Dashboard';
 $_['text_member']               = 'Members';
 $_['text_trf']                  = 'TRF';
 $_['text_project']              = 'Projects';
 $_['text_profile']              = 'Profile';
 $_['text_logout']               = 'Logout';
-$_['text_latest_member']        = 'Latest Members Added';
-$_['text_latest_trf']           = 'Latest TRF Contribution';
-$_['text_latest_project']       = 'Latest Projects';
-
+$_['text_success']              = 'Club profile information updated !';
+#form text
+$_['text_add']               = 'Add';
+$_['text_edit']               = 'Edit';

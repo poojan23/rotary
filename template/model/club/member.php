@@ -49,9 +49,9 @@ class ModelClubMember extends PT_Model {
     }
      public function getTotalMemberById($club_id)
     {
-        $query = $this->db->query("SELECT DISTINCT SUM(net) as totalmembers FROM " . DB_PREFIX . "member WHERE club_id = '" . (int)$club_id . "'");
+        $query = $this->db->query("SELECT DISTINCT SUM(net) as total FROM " . DB_PREFIX . "member WHERE club_id = '" . (int)$club_id . "'");
 
-        return $query->row;
+        return $query->row['total'];
     }
     // public function getMembers()
     // {

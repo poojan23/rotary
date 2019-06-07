@@ -26,15 +26,12 @@
                             <div class="col-md-3 mt-20">
                                 <div class="club-login-details">
                                     <div class="page-title">Club Details</div>
-                                    <p class="image-sep"><img src="<?php echo $thumb; ?>"></p>
-                                    <hr class="featurette-divider">
-                                    <p class="seprate-p">Rotary Club of
-                                        <b><?php echo $club_name; ?></b></p>
-
+                                    <p class="seprate-p"><b>Rotary Club of
+                                            <?php echo $club_name; ?></b></p>
                                     <p class="combine-p"><span><i class="fa fa-calendar-o"></i>
                                             <?php echo $date; ?></span><span class="pull-right"><i
                                                 class="fa fa-trophy"></i> 250</span></p>
-                                    <p class="combine-p"><span><i class="fa fa-phone"></i> <a
+                                    <p class="combine-p"><span><i class="fa fa-mobile"></i> <a
                                                 href="tel:<?php echo $mobile; ?>">
                                                 <?php echo $mobile; ?></a></span></p>
                                     <p class="combine-p"><span><i class="fa fa-envelope-o"></i><a
@@ -51,13 +48,13 @@
                                     <div class="mobile-drop">
                                         <ul id="page-menu">
                                             <li>
-                                                <a href="<?php echo $dashbaord; ?>"
-                                                    class="active-menu"><?php echo $text_dashboard; ?></a>
+                                                <a href="<?php echo $dashboard; ?>"><?php echo $text_dashboard; ?></a>
                                             </li>
                                             <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
                                             <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
                                             <li><a href="<?php echo $project; ?>"><?php echo $text_project; ?></a></li>
-                                            <li><a href="<?php echo $profile; ?>"><?php echo $text_profile; ?></a></li>
+                                            <li><a href="<?php echo $profile; ?>"
+                                                    class="active-menu"><?php echo $text_profile; ?></a></li>
                                             <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
                                         </ul>
                                     </div>
@@ -65,13 +62,13 @@
                                 <div class="desktop-drop">
                                     <ul id="page-menu">
                                         <li>
-                                            <a href="<?php echo $dashbaord; ?>"><?php echo $text_dashboard; ?></a>
+                                            <a href="<?php echo $dashboard; ?>"><?php echo $text_dashboard; ?></a>
                                         </li>
-                                        <li><a href="<?php echo $member; ?>"
-                                                class="active-menu"><?php echo $text_member; ?></a></li>
+                                        <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
                                         <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
                                         <li><a href="<?php echo $project; ?>"><?php echo $text_project; ?></a></li>
-                                        <li><a href="<?php echo $profile; ?>"><?php echo $text_profile; ?></a></li>
+                                        <li><a href="<?php echo $profile; ?>"
+                                                class="active-menu"><?php echo $text_profile; ?></a></li>
                                         <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
                                     </ul>
                                 </div>
@@ -79,60 +76,79 @@
                             <div class="col-md-9 mt-20">
                                 <div class="about-page-content">
                                     <div class="page-title">
-                                        View Member
-                                        <a href="<?php echo $cancel; ?>" data-toggle="tooltip" title=""
-                                            class="btn btn-login btn-sm btn-bold btn-table" data-original-title="Back"
-                                            style="float: right !important;"><i class="fa fa-reply"></i></a>
+                                        Profile Infomation
                                     </div>
                                     <div class="club-page-content">
+                                        <!-- <?php if($success) : ?>
+                                        <div class="alert alert-success alert-dismissible"><i
+                                                class="fa fa-check-circle"></i>
+                                            <?php echo $success; ?>
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        </div>
+                                        <?php endif; ?>
+                                        <?php if($warning_err) : ?>
+                                        <div class="alert alert-danger alert-dismissible"><i
+                                                class="fa fa-exclamation-circle"></i>
+                                            <?php echo $warning_err; ?>
+                                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                        </div>
+                                        <?php endif; ?> -->
                                         <form action="<?php echo $action; ?>" method="post"
                                             enctype="multipart/form-data">
                                             <div class="form-group row">
-                                                <label for="month" class="col-sm-3 col-form-label">Month :</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" name="month" id="month"
-                                                        value="<?php echo $month; ?>" readonly="">
-                                                </div>
-                                                <label for="year" class="col-sm-3 col-form-label">Year :</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" name="month" id="month"
-                                                        value="<?php echo $year; ?>" readonly="">
-                                                </div>
-                                            </div>
-                                            <hr class="featurette-divider">
-                                            <div class="form-group row">
-                                                <label for="inputmember_induct" class="col-sm-3 col-form-label">Members
-                                                    Inducted :</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" name="member_induct"
-                                                        id="member_induct" value="<?php echo $member_induct; ?>"
-                                                        readonly="">
-                                                </div>
-                                                <label for="inputmember_unlist" class="col-sm-3 col-form-label">Members
-                                                    Unlisted :</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" name="member_unlist"
-                                                        id="member_unlist" value="<?php echo $member_unlist; ?>"
-                                                        readonly="">
-                                                </div>
-                                            </div>
-                                            <hr class="featurette-divider">
-                                            <div class="form-group row">
-                                                <label for="inputnet_growth" class="col-sm-3 col-form-label">Net Growth
+                                                <label for="inputwebsite" class="col-sm-3 col-form-label">Website
                                                     :</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" name="net_growth"
-                                                        id="net_growth" value="<?php echo $net_growth; ?>" readonly="">
-                                                </div>
-                                                <label for="inputpoint_accumulate"
-                                                    class="col-sm-3 col-form-label">Citation Points Accrued :</label>
-                                                <div class="col-sm-3">
-                                                    <input type="number" class="form-control" name="point_accumulate"
-                                                        id="point_accumulate" value="<?php echo $point_accumulate; ?>"
-                                                        readonly="">
+                                                <div class="col-sm-9">
+                                                    <input type="text" class="form-control" id="website" name="website"
+                                                        value="<?php echo $website; ?>">
+                                                    <?php if($website_err) : ?>
+                                                    <span class="invalid-tooltip">
+                                                        <?php echo $website_err; ?></span>
+                                                    <?php endif; ?>
                                                 </div>
                                             </div>
-
+                                            <hr class="featurette-divider">
+                                            <div class="form-group row">
+                                                <label for="inputmobile" class="col-sm-3 col-form-label">Mobile
+                                                    :</label>
+                                                <div class="col-sm-9">
+                                                    <input type="tel" class="form-control" id="mobile" name="mobile"
+                                                        value="<?php echo $mobile; ?>">
+                                                    <?php if($mobile_err) : ?>
+                                                    <span class="invalid-tooltip">
+                                                        <?php echo $mobile_err; ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
+                                            <div class="form-group row">
+                                                <label for="inputpassword" class="col-sm-3 col-form-label">Password
+                                                    :</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" class="form-control" id="password"
+                                                        name="password" value="" placeholder="">
+                                                    <?php if($password_err) : ?>
+                                                    <span class="invalid-tooltip">
+                                                        <?php echo $password_err; ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
+                                            <div class="form-group row">
+                                                <label for="inputconfirm" class="col-sm-3 col-form-label">Confirm
+                                                    Password
+                                                    :</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" class="form-control" id="confirm"
+                                                        name="confirm" value="" placeholder="">
+                                                    <?php if($confirm_err) : ?>
+                                                    <span class="invalid-tooltip">
+                                                        <?php echo $confirm_err; ?></span>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
+                                            <button type="submit" class="btn btn-sav mb-2">Save</button>
                                         </form>
                                     </div>
                                 </div>
@@ -142,14 +158,3 @@
                 </div>
             </div>
             <?php echo $footer; ?>
-            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-            <script>
-                $(function () {
-
-                    $("#member_induct, #member_unlist").on("keydown keyup", sum);
-
-                    function sum() {
-                        $("#net_growth").val(Number($("#member_induct").val()) - Number($("#member_unlist").val()));
-                    }
-                });
-            </script>

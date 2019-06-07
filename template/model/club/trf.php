@@ -41,6 +41,7 @@ class ModelClubTrf extends PT_Model {
 
         return $query->rows;
     }
+
      public function getTrf($trf_id)
     {
         $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "trf WHERE trf_id = '" . (int)$trf_id . "'");
@@ -49,9 +50,9 @@ class ModelClubTrf extends PT_Model {
     }
      public function getTotalTrfById($club_id)
     {
-        $query = $this->db->query("SELECT DISTINCT SUM(amount_usd) as totaltrf FROM " . DB_PREFIX . "trf WHERE club_id = '" . (int)$club_id . "'");
+        $query = $this->db->query("SELECT DISTINCT SUM(amount_usd) as total FROM " . DB_PREFIX . "trf WHERE club_id = '" . (int)$club_id . "'");
 
-        return $query->row;
+        return $query->row['total'];
     }
     // public function getMembers()
     // {

@@ -45,21 +45,31 @@ class ControllerClubTrf extends PT_Controller {
             'href' => $this->url->link('club/trf')
         );
 
-
         $data['club_id'] = $this->customer->getId();
         $data['club_name'] = $this->customer->getFirstName();
         $data['date'] = $this->customer->getDate();
         $data['mobile'] = $this->customer->getMobile();
         $data['email'] = $this->customer->getEmail();
+        $data['image'] = $this->customer->getImage();
         $data['president'] = $this->customer->getPresident();
         $data['assistant_governor'] = $this->customer->getAssistant();
         $data['district_secretary'] = $this->customer->getDistrict();
+        
+        $this->load->model('tool/image');
 
+        $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
+
+        if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
+            $data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        } else {
+            $data['thumb'] = $data['placeholder'];
+        }
+        $data['cancel'] = $this->url->link('club/trf');
         $data['continue'] = $this->url->link('common/home');
         $data['add_trf'] = $this->url->link('club/trf/add');
         $data['dashboard'] = $this->url->link('club/dashboard');
+        $data['member'] = $this->url->link('club/member');
         $data['project'] = $this->url->link('club/project');
-        $data['trf'] = $this->url->link('club/trf');
         $data['trf'] = $this->url->link('club/trf');
         $data['profile'] = $this->url->link('club/profile');
         $data['logout'] = $this->url->link('club/logout');
@@ -74,8 +84,11 @@ class ControllerClubTrf extends PT_Controller {
                 $trf_info = $this->model_club_trf->getTrf($this->request->get['trf_id']);
         }
        
-//        $data['month'] = $trf_info['month'];
-//        $data['year'] = $trf_info['year'];
+        $date = $trf_info['date'];
+        $date = explode('-', $date);
+        $data['year'] = $date[0];
+        $data['month']   = $date[1];
+
         $data['amount_inr'] = $trf_info['amount_inr'];
         $data['exchange_rate'] = $trf_info['exchange_rate'];
         $data['amount_usd'] = $trf_info['amount_usd'];
@@ -102,6 +115,26 @@ class ControllerClubTrf extends PT_Controller {
         );
 
         $data['add'] = $this->url->link('club/trf/add');
+
+        $data['club_id'] = $this->customer->getId();
+        $data['club_name'] = $this->customer->getFirstName();
+        $data['date'] = $this->customer->getDate();
+        $data['mobile'] = $this->customer->getMobile();
+        $data['email'] = $this->customer->getEmail();
+        $data['image'] = $this->customer->getImage();
+        $data['president'] = $this->customer->getPresident();
+        $data['assistant_governor'] = $this->customer->getAssistant();
+        $data['district_secretary'] = $this->customer->getDistrict();
+        
+        $this->load->model('tool/image');
+
+        $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
+
+        if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
+            $data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        } else {
+            $data['thumb'] = $data['placeholder'];
+        }
 
         $data['trfs'] = array();
 
@@ -137,16 +170,6 @@ class ControllerClubTrf extends PT_Controller {
             $data['selected'] = array();
         }
 
-
-        $data['club_id'] = $this->customer->getId();
-        $data['club_name'] = $this->customer->getFirstName();
-        $data['date'] = $this->customer->getDate();
-        $data['mobile'] = $this->customer->getMobile();
-        $data['email'] = $this->customer->getEmail();
-        $data['president'] = $this->customer->getPresident();
-        $data['assistant_governor'] = $this->customer->getAssistant();
-        $data['district_secretary'] = $this->customer->getDistrict();
-
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
@@ -165,7 +188,7 @@ class ControllerClubTrf extends PT_Controller {
         $data['dashboard'] = $this->url->link('club/dashboard');
         $data['project'] = $this->url->link('club/project');
         $data['trf'] = $this->url->link('club/trf');
-        $data['trf'] = $this->url->link('club/trf');
+        $data['member'] = $this->url->link('club/member');
         $data['profile'] = $this->url->link('club/profile');
         $data['logout'] = $this->url->link('club/logout');
 
@@ -180,6 +203,26 @@ class ControllerClubTrf extends PT_Controller {
         $data['text_form'] = !isset($this->request->get['trf_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         $club_id = $this->customer->getId();
+
+        $data['club_id'] = $this->customer->getId();
+        $data['club_name'] = $this->customer->getFirstName();
+        $data['date'] = $this->customer->getDate();
+        $data['mobile'] = $this->customer->getMobile();
+        $data['email'] = $this->customer->getEmail();
+        $data['image'] = $this->customer->getImage();
+        $data['president'] = $this->customer->getPresident();
+        $data['assistant_governor'] = $this->customer->getAssistant();
+        $data['district_secretary'] = $this->customer->getDistrict();
+        
+        $this->load->model('tool/image');
+
+        $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
+
+        if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
+            $data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        } else {
+            $data['thumb'] = $data['placeholder'];
+        }
 
         if (isset($this->error['warning'])) {
             $data['warning_err'] = $this->error['warning'];
@@ -307,26 +350,18 @@ class ControllerClubTrf extends PT_Controller {
         }
 
 
+
         if (!$this->customer->isLogged()) {
             $this->response->redirect($this->url->link('club/login'));
         }
 
         $data['total_trf'] = $this->model_club_trf->getTotalTrfById($club_id);
 
-        $data['club_id'] = $this->customer->getId();
-        $data['club_name'] = $this->customer->getFirstName();
-        $data['date'] = $this->customer->getDate();
-        $data['mobile'] = $this->customer->getMobile();
-        $data['email'] = $this->customer->getEmail();
-        $data['president'] = $this->customer->getPresident();
-        $data['assistant_governor'] = $this->customer->getAssistant();
-        $data['district_secretary'] = $this->customer->getDistrict();
-
         $data['continue'] = $this->url->link('common/home');
         $data['add_trf'] = $this->url->link('club/trf/add');
         $data['dashboard'] = $this->url->link('club/dashboard');
         $data['project'] = $this->url->link('club/project');
-        $data['trf'] = $this->url->link('club/trf');
+        $data['member'] = $this->url->link('club/member');
         $data['trf'] = $this->url->link('club/trf');
         $data['profile'] = $this->url->link('club/profile');
         $data['logout'] = $this->url->link('club/logout');

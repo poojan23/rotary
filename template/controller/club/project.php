@@ -52,6 +52,26 @@ protected function getList()
 
         $data['add'] = $this->url->link('club/project/add');
 
+        $data['club_id'] = $this->customer->getId();
+        $data['club_name'] = $this->customer->getFirstName();
+        $data['date'] = $this->customer->getDate();
+        $data['mobile'] = $this->customer->getMobile();
+        $data['email'] = $this->customer->getEmail();
+        $data['image'] = $this->customer->getImage();
+        $data['president'] = $this->customer->getPresident();
+        $data['assistant_governor'] = $this->customer->getAssistant();
+        $data['district_secretary'] = $this->customer->getDistrict();
+        
+        $this->load->model('tool/image');
+
+        $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
+
+        if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
+            $data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        } else {
+            $data['thumb'] = $data['placeholder'];
+        }
+
         $data['projects'] = array();
 
         $results = $this->model_club_project->getProjectById($this->customer->getId());
@@ -90,15 +110,6 @@ protected function getList()
         }
 
 
-        $data['club_id'] = $this->customer->getId();
-        $data['club_name'] = $this->customer->getFirstName();
-        $data['date'] = $this->customer->getDate();
-        $data['mobile'] = $this->customer->getMobile();
-        $data['email'] = $this->customer->getEmail();
-        $data['president'] = $this->customer->getPresident();
-        $data['assistant_governor'] = $this->customer->getAssistant();
-        $data['district_secretary'] = $this->customer->getDistrict();
-
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
@@ -135,7 +146,7 @@ protected function getList()
         $data['text_form'] = !isset($this->request->get['project_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         $club_id = $this->customer->getId();
-        
+
         #category 
         $data['categoires'] = array();
 
@@ -147,7 +158,7 @@ protected function getList()
                 'name'         => $result['name']
             );
         }
-        
+
         #form 
         if (isset($this->error['warning'])) {
             $data['warning_err'] = $this->error['warning'];
@@ -249,6 +260,7 @@ protected function getList()
             $data['month'] = '';
         }
 
+
         if (isset($this->request->post['year'])) {
             $data['year'] = $this->request->post['year'];
         } elseif (!empty($project_info)) {
@@ -313,6 +325,17 @@ protected function getList()
             $data['category'] = '';
         }
 
+       
+        $data['club_id'] = $this->customer->getId();
+        $data['club_name'] = $this->customer->getFirstName();
+        $data['date'] = $this->customer->getDate();
+        $data['mobile'] = $this->customer->getMobile();
+        $data['email'] = $this->customer->getEmail();
+        $data['image'] = $this->customer->getImage();
+        $data['president'] = $this->customer->getPresident();
+        $data['assistant_governor'] = $this->customer->getAssistant();
+        $data['district_secretary'] = $this->customer->getDistrict();
+        
         $this->load->model('tool/image');
 
         $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
@@ -326,15 +349,6 @@ protected function getList()
         if (!$this->customer->isLogged()) {
             $this->response->redirect($this->url->link('club/login'));
         }
-
-        $data['club_id'] = $this->customer->getId();
-        $data['club_name'] = $this->customer->getFirstName();
-        $data['date'] = $this->customer->getDate();
-        $data['mobile'] = $this->customer->getMobile();
-        $data['email'] = $this->customer->getEmail();
-        $data['president'] = $this->customer->getPresident();
-        $data['assistant_governor'] = $this->customer->getAssistant();
-        $data['district_secretary'] = $this->customer->getDistrict();
 
         $data['continue'] = $this->url->link('common/home');
         $data['add_project'] = $this->url->link('club/project/add');
@@ -351,5 +365,89 @@ protected function getList()
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('club/project_form', $data));
+    }
+    public function view() {
+
+        $this->load->model('club/project');
+
+        $data['club_id'] = $this->customer->getId();
+        $data['club_name'] = $this->customer->getFirstName();
+        $data['date'] = $this->customer->getDate();
+        $data['mobile'] = $this->customer->getMobile();
+        $data['email'] = $this->customer->getEmail();
+        $data['image'] = $this->customer->getImage();
+        $data['president'] = $this->customer->getPresident();
+        $data['assistant_governor'] = $this->customer->getAssistant();
+        $data['district_secretary'] = $this->customer->getDistrict();
+        
+        $this->load->model('tool/image');
+
+        $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
+
+        if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
+            $data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        } else {
+            $data['thumb'] = $data['placeholder'];
+        }
+		
+
+        $this->load->language('club/project');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $data['breadcrumbs'] = array();
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/home')
+        );
+
+        $data['breadcrumbs'][] = array(
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('club/project')
+        );
+
+        $data['cancel'] = $this->url->link('club/project');
+        $data['continue'] = $this->url->link('common/home');
+        $data['add_member'] = $this->url->link('club/member/add');
+        $data['dashboard'] = $this->url->link('club/dashboard');
+        $data['project'] = $this->url->link('club/project');
+        $data['trf'] = $this->url->link('club/trf');
+        $data['member'] = $this->url->link('club/member');
+        $data['profile'] = $this->url->link('club/profile');
+        $data['logout'] = $this->url->link('club/logout');
+
+        if (!$this->customer->isLogged()) {
+            $this->response->redirect($this->url->link('club/login'));
+        }
+
+        $this->load->model('club/project');
+
+        if (isset($this->request->get['project_id'])) {
+
+            $results = $this->model_club_project->getProject($this->request->get['project_id']);
+            echo '<pre>';
+            print_r($results); exit;
+            // $data['results'] = $this->model_club_project->getProject($this->request->get['project_id']);
+
+            // $data['result_images'] = $this->model_club_project->getProjectByImages($this->request->get['project_id']);
+            
+            // $result_category = $this->model_club_project->getProjectByCategories($this->request->get['project_id']);
+
+
+            // foreach ($result_category as $cat) {
+            //     $data['categoires'][] = array(
+            //         'category_id'    => $cat['category_id'],
+            //         'name'         => $cat['name']
+            //     );
+            // }
+            
+        }
+         
+        $data['header'] = $this->load->controller('common/header');
+        $data['nav'] = $this->load->controller('common/nav');
+        $data['footer'] = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->load->view('club/view_project', $data));
     }
 }

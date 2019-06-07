@@ -51,12 +51,7 @@ class ModelClubProject extends PT_Model {
     //     $this->cache->delete('club');
     // }
 
-    // public function getMember($member_id)
-    // {
-    //     $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "member WHERE member_id = '" . (int)$member_id . "'");
-
-    //     return $query->row;
-    // }
+    
      public function getProjectById($club_id)
     {
         $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "projects WHERE club_id = '" . (int)$club_id . "' AND status='1'");
@@ -64,12 +59,38 @@ class ModelClubProject extends PT_Model {
         return $query->rows;
     }
 
+    public function getProject($project_id)
+    {
+        
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "projects p LEFT JOIN " . DB_PREFIX . "project_image pi ON (p.project_id = pi.project_id) WHERE p.project_id = '" . (int)$project_id . "'");
+        return $query->rows;
+    }
+
+    // public function getProject($project_id)
+    // {
+        
+    //     $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "projects WHERE project_id = '" . (int)$project_id . "' AND status='1'");
+    //     return $query->row;
+    // }
     
+    // public function getProjectByImages($project_id)
+    // {
+        
+    //     $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "project_image WHERE project_id = '" . (int)$project_id . "'");
+    //     return $query->rows;
+    // }
+
+    // public function getProjectByCategories($project_id)
+    // {
+        
+    //     $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "category c LEFT JOIN " . DB_PREFIX . "project_to_category pc ON (c.category_id = pc.category_id)");
+    //     return $query->rows;
+    // }
     //  public function getTotalProject($club_id)
     // {
-    //     $query = $this->db->query("SELECT DISTINCT SUM(amount_usd) as totaltrf FROM " . DB_PREFIX . "trf WHERE club_id = '" . (int)$club_id . "'");
+    //     $query = $this->db->query("SELECT DISTINCT SUM(amount_usd) as total FROM " . DB_PREFIX . "trf WHERE club_id = '" . (int)$club_id . "'");
 
-    //     return $query->row;
+    //     return $query->row['total'];
     // }
     // public function getMembers()
     // {
