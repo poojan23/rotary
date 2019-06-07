@@ -1,11 +1,10 @@
 <?php
 
-class ControllerCatalogClub extends PT_Controller
-{
+class ControllerCatalogClub extends PT_Controller {
+
     private $error = array();
 
-    public function index()
-    {
+    public function index() {
         $this->load->language('catalog/club');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -15,8 +14,7 @@ class ControllerCatalogClub extends PT_Controller
         $this->getList();
     }
 
-    public function add()
-    {
+    public function add() {
         $this->load->language('catalog/club');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -34,8 +32,7 @@ class ControllerCatalogClub extends PT_Controller
         $this->getForm();
     }
 
-    public function edit()
-    {
+    public function edit() {
         $this->load->language('catalog/club');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -53,8 +50,7 @@ class ControllerCatalogClub extends PT_Controller
         $this->getForm();
     }
 
-    public function delete()
-    {
+    public function delete() {
         $this->load->language('catalog/club');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -74,8 +70,7 @@ class ControllerCatalogClub extends PT_Controller
         $this->getList();
     }
 
-    protected function getList()
-    {
+    protected function getList() {
         $this->document->addStyle("view/dist/plugins/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css");
         $this->document->addStyle("view/dist/plugins/DataTables/Buttons-1.5.6/css/buttons.bootstrap4.min.css");
         $this->document->addStyle("view/dist/plugins/DataTables/FixedHeader-3.1.4/css/fixedHeader.bootstrap4.min.css");
@@ -98,13 +93,13 @@ class ControllerCatalogClub extends PT_Controller
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('text_home'),
-            'href'  => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
         );
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token'])
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token'])
         );
 
         $data['add'] = $this->url->link('catalog/club/add', 'user_token=' . $this->session->data['user_token']);
@@ -116,18 +111,18 @@ class ControllerCatalogClub extends PT_Controller
 
         foreach ($results as $result) {
             $data['clubs'][] = array(
-                'club_id'       => $result['club_id'],
-                'date'          => $result['date'],
-                'name'          => $result['club_name'],
-                'president'     => $result['president'],
-                'secretary'     => $result['district_secretary'],
-                'governor'      => $result['assistant_governor'],
-                'password'      => $result['password'],
-                'website'       => $result['website'],
-                'mobile'        => $result['mobile'],
-                'email'         => $result['email'],
-                'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-                'edit'          => $this->url->link('catalog/club/edit', 'user_token=' . $this->session->data['user_token'] . '&club_id=' . $result['club_id'])
+                'club_id' => $result['club_id'],
+                'date' => $result['date'],
+                'name' => $result['club_name'],
+                'president' => $result['president'],
+                'secretary' => $result['district_secretary'],
+                'governor' => $result['assistant_governor'],
+                'password' => $result['password'],
+                'website' => $result['website'],
+                'mobile' => $result['mobile'],
+                'email' => $result['email'],
+                'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
+                'edit' => $this->url->link('catalog/club/edit', 'user_token=' . $this->session->data['user_token'] . '&club_id=' . $result['club_id'])
             );
         }
 
@@ -146,9 +141,17 @@ class ControllerCatalogClub extends PT_Controller
         }
 
         if (isset($this->request->post['selected'])) {
-            $data['selected'] = (array)$this->request->post['selected'];
+            $data['selected'] = (array) $this->request->post['selected'];
         } else {
             $data['selected'] = array();
+        }
+
+        $this->load->model('user/user');
+
+        $user_info = $this->model_user_user->getUser($this->user->getId());
+
+        if ($user_info) {
+            $data['user_group'] = $user_info['user_group'];
         }
 
         $data['header'] = $this->load->controller('common/header');
@@ -158,13 +161,12 @@ class ControllerCatalogClub extends PT_Controller
         $this->response->setOutput($this->load->view('catalog/club_list', $data));
     }
 
-    protected function getForm()
-    {
+    protected function getForm() {
         $this->document->addStyle("view/dist/plugins/iCheck/all.css");
         $this->document->addScript("view/dist/plugins/ckeditor/ckeditor.js");
         $this->document->addScript("view/dist/plugins/ckeditor/adapters/jquery.js");
         $this->document->addScript("view/dist/plugins/iCheck/icheck.min.js");
-        
+
         $data['text_form'] = !isset($this->request->get['club_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
         if (isset($this->error['warning'])) {
@@ -236,26 +238,26 @@ class ControllerCatalogClub extends PT_Controller
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('text_home'),
-            'href'  => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
+            'text' => $this->language->get('text_home'),
+            'href' => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
         );
 
         $data['breadcrumbs'][] = array(
-            'text'  => $this->language->get('heading_title'),
-            'href'  => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token'])
+            'text' => $this->language->get('heading_title'),
+            'href' => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token'])
         );
 
         if (!isset($this->request->get['club_id'])) {
             $data['action'] = $this->url->link('catalog/club/add', 'user_token=' . $this->session->data['user_token']);
             $data['breadcrumbs'][] = array(
-                'text'  => $this->language->get('text_add'),
-                'href'  => $this->url->link('catalog/club/add', 'user_token=' . $this->session->data['user_token'])
+                'text' => $this->language->get('text_add'),
+                'href' => $this->url->link('catalog/club/add', 'user_token=' . $this->session->data['user_token'])
             );
         } else {
             $data['action'] = $this->url->link('catalog/club/edit', 'user_token=' . $this->session->data['user_token'] . '&club_id=' . $this->request->get['club_id']);
             $data['breadcrumbs'][] = array(
-                'text'  => $this->language->get('text_edit'),
-                'href'  => $this->url->link('catalog/club/edit', 'user_token=' . $this->session->data['user_token'])
+                'text' => $this->language->get('text_edit'),
+                'href' => $this->url->link('catalog/club/edit', 'user_token=' . $this->session->data['user_token'])
             );
         }
 
@@ -264,7 +266,7 @@ class ControllerCatalogClub extends PT_Controller
         if (isset($this->request->get['club_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $club_info = $this->model_catalog_club->getClub($this->request->get['club_id']);
         }
-        
+
         if (isset($this->request->post['name'])) {
             $data['name'] = $this->request->post['name'];
         } elseif (!empty($club_info)) {
@@ -272,7 +274,7 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['name'] = '';
         }
-        
+
         if (isset($this->request->post['austin_governor_id'])) {
             $data['austin_governor_id'] = $this->request->post['austin_governor_id'];
         } elseif (!empty($club_info)) {
@@ -280,11 +282,11 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['austin_governor_id'] = '';
         }
-        
+
         $this->load->model('catalog/austin_governor');
-        
+
         $data['austin_governors'] = $this->model_catalog_austin_governor->getAustinGovernors();
-        
+
         if (isset($this->request->post['secretary'])) {
             $data['secretary'] = $this->request->post['secretary'];
         } elseif (!empty($club_info)) {
@@ -292,7 +294,7 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['secretary'] = '';
         }
-        
+
         if (isset($this->request->post['governor'])) {
             $data['governor'] = $this->request->post['governor'];
         } elseif (!empty($club_info)) {
@@ -300,7 +302,7 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['governor'] = '';
         }
-        
+
         if (isset($this->request->post['date'])) {
             $data['date'] = $this->request->post['date'];
         } elseif (!empty($club_info)) {
@@ -308,7 +310,7 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['date'] = '';
         }
-        
+
         if (isset($this->request->post['president'])) {
             $data['president'] = $this->request->post['president'];
         } elseif (!empty($club_info)) {
@@ -316,7 +318,7 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['president'] = '';
         }
-        
+
         if (isset($this->request->post['president'])) {
             $data['president'] = $this->request->post['president'];
         } elseif (!empty($club_info)) {
@@ -324,7 +326,7 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['president'] = '';
         }
-        
+
         if (isset($this->request->post['mobile'])) {
             $data['mobile'] = $this->request->post['mobile'];
         } elseif (!empty($club_info)) {
@@ -332,7 +334,7 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['mobile'] = '';
         }
-        
+
         if (isset($this->request->post['email'])) {
             $data['email'] = $this->request->post['email'];
         } elseif (!empty($club_info)) {
@@ -340,7 +342,7 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['email'] = '';
         }
-        
+
         if (isset($this->request->post['website'])) {
             $data['website'] = $this->request->post['website'];
         } elseif (!empty($club_info)) {
@@ -348,7 +350,7 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['website'] = '';
         }
-        
+
         if (isset($this->request->post['password'])) {
             $data['password'] = $this->request->post['password'];
         } else {
@@ -356,7 +358,7 @@ class ControllerCatalogClub extends PT_Controller
         }
 
         $this->load->model('tool/image');
-             
+
         if (isset($this->request->post['image'])) {
             $data['image'] = $this->request->post['image'];
         } elseif (!empty($club_info)) {
@@ -364,7 +366,7 @@ class ControllerCatalogClub extends PT_Controller
         } else {
             $data['image'] = '';
         }
-        
+
         $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
 
         if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
@@ -388,8 +390,7 @@ class ControllerCatalogClub extends PT_Controller
         $this->response->setOutput($this->load->view('catalog/club_form', $data));
     }
 
-    protected function validateForm()
-    {
+    protected function validateForm() {
         if (!$this->user->hasPermission('modify', 'catalog/club')) {
             $this->error['warning'] = $this->language->get('error_permission');
         }
@@ -409,12 +410,12 @@ class ControllerCatalogClub extends PT_Controller
         if ((utf8_strlen(trim($this->request->post['president'])) < 1) || (utf8_strlen(trim($this->request->post['president'])) > 32)) {
             $this->error['president'] = $this->language->get('error_president');
         }
-        
+
 
         if ((utf8_strlen(trim($this->request->post['mobile'])) < 1) || (utf8_strlen(trim($this->request->post['mobile'])) > 11)) {
             $this->error['mobile'] = $this->language->get('error_mobile');
         }
-        
+
         if ((utf8_strlen($this->request->post['email']) > 96) || !filter_var($this->request->post['email'], FILTER_VALIDATE_EMAIL)) {
             $this->error['email'] = $this->language->get('error_email');
         }
@@ -425,15 +426,14 @@ class ControllerCatalogClub extends PT_Controller
                 $this->error['password'] = $this->language->get('error_password');
             }
         }
-        
+
         if ((utf8_strlen(trim($this->request->post['website'])) < 1) || (utf8_strlen(trim($this->request->post['website'])) > 32)) {
             $this->error['website'] = $this->language->get('error_website');
         }
         return !$this->error;
     }
 
-    protected function validateDelete()
-    {
+    protected function validateDelete() {
         if (!$this->user->hasPermission('delete', 'catalog/club')) {
             $this->error['warning'] = $this->language->get('error_delete');
         }
@@ -446,4 +446,5 @@ class ControllerCatalogClub extends PT_Controller
 
         return !$this->error;
     }
+
 }

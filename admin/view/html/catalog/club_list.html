@@ -1,5 +1,6 @@
 <?php echo $header; ?>
 <?php echo $nav; ?>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -55,11 +56,13 @@
                 <?php endif; ?>
 
                 <div class="clearfix">
+                     <?php if($user_group =='Admin') : ?>
                     <a href="<?php echo $add; ?>" data-toggle="tooltip" title="<?php echo $button_add; ?>"
                         class="btn btn-primary btn-bold"><i class="fa fa-plus"></i></a>
                     <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>"
                         class="btn btn-danger btn-bold" onclick="confirm('<?php echo $text_confirm; ?>') ? $('#form-club-group').submit() :
                         false;"><i class="fa fa-trash-alt"></i></button>
+                        <?php endif; ?>
                     <div class="float-right tableTools-container"></div>
                 </div>
             </div>
@@ -136,9 +139,17 @@
                                             <td class="text-left">
                                                 <?php echo $club['website']; ?>
                                             </td>
-                                            <td class="text-left"><a href="<?php echo $club['edit']; ?>"
-                                                    data-toggle="tooltip" title="<?php echo $button_edit; ?>"
-                                                    class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a></td>
+                                            <td class="text-left">
+                                                <?php if($user_group =='Austin Governor') : ?>
+                                                <a href="<?php echo $club['edit']; ?>"
+                                                   data-toggle="tooltip" title="<?php echo $button_view; ?>"
+                                                   class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                                <?php else : ?>
+                                                <a href="<?php echo $club['edit']; ?>"
+                                                   data-toggle="tooltip" title="<?php echo $button_edit; ?>"
+                                                   class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a>
+                                                <?php endif ; ?>
+                                            </td>
                                         </tr>
                                         <?php endforeach; ?>
                                         <?php else : ?>

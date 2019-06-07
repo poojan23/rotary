@@ -33,7 +33,7 @@ class ModelCatalogClub extends PT_Model
     }
     public function getClubs()
     {
-        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "club WHERE status = '1'");
+        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "club WHERE status = '1' AND austin_governor_id = '" . $this->session->data['user_id'] . "'");
 
         return $query->rows;
     }
