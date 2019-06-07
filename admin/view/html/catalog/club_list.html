@@ -56,7 +56,7 @@
                 <?php endif; ?>
 
                 <div class="clearfix">
-                     <?php if($user_group =='Admin') : ?>
+                     <?php if($user_group =='Administrator') : ?>
                     <a href="<?php echo $add; ?>" data-toggle="tooltip" title="<?php echo $button_add; ?>"
                         class="btn btn-primary btn-bold"><i class="fa fa-plus"></i></a>
                     <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>"
@@ -141,7 +141,7 @@
                                             </td>
                                             <td class="text-left">
                                                 <?php if($user_group =='Austin Governor') : ?>
-                                                <a href="<?php echo $club['edit']; ?>"
+                                                <a href="<?php echo $club['view']; ?>"
                                                    data-toggle="tooltip" title="<?php echo $button_view; ?>"
                                                    class="btn btn-primary"><i class="fa fa-eye"></i></a>
                                                 <?php else : ?>

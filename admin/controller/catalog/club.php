@@ -49,6 +49,15 @@ class ControllerCatalogClub extends PT_Controller {
 
         $this->getForm();
     }
+    
+    public function view() {
+
+        $data['header'] = $this->load->controller('common/header');
+        $data['nav'] = $this->load->controller('common/nav');
+        $data['footer'] = $this->load->controller('common/footer');
+
+        $this->response->setOutput($this->load->view('catalog/approve_list', $data));
+    }
 
     public function delete() {
         $this->load->language('catalog/club');
@@ -122,7 +131,8 @@ class ControllerCatalogClub extends PT_Controller {
                 'mobile' => $result['mobile'],
                 'email' => $result['email'],
                 'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-                'edit' => $this->url->link('catalog/club/edit', 'user_token=' . $this->session->data['user_token'] . '&club_id=' . $result['club_id'])
+                'edit' => $this->url->link('catalog/club/edit', 'user_token=' . $this->session->data['user_token'] . '&club_id=' . $result['club_id']),
+                'view' => $this->url->link('catalog/governor_approve/getList', 'user_token=' . $this->session->data['user_token'] . '&club_id=' . $result['club_id'])
             );
         }
 
