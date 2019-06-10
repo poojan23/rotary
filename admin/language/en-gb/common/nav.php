@@ -76,3 +76,4 @@ $_['text_center']               = "Rotary Center's";
 $_['text_governor']             = "Past District Governor";
 $_['text_austin_governor']      = "Austin Governor";
 $_['text_category']             = "Category";
+$_['text_gml']                  = "Upload GML";

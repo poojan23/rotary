@@ -86,6 +86,14 @@ class ControllerCommonNav extends PT_Controller
                 );
             }
             
+            if ($this->user->hasPermission('access', 'catalog/gml')) {
+                $catalog[] = array(
+                    'name'      => $this->language->get('text_gml'),
+                    'href'      => $this->url->link('catalog/gml', 'user_token=' . $this->session->data['user_token']),
+                    'children'  => array()
+                );
+            }
+            
             if ($this->user->hasPermission('access', 'catalog/center')) {
                 $catalog[] = array(
                     'name'      => $this->language->get('text_center'),
