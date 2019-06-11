@@ -54,7 +54,7 @@ class ControllerClubDashboard extends PT_Controller
 
         // page menu
         $data['dashboard'] = $this->url->link('club/dashboard');
-        $data['add_data'] = $this->url->link('club/dashboard');
+        $data['add_data'] = $this->url->link('club/add_data');
         $data['project'] = $this->url->link('club/project');
         $data['trf'] = $this->url->link('club/trf');
         $data['member'] = $this->url->link('club/member');

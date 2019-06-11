@@ -24,6 +24,7 @@ class ModelClubAddData extends PT_Model {
         return $query;
     }
 
+
      public function addProject($data)
     {
 
@@ -33,6 +34,7 @@ class ModelClubAddData extends PT_Model {
         
         $project_id = $this->db->lastInsertId();
         $i=1;
+        
         foreach ($this->request->post['image'] as $value) {
             $this->db->query("INSERT INTO " . DB_PREFIX . "project_image SET project_id = '" . (int)$project_id . "', sort_order = '" . (int)$i++ . "', image = '" . $this->db->escape((string)$value) ."'");
         }
