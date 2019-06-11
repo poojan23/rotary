@@ -134,6 +134,7 @@ protected function getList()
 
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');
+        $data['navpage'] = $this->load->controller('common/navpage');
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('club/project', $data));
@@ -249,7 +250,7 @@ protected function getList()
         $data['cancel'] = $this->url->link('club/project');
 
         if (isset($this->request->get['project_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-            $project_info = $this->model_club_project->getMember($this->request->get['project_id']);
+            $project_info = $this->model_club_project->getProject($this->request->get['project_id']);
         }
         
         if (isset($this->request->post['month'])) {
@@ -362,6 +363,7 @@ protected function getList()
 
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');
+        $data['navpage'] = $this->load->controller('common/navpage');
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('club/project_form', $data));
@@ -425,27 +427,56 @@ protected function getList()
 
         if (isset($this->request->get['project_id'])) {
 
+            $data['projects'] =array();
+
             $results = $this->model_club_project->getProject($this->request->get['project_id']);
-            echo '<pre>';
-            print_r($results); exit;
-            // $data['results'] = $this->model_club_project->getProject($this->request->get['project_id']);
 
-            // $data['result_images'] = $this->model_club_project->getProjectByImages($this->request->get['project_id']);
+            foreach ($results as $result) {
+                    $data['projects'][] = array(
+                    'date' => $result['date'],
+                    'title'    => $result['title'],
+                    'description'    => $result['description'],
+                    'amount'    => $result['amount'],
+                    'no_of_beneficiary'    => $result['no_of_beneficiary'],
+                    'points'    => $result['points'],
+                );
+            }
+
+            #category 
+            $data['categoires'] = array();
+
+            $results = $this->model_club_project->getCategoryByProjectId($this->request->get['project_id']);
+
+            foreach ($results as $result) {
+                $data['categoires'][] = array(
+                    'category_id'    => $result['category_id'],
+                    'name'         => $result['name']
+                );
+            }
+
+            #category 
+            $data['images'] = array();
+
+            $results = $this->model_club_project->getImageByProjectId($this->request->get['project_id']);
+
+            foreach ($results as $result) {
+
+                if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
+                    $data['thumb2'] = $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
+                } else {
+                    $data['thumb2'] = $data['placeholder'];
+                }
             
-            // $result_category = $this->model_club_project->getProjectByCategories($this->request->get['project_id']);
-
-
-            // foreach ($result_category as $cat) {
-            //     $data['categoires'][] = array(
-            //         'category_id'    => $cat['category_id'],
-            //         'name'         => $cat['name']
-            //     );
-            // }
-            
+                $data['images'][] = array(
+                    'image_id'    => $result['project_image_id'],
+                    'thumb2'         => $data['thumb2']
+                );
+            }
         }
          
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');
+        $data['navpage'] = $this->load->controller('common/navpage');
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('club/view_project', $data));

@@ -24,57 +24,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-3 mt-20">
-                                <div class="club-login-details">
-                                    <div class="page-title">Club Details</div>
-                                    <p class="image-sep"><img src="<?php echo $thumb; ?>"></p>
-                                    <hr class="featurette-divider">
-                                    <p class="seprate-p">Rotary Club of
-                                        <b><?php echo $club_name; ?></b></p>
-
-                                    <p class="combine-p"><span><i class="fa fa-calendar-o"></i>
-                                            <?php echo $date; ?></span><span class="pull-right"><i
-                                                class="fa fa-trophy"></i> 250</span></p>
-                                    <p class="combine-p"><span><i class="fa fa-phone"></i> <a
-                                                href="tel:<?php echo $mobile; ?>">
-                                                <?php echo $mobile; ?></a></span></p>
-                                    <p class="combine-p"><span><i class="fa fa-envelope-o"></i><a
-                                                href="mailto:<?php echo $email; ?>">
-                                                <?php echo $email; ?></a></span>
-                                    </p>
-                                    <hr class="featurette-divider">
-                                    <p class="seprate-p"><b>President</b> - <?php echo $president; ?></p>
-                                    <p class="seprate-p"><b>Ass. Governor</b> - <?php echo $assistant_governor; ?></p>
-                                    <p class="seprate-p"><b>Dist. Secretary</b> - <?php echo $district_secretary; ?></p>
-                                </div>
-                                <div id="mobile-menu">
-                                    <a href="javascript:;" class="bars"><i class="fa fa-bars mobile-bars"></i></a>
-                                    <div class="mobile-drop">
-                                        <ul id="page-menu">
-                                            <li>
-                                                <a href="<?php echo $dashboard; ?>"><?php echo $text_dashboard; ?></a>
-                                            </li>
-                                            <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
-                                            <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
-                                            <li><a href="<?php echo $project; ?>"
-                                                    class="active-menu"><?php echo $text_project; ?></a></li>
-                                            <li><a href="<?php echo $profile; ?>"><?php echo $text_profile; ?></a></li>
-                                            <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="desktop-drop">
-                                    <ul id="page-menu">
-                                        <li>
-                                            <a href="<?php echo $dashboard; ?>"><?php echo $text_dashboard; ?></a>
-                                        </li>
-                                        <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
-                                        <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
-                                        <li><a href="<?php echo $project; ?>"
-                                                class="active-menu"><?php echo $text_project; ?></a></li>
-                                        <li><a href="<?php echo $profile; ?>"><?php echo $text_profile; ?></a></li>
-                                        <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
-                                    </ul>
-                                </div>
+                                <?php echo  $navpage; ?>
                             </div>
                             <div class="col-md-9 mt-20">
                                 <div class="about-page-content">
@@ -88,28 +38,23 @@
                                         <form action="<?php echo $action; ?>" method="post"
                                             enctype="multipart/form-data">
                                             <div class="form-group row">
-                                                <label for="month" class="col-sm-3 col-form-label">Month :</label>
                                                 <div class="col-sm-3">
+                                                    <label for="month">Month </label>
                                                     <?php
-                                                        $timestamp = time();
-
-                                                    // determine the selected month, day, and year
+                                                    $timestamp = time();
                                                     $selected_month = date('n', $timestamp);
                                                     $selected_day = date('j', $timestamp);
                                                     $selected_year = date('Y', $timestamp);
-
-                                                    // now, create the drop-down for months
                                                     $month_html = '<select name="month" id="month" class="form-control">';
                                                     for ($x = 1; $x < 13; $x++) {
                                                         $month_html.= '<option value='.$x.($selected_month == $x ? ' selected=true' : '').'>'.date("F", mktime(0, 0, 0, $x, 1, $selected_year)).'</option>';
                                                     }
                                                     $month_html.= '</select>';
-                                                    // output
                                                     print $month_html;
                                                     ?>
                                                 </div>
-                                                <label for="year" class="col-sm-3 col-form-label">Year :</label>
                                                 <div class="col-sm-3">
+                                                    <label for="year">Year </label>
                                                     <?php
                                                     $year_html = '<select name="year" id="year" class="form-control">';
                                                     $previ_year = date("Y",strtotime("-1 year"));    
@@ -119,51 +64,35 @@
                                                         $year_html.= '<option value='.$x.($selected_year == $x ? ' selected=true' : '').'>'.$x.'</option>';
                                                     }
                                                     $year_html.= '</select>';
-                                                    // output
                                                     print $year_html;
                                                     ?>
                                                 </div>
                                             </div>
                                             <hr class="featurette-divider">
                                             <div class="form-group row">
-                                                <label for="title" class="col-sm-3 col-form-label">Projects
-                                                    Title:</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-3">
+                                                    <label for="title">Projects
+                                                        Title</label>
                                                     <input type="text" class="form-control" name="title" id="title">
                                                 </div>
-                                            </div>
-                                            <hr class="featurette-divider">
-                                            <div class="form-group row">
-                                                <label for="description" class="col-sm-3 col-form-label">Description
-                                                    :</label>
-                                                <div class="col-sm-9">
-                                                    <textarea name="description" id="description" class="form-control"
-                                                        placeholder="Need to have only simple text input"></textarea>
-                                                </div>
-                                            </div>
-                                            <hr class="featurette-divider">
-                                            <div class="form-group row">
-                                                <label for="amount" class="col-sm-3 col-form-label">Project Cost
-                                                    (&#8377;)
-                                                    :</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-3">
+                                                    <label for="amount">Project Cost
+                                                        (&#8377;)
+                                                    </label>
                                                     <input type="number" class="form-control" name="amount" id="amount">
                                                 </div>
-                                            </div>
-                                            <hr class="featurette-divider">
-                                            <div class="form-group row">
-                                                <label for="no_of_beneficiary" class="col-sm-3 col-form-label">Number of
-                                                    beneficiaries
-                                                    :</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-3">
+                                                    <label for="no_of_beneficiary">Number of
+                                                        beneficiaries
+                                                    </label>
                                                     <input type="number" class="form-control" name="no_of_beneficiary"
                                                         id="no_of_beneficiary">
                                                 </div>
                                             </div>
                                             <hr class="featurette-divider">
                                             <div class="form-group row">
-                                                <label for="image" class="col-sm-3 col-form-label">Image:</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-6">
+                                                    <label for="image">Image</label>
                                                     <div class="img-section">
                                                         <div class="image-upload">
                                                             <a class="img-thumbnail" id="thumb-img1">
@@ -184,14 +113,22 @@
                                                     <small class="text-muted">Need high resolution images, maximum two
                                                         allowed</small>
                                                 </div>
+                                                <div class="col-sm-6">
+                                                    <label for="description">Description
+                                                    </label>
+                                                    <textarea name="description" id="description" class="form-control"
+                                                        rows="5"></textarea>
+                                                    <small class="text-muted">Need to have only simple text
+                                                        input</small>
+                                                </div>
                                             </div>
                                             <hr class="featurette-divider">
                                             <div class="form-group row">
-                                                <label for="category" class="col-sm-3 col-form-label">Category :</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-12">
+                                                    <label for="category">Category</label>
                                                     <div class="row">
                                                         <?php foreach($categoires as $category): ?>
-                                                        <div class="col-sm-6">
+                                                        <div class="col-sm-4">
                                                             <div class="checkbox checkbox-primary">
                                                                 <input id="category" name="category[]"
                                                                     value="<?php echo $category['category_id']; ?>"
@@ -207,22 +144,23 @@
                                             </div>
                                             <hr class="featurette-divider">
                                             <div class="form-group row">
-                                                <label for="points" class="col-sm-3 col-form-label">Citation points
-                                                    accrued
-                                                    :</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-4">
+                                                    <label for="points">Citation points
+                                                        accrued
+                                                    </label>
                                                     <input type="number" class="form-control" id="points" name="points">
                                                 </div>
                                             </div>
                                             <hr class="featurette-divider">
-
-                                            <input type="hidden" name="club_id" id="club_id"
-                                                value="<?php echo $club_id; ?>">
                                             <div class="form-group row">
-                                                <!-- <label for="" class="col-sm-6 pull-left">
-                                                    Total Projects : <?php echo round(implode(" ",$total_project)); ?>
-                                                </label> -->
-                                                <button type="submit" class="btn btn-sav mb-2">Save</button>
+                                                <div class="col-sm-12">
+                                                    <input type="hidden" name="club_id" id="club_id"
+                                                        value="<?php echo $club_id; ?>">
+                                                    <label for="" class="col-sm-6">
+                                                        <!-- Total Projects : <?php echo round($total_project); ?> -->
+                                                    </label>
+                                                    <button type="submit" class="btn btn-sav mb-2">Save</button>
+                                                </div>
                                             </div>
                                             <hr class="featurette-divider">
                                         </form>

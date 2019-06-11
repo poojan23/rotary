@@ -24,59 +24,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="col-md-3 mt-20">
-                                <div class="club-login-details">
-                                    <div class="page-title">Club Details</div>
-                                    <p class="seprate-p"><b>Rotary Club of
-                                            <?php echo $club_name; ?></b></p>
-                                    <p class="combine-p"><span><i class="fa fa-calendar-o"></i>
-                                            <?php echo $date; ?></span><span class="pull-right"><i
-                                                class="fa fa-trophy"></i> 250</span></p>
-                                    <p class="combine-p"><span><i class="fa fa-mobile"></i> <a
-                                                href="tel:<?php echo $mobile; ?>">
-                                                <?php echo $mobile; ?></a></span></p>
-                                    <p class="combine-p"><span><i class="fa fa-envelope-o"></i><a
-                                                href="mailto:<?php echo $email; ?>">
-                                                <?php echo $email; ?></a></span>
-                                    </p>
-                                    <hr class="featurette-divider">
-                                    <p class="seprate-p"><b>President</b> - <?php echo $president; ?></p>
-                                    <p class="seprate-p"><b>Ass. Governor</b> - <?php echo $assistant_governor; ?></p>
-                                    <p class="seprate-p"><b>Dist. Secretary</b> - <?php echo $district_secretary; ?></p>
-                                </div>
-                                <div id="mobile-menu">
-                                    <a href="javascript:;" class="bars"><i class="fa fa-bars mobile-bars"></i></a>
-                                    <div class="mobile-drop">
-                                        <ul id="page-menu">
-                                            <li>
-                                                <a href="<?php echo $dashboard; ?>"><?php echo $text_dashboard; ?></a>
-                                            </li>
-                                            <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
-                                            <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
-                                            <li><a href="<?php echo $project; ?>"><?php echo $text_project; ?></a></li>
-                                            <li><a href="<?php echo $profile; ?>"
-                                                    class="active-menu"><?php echo $text_profile; ?></a></li>
-                                            <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="desktop-drop">
-                                    <ul id="page-menu">
-                                        <li>
-                                            <a href="<?php echo $dashboard; ?>"><?php echo $text_dashboard; ?></a>
-                                        </li>
-                                        <li><a href="<?php echo $member; ?>"><?php echo $text_member; ?></a></li>
-                                        <li><a href="<?php echo $trf; ?>"><?php echo $text_trf; ?></a></li>
-                                        <li><a href="<?php echo $project; ?>"><?php echo $text_project; ?></a></li>
-                                        <li><a href="<?php echo $profile; ?>"
-                                                class="active-menu"><?php echo $text_profile; ?></a></li>
-                                        <li><a href="<?php echo $logout; ?>"><?php echo $text_logout; ?></a></li>
-                                    </ul>
-                                </div>
+                                <?php echo  $navpage; ?>
                             </div>
                             <div class="col-md-9 mt-20">
                                 <div class="about-page-content">
                                     <div class="page-title">
-                                        Profile Infomation
+                                        Edit Profile Infomation
                                     </div>
                                     <div class="club-page-content">
                                         <!-- <?php if($success) : ?>
@@ -93,12 +46,13 @@
                                             <button type="button" class="close" data-dismiss="alert">&times;</button>
                                         </div>
                                         <?php endif; ?> -->
+
                                         <form action="<?php echo $action; ?>" method="post"
                                             enctype="multipart/form-data">
                                             <div class="form-group row">
-                                                <label for="inputwebsite" class="col-sm-3 col-form-label">Website
-                                                    :</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-4">
+                                                    <label for="inputwebsite">Website
+                                                        :</label>
                                                     <input type="text" class="form-control" id="website" name="website"
                                                         value="<?php echo $website; ?>">
                                                     <?php if($website_err) : ?>
@@ -106,12 +60,9 @@
                                                         <?php echo $website_err; ?></span>
                                                     <?php endif; ?>
                                                 </div>
-                                            </div>
-                                            <hr class="featurette-divider">
-                                            <div class="form-group row">
-                                                <label for="inputmobile" class="col-sm-3 col-form-label">Mobile
-                                                    :</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-4">
+                                                    <label for="inputmobile">Mobile
+                                                        :</label>
                                                     <input type="tel" class="form-control" id="mobile" name="mobile"
                                                         value="<?php echo $mobile; ?>">
                                                     <?php if($mobile_err) : ?>
@@ -122,23 +73,20 @@
                                             </div>
                                             <hr class="featurette-divider">
                                             <div class="form-group row">
-                                                <label for="inputpassword" class="col-sm-3 col-form-label">Password
-                                                    :</label>
-                                                <div class="col-sm-9">
-                                                    <input type="password" class="form-control" id="password"
+                                                <div class="col-sm-4">
+                                                    <label for="inputpassword"">Password
+                                                        :</label>
+                                                    <input type=" password" class="form-control" id="password"
                                                         name="password" value="" placeholder="">
-                                                    <?php if($password_err) : ?>
-                                                    <span class="invalid-tooltip">
-                                                        <?php echo $password_err; ?></span>
-                                                    <?php endif; ?>
+                                                        <?php if($password_err) : ?>
+                                                        <span class="invalid-tooltip">
+                                                            <?php echo $password_err; ?></span>
+                                                        <?php endif; ?>
                                                 </div>
-                                            </div>
-                                            <hr class="featurette-divider">
-                                            <div class="form-group row">
-                                                <label for="inputconfirm" class="col-sm-3 col-form-label">Confirm
-                                                    Password
-                                                    :</label>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-4">
+                                                    <label for="inputconfirm">Confirm
+                                                        Password
+                                                        :</label>
                                                     <input type="password" class="form-control" id="confirm"
                                                         name="confirm" value="" placeholder="">
                                                     <?php if($confirm_err) : ?>
@@ -148,7 +96,12 @@
                                                 </div>
                                             </div>
                                             <hr class="featurette-divider">
-                                            <button type="submit" class="btn btn-sav mb-2">Save</button>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <button type="submit" class="btn btn-sav mb-2">Save</button>
+                                                </div>
+                                            </div>
+                                            <hr class="featurette-divider">
                                         </form>
                                     </div>
                                 </div>

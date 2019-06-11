@@ -54,6 +54,7 @@ class ControllerClubDashboard extends PT_Controller
 
         // page menu
         $data['dashboard'] = $this->url->link('club/dashboard');
+        $data['add_data'] = $this->url->link('club/dashboard');
         $data['project'] = $this->url->link('club/project');
         $data['trf'] = $this->url->link('club/trf');
         $data['member'] = $this->url->link('club/member');
@@ -122,6 +123,7 @@ class ControllerClubDashboard extends PT_Controller
         // include file
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');
+        $data['navpage'] = $this->load->controller('common/navpage');
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('club/dashboard', $data));

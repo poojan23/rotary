@@ -11,6 +11,7 @@ class ControllerClubProfile extends PT_Controller {
             $this->response->redirect($this->url->link('club/login'));
         }
 
+
         $this->getForm();
     }
     public function edit()
@@ -92,6 +93,7 @@ class ControllerClubProfile extends PT_Controller {
             'href' => $this->url->link('club/member/edit')
         );
     
+
         // Get form data
         $profile_info = $this->model_club_profile->getProfile($data['club_id']);
 
@@ -125,14 +127,26 @@ class ControllerClubProfile extends PT_Controller {
         }
 
         # session data
+        
         $data['club_id'] = $this->customer->getId();
         $data['club_name'] = $this->customer->getFirstName();
         $data['date'] = $this->customer->getDate();
         $data['mobile'] = $this->customer->getMobile();
         $data['email'] = $this->customer->getEmail();
+        $data['image'] = $this->customer->getImage();
         $data['president'] = $this->customer->getPresident();
         $data['assistant_governor'] = $this->customer->getAssistant();
         $data['district_secretary'] = $this->customer->getDistrict();
+        
+        $this->load->model('tool/image');
+
+        $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 100, 100);
+
+        if (is_file(DIR_IMAGE . html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'))) {
+            $data['thumb'] = $this->model_tool_image->resize(html_entity_decode($data['image'], ENT_QUOTES, 'UTF-8'), 100, 100);
+        } else {
+            $data['thumb'] = $data['placeholder'];
+        }
 
         # page menu link
         $data['continue'] = $this->url->link('common/home');
@@ -146,6 +160,7 @@ class ControllerClubProfile extends PT_Controller {
 
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');
+        $data['navpage'] = $this->load->controller('common/navpage');
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('club/profile_form', $data));

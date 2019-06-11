@@ -96,6 +96,7 @@ class ControllerClubTrf extends PT_Controller {
 
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');
+        $data['navpage'] = $this->load->controller('common/navpage');
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('club/view_trf', $data));
@@ -194,6 +195,7 @@ class ControllerClubTrf extends PT_Controller {
 
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');
+        $data['navpage'] = $this->load->controller('common/navpage');
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('club/trf', $data));
@@ -369,6 +371,7 @@ class ControllerClubTrf extends PT_Controller {
 
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');
+        $data['navpage'] = $this->load->controller('common/navpage');
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('club/trf_form', $data));

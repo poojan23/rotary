@@ -23,4 +23,5 @@ class ModelInformationInformation extends PT_Model {
         return $query->rows;
     }
 
+    
 }

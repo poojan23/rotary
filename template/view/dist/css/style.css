@@ -1567,8 +1567,8 @@ a.read-btn:hover,a.read-btn:active,a.read-btn:focus {
 }
 .img-pro {
 }
-.galley-pro {
-    margin-bottom: 8px;
+.gallery-mb {
+    margin-bottom: 42px;
 }
 .gallery-section {
     position: relative;
@@ -2441,11 +2441,11 @@ label.login-m {
     margin: 0;
 }
 .col-form-label {
-    text-align: right;
-    margin-top: 13px;
+    /* text-align: right;
+    margin-top: 13px; */
 }
 .club-page-content.login {
-    box-shadow: 1px 1px 1px 1px #eee;
+    box-shadow: 1px 1px 1px 1px #17468f;
 }
 .login-title {
     width: 100%;
@@ -2499,32 +2499,45 @@ p.combine-p a {
     padding: 0;
     margin: 0;
 }
-.image-upload img {
+/* .image-upload img {
     border: 1px solid #eee;
     width: 150px;
     height: 150px;
-}
+} */
+.image-upload img {
+        border: 1px solid #eee;
+        width: 90px;
+        height: 90px;
+    }
 .image-upload label {
     width:22%;
 }
-.image-upload {
+/* .image-upload {
     width: 28%;
     margin-right: 42px;
-}
-/* .card {
-    box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
-}
-.card.image {
-    width: 12rem;
-    margin: 0 12px
-}
-.card-img-top {
-    width: 100%;
-    border-top-left-radius: calc(.25rem - 0);
-    border-top-right-radius: calc(.25rem - 0);
-}
-.upload-img{
-    display: flex;
 } */
+ .image-upload {
+        width: 101px !important;
+        margin-right: 14px;
+    }
+ul.nav.nav-pills li {
+    display: flex !important;
+    width: fit-content;
+    box-shadow: 1px 1px 1px 1px #eee;
+    margin: 2px 3px;
+    justify-content: space-between;
+}
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #17468f !important;
+}
+.club-pill-form {
+    display: block;
+    padding: 20px;
+    box-shadow: 1px 1px 1px 1px #eee;
+}
+.ml-6{
+    margin-left: 6px;
+}
 /*club dashboard page css close*/
 

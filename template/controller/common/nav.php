@@ -50,6 +50,9 @@ class ControllerCommonNav extends PT_Controller
                     'href'         => $this->url->link('information/information', 'path=' . $info['information_group_id'])
                 );
         }
+        // echo '<pre>';
+        // print_r($data['information']); exit;
+
         return $this->load->view('common/nav', $data);
     }
 }
