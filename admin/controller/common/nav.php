@@ -45,6 +45,14 @@ class ControllerCommonNav extends PT_Controller
                     'children'  => array()
                 );
             }
+            
+            if ($this->user->hasPermission('access', 'catalog/exchange_rate')) {
+                $catalog[] = array(
+                    'name'      => $this->language->get('text_exchange_rate'),
+                    'href'      => $this->url->link('catalog/exchange_rate', 'user_token=' . $this->session->data['user_token']),
+                    'children'  => array()
+                );
+            }
                         
             if ($this->user->hasPermission('access', 'catalog/team')) {
                 $catalog[] = array(
