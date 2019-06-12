@@ -20,13 +20,14 @@ class ControllerClubAddData extends PT_Controller
         // points from three tables
         $this->load->model('club/add_data');
         $data['total_point_members'] = $this->model_club_add_data->getMemberPoints($data['club_id']);
+
         $data['total_point_trfs'] = $this->model_club_add_data->getTrfPoints($data['club_id']);
         $data['total_point_projects'] = $this->model_club_add_data->getProjectPoints($data['club_id']);
 
         // exchange rate
         $data['exchange_rate'] = $this->model_club_add_data->getExchangeRate();
 
-        // print_r($data['exchange_rate'] ); exit;
+     
         $this->load->model('tool/image');
 
         $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 90, 90);
@@ -63,7 +64,6 @@ class ControllerClubAddData extends PT_Controller
             );
         }
 
-
         $data['action1'] = $this->url->link('club/add_data/member');
         $data['action2'] = $this->url->link('club/add_data/trf');
         $data['action3'] = $this->url->link('club/add_data/project');
@@ -73,7 +73,7 @@ class ControllerClubAddData extends PT_Controller
 
         $data['continue'] = $this->url->link('common/home');
 
-        // // include file
+        // include file
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');
         $data['navpage'] = $this->load->controller('common/navpage');
@@ -85,8 +85,6 @@ class ControllerClubAddData extends PT_Controller
 
      public function member()
     {
-
-        
         $this->load->language('club/add_data');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -104,7 +102,6 @@ class ControllerClubAddData extends PT_Controller
 
      public function trf()
     {
-
         $this->load->language('club/add_data');
 
         $this->document->setTitle($this->language->get('heading_title'));
@@ -123,7 +120,6 @@ class ControllerClubAddData extends PT_Controller
 
      public function project()
     {
-
         $this->load->language('club/add_data');
 
         $this->document->setTitle($this->language->get('heading_title'));

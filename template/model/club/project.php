@@ -37,7 +37,7 @@ class ModelClubProject extends PT_Model {
     
      public function getProjectById($club_id)
     {
-        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "projects WHERE club_id = '" . (int)$club_id . "' AND status='1'");
+        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "projects WHERE club_id = '" . (int)$club_id . "' AND review = '1'");
 
         return $query->rows;
     }

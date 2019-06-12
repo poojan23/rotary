@@ -115,6 +115,8 @@ class ControllerClubTrf extends PT_Controller {
             'href' => $this->url->link('club/trf')
         );
 
+        $data['cancel'] = $this->url->link('club/dashboard');
+
         $data['add'] = $this->url->link('club/trf/add');
 
         $data['club_id'] = $this->customer->getId();
@@ -136,6 +138,7 @@ class ControllerClubTrf extends PT_Controller {
         } else {
             $data['thumb'] = $data['placeholder'];
         }
+
 
         $data['trfs'] = array();
 
