@@ -17,6 +17,16 @@ class ControllerClubAddData extends PT_Controller
         
         $data['club_id'] = $this->customer->getId();
         
+        // points from three tables
+        $this->load->model('club/add_data');
+        $data['total_point_members'] = $this->model_club_add_data->getMemberPoints($data['club_id']);
+        $data['total_point_trfs'] = $this->model_club_add_data->getTrfPoints($data['club_id']);
+        $data['total_point_projects'] = $this->model_club_add_data->getProjectPoints($data['club_id']);
+
+        // exchange rate
+        $data['exchange_rate'] = $this->model_club_add_data->getExchangeRate();
+
+        // print_r($data['exchange_rate'] ); exit;
         $this->load->model('tool/image');
 
         $data['placeholder'] = $this->model_tool_image->resize('no-image.png', 90, 90);

@@ -33,6 +33,11 @@ class ControllerCommonNavpage extends PT_Controller
             $data['thumb_club'] = $data['placeholder'];
         }
 
+        $this->load->model('club/add_data');
+        $data['total_point_members'] = $this->model_club_add_data->getMemberPoints($data['club_id']);
+        $data['total_point_trfs'] = $this->model_club_add_data->getTrfPoints($data['club_id']);
+        $data['total_point_projects'] = $this->model_club_add_data->getProjectPoints($data['club_id']);
+    
         $data['dashboard'] = $this->url->link('club/dashboard');
         $data['add_data'] = $this->url->link('club/add_data');
         $data['project'] = $this->url->link('club/project');

@@ -23,6 +23,13 @@ class ModelClubDashboard extends PT_Model {
         return $query->row['total'];
     }
 
+    public function getTotalClub($club_id)
+    {
+        $query = $this->db->query("SELECT DISTINCT COUNT(club_id) as total FROM " . DB_PREFIX . "club WHERE parent_id = '" . (int)$club_id . "'");
+
+        return $query->row['total'];
+    }
+
     public function getMemberTable($club_id)
     {
         $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "member WHERE club_id = '" . (int)$club_id . "'  ORDER BY date_added DESC LIMIT 5");

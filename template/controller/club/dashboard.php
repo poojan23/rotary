@@ -65,10 +65,9 @@ class ControllerClubDashboard extends PT_Controller
         $data['trfs'] = $this->model_club_dashboard->getTotalTrf($data['club_id']); 
         $data['projects'] = $this->model_club_dashboard->getTotalProject($data['club_id']); 
         $data['members'] = $this->model_club_dashboard->getTotalMember($data['club_id']); 
+        $data['clubs'] = $this->model_club_dashboard->getTotalClub($data['club_id']); 
 
         //dashboard table data
-        
-        // print_r($data['Members']); exit;
 
 
         $data['TableMembers'] = array();
