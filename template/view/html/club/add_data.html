@@ -1,9 +1,9 @@
 <?php echo $header; ?>
 <style>
-    .image-upload {
+    /* .image-upload {
         width: 101px !important;
         margin-right: 14px;
-    }
+    } */
 
     .btn-sav {
         border: 1px solid #17468f !important;
@@ -24,11 +24,12 @@
         color: #fff;
     }
 
+    /* 
     .image-upload img {
         border: 1px solid #eee;
         width: 90px;
         height: 90px;
-    }
+    } */
 </style>
 <?php echo $nav; ?>
 
@@ -369,7 +370,7 @@
                                                                             <div class="checkbox checkbox-primary">
                                                                                 <input id="category" name="category[]"
                                                                                     value="<?php echo $category['category_id']; ?>"
-                                                                                    type="checkbox">
+                                                                                    type="checkbox" class="category">
                                                                                 <label for="category[]">
                                                                                     <?php echo $category['name']; ?>
                                                                                 </label>
@@ -587,6 +588,7 @@
 
 
                 function addProject() {
+
                     var month = $('#month').val();
                     var year = $('#year').val();
                     var club_id = $('#club_id').val();
@@ -595,7 +597,19 @@
                     var no_of_beneficiary = $('#no_of_beneficiary').val();
                     var description = $('#description').val();
                     var points = $('#point_project').val();
-                    if (month != "" && year != "" && title != "" && amount != "" && no_of_beneficiary != "" && points != "") {
+
+                    var image = [];
+                    $.each($("input[name='image[]']"), function () {
+                        image.push($(this).val());
+
+                    });
+
+                    var category = [];
+                    $('.category:checked').each(function (i, e) {
+                        category.push($(this).val());
+                    });
+
+                    if (month != "" && year != "" && club_id != "" && title != "" && amount != "" && no_of_beneficiary != "" && points != "" && category != "") {
                         $.ajax({
                             url: "index.php?url=club/add_data/project",
                             type: "POST",
@@ -608,6 +622,8 @@
                                 amount: amount,
                                 no_of_beneficiary: no_of_beneficiary,
                                 description: description,
+                                image: image,
+                                category: category,
                                 points: points
                             },
                             cache: false,
@@ -617,7 +633,6 @@
                                     $("#success_project").show();
 
                                     $('#success_project').html('Project added successfully !');
-
                                 }
                                 else if (!json) {
                                     alert("Error occured !");

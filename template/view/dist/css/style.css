@@ -2101,9 +2101,6 @@ img.img-responsive.slider-image-size {
 .desc-content {
     padding: 30px 0px;
   }
-  .btn-login{
-      float:none !important;
-  }
 .btn {
     border: 1px solid #17468f !important;
     background-color: #17468f;
@@ -2114,6 +2111,14 @@ img.img-responsive.slider-image-size {
 .btn:hover, .btn:active{
     color: #fff;
   }
+.btn-login {
+    border: 1px solid #17468f !important;
+    background-color: #17468f;
+    color: #fff;
+    float:none !important;
+    transition: all 0.2s ease-in-out;
+    text-transform:uppercase;
+}
 
 .h4, .h5, .h6, h4, h5, h6 {
    /* margin-top: 1em;

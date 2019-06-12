@@ -72,6 +72,7 @@ class ControllerClubAddData extends PT_Controller
         $this->response->setOutput($this->load->view('club/add_data', $data));
     }
 
+
      public function member()
     {
 
@@ -118,8 +119,9 @@ class ControllerClubAddData extends PT_Controller
         $this->document->setTitle($this->language->get('heading_title'));
 
         $this->load->model('club/add_data');
-
+       
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+            
           $json =  $this->model_club_add_data->addProject($this->request->post);
         }
 
