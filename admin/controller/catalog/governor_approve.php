@@ -114,13 +114,13 @@ class ControllerCatalogGovernorApprove extends PT_Controller {
 
         foreach ($results as $result) {
             $data['members'][] = array(
-                'member_id' => $result['member_id'],
-                'date' => $result['date'],
-                'induction' => $result['induction'],
-                'unlist' => $result['unlist'],
-                'net' => $result['net'],
-                'points' => $result['points'],
-                'view' => $this->url->link('club/member/view', 'member_id=' . $result['member_id'])
+                'member_id'         => $result['member_id'],
+                'date'              => $result['date'],
+                'induction'         => $result['induction'],
+                'unlist'            => $result['unlist'],
+                'net'               => $result['net'],
+                'points'            => $result['points'],
+                'edit'              => $this->url->link('catalog/member/edit', 'user_token=' . $this->session->data['user_token'] . '&member_id=' . $result['member_id'])
             );
         }
 
@@ -130,13 +130,13 @@ class ControllerCatalogGovernorApprove extends PT_Controller {
 
         foreach ($project_results as $result) {
             $data['projects'][] = array(
-                'project_id' => $result['project_id'],
-                'date' => $result['date'],
-                'title' => $result['title'],
-                'description' => $result['description'],
-                'amount' => $result['amount'],
+                'project_id'        => $result['project_id'],
+                'date'              => $result['date'],
+                'title'             => $result['title'],
+                'description'       => $result['description'],
+                'amount'            => $result['amount'],
                 'no_of_beneficiary' => $result['no_of_beneficiary'],
-                'view' => $this->url->link('club/project/view', 'project_id=' . $result['project_id'])
+                'edit'              => $this->url->link('catalog/project/edit', 'user_token=' . $this->session->data['user_token'] . '&project_id=' . $result['project_id'])
             );
         }
 
