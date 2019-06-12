@@ -23,7 +23,7 @@ class ControllerCatalogExchangeRate extends PT_Controller
 
         $this->load->model('catalog/exchange_rate');
 
-        if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
+        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
             $this->model_catalog_exchange_rate->editExchangeRate($this->request->get['exchange_rate_id'], $this->request->post);
 
             $this->session->data['success'] = $this->language->get('text_success');
