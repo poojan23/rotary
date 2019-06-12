@@ -127,7 +127,7 @@ class ControllerCatalogGovernorApprove extends PT_Controller {
         $data['projects'] = array();
 
         $project_results = $this->model_catalog_governor_approve->getProjectById($this->request->get['club_id']);
-
+    
         foreach ($project_results as $result) {
             $data['projects'][] = array(
                 'project_id'        => $result['project_id'],
