@@ -139,7 +139,20 @@ class ControllerCatalogGovernorApprove extends PT_Controller {
                 'edit'              => $this->url->link('catalog/project/edit', 'user_token=' . $this->session->data['user_token'] . '&project_id=' . $result['project_id'])
             );
         }
+        
+        $data['trfs'] = array();
 
+        $results = $this->model_catalog_governor_approve->getTrfById($this->request->get['club_id']);
+
+        foreach ($results as $result) {
+            $data['trfs'][] = array(
+                'trf_id'        => $result['trf_id'],
+                'date'          => $result['date'],
+                'amount_usd'    => $result['amount_usd'],
+                'points'        => $result['points'],
+                'edit'          => $this->url->link('catalog/trf/edit', 'user_token=' . $this->session->data['user_token'] . '&trf_id=' . $result['trf_id'])
+            );
+        }
         if (isset($this->error['warning'])) {
             $data['warning_err'] = $this->error['warning'];
         } else {

@@ -221,36 +221,27 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>Month</th>
-                                                                <th>Members Inducted </th>
-                                                                <th>Members Unlisted </th>
-                                                                <th>Net Growth </th>
+                                                                <th>TRF Contribution</th>
                                                                 <th>Points</th>
-
                                                                 <th class="no-sort">
                                                                     Action
                                                                 </th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <?php if($members) : ?>
-                                                            <?php foreach($members as $member) : ?>
+                                                            <?php if($trfs) : ?>
+                                                            <?php foreach($trfs as $trf) : ?>
                                                             <tr>
                                                                 <td class="text-left">
-                                                                    <?php echo $member['date']; ?>
+                                                                    <?php echo $trf['date']; ?>
                                                                 </td>
                                                                 <td class="text-left">
-                                                                    <?php echo $member['induction']; ?>
+                                                                    <?php echo $trf['amount_usd']; ?>
                                                                 </td>
                                                                 <td class="text-left">
-                                                                    <?php echo $member['unlist']; ?>
+                                                                    <?php echo $trf['points']; ?>
                                                                 </td>
-                                                                <td class="text-left">
-                                                                    <?php echo $member['net']; ?>
-                                                                </td>
-                                                                <td class="text-left">
-                                                                    <?php echo $member['points']; ?>
-                                                                </td>
-                                                                <td class="text-left"><a href="<?php echo $member['edit']; ?>"
+                                                                <td class="text-left"><a href="<?php echo $trf['edit']; ?>"
                                                                                          data-toggle="tooltip" title="<?php echo $button_edit; ?>"
                                                                                          class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a>
                                                                 </td>
