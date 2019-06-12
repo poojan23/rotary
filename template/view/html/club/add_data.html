@@ -128,7 +128,8 @@
                                                                 <div class="col-sm-6">
                                                                     <div class="points-box">
                                                                         <p>Total Members Points -
-                                                                            <?php echo $total_point_members ?></p>
+                                                                            <?php if($total_point_members){ echo $total_point_members; }else{ echo '0'; } ?>
+                                                                        </p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -225,7 +226,8 @@
                                                                 <div class="col-sm-6">
                                                                     <div class="points-box">
                                                                         <p>Total Trf Points -
-                                                                            <?php echo $total_point_trfs ?></p>
+                                                                            <?php if($total_point_trfs){ echo $total_point_trfs; }else{ echo '0'; } ?>
+                                                                        </p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -284,8 +286,7 @@
                                                             <a href="#" class="close" data-dismiss="alert"
                                                                 aria-label="close">×</a>
                                                         </div>
-                                                        <form action="" method="post" enctype="multipart/form-data"
-                                                            id="form-project">
+                                                        <form id="form-project">
                                                             <div class="form-group row">
                                                                 <div class="col-sm-3">
                                                                     <label for="month">Month
@@ -322,7 +323,8 @@
                                                                 <div class="col-sm-6">
                                                                     <div class="points-box">
                                                                         <p>Total Projects Points -
-                                                                            <?php echo $total_point_projects ?></p>
+                                                                            <?php if($total_point_projects){ echo $total_point_projects; }else{ echo '0'; } ?>
+                                                                        </p>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -516,15 +518,12 @@
                     $("#amount_inr, #exchange_rate").on("keydown keyup", sum);
 
                     function sum() {
-
-                        //var total = Math.round(Number($("#amount_inr").val() / Number($("#exchange_rate").val() + 'e' + decimals) + 'e-' + decimals));
-
-                        $("#amount_usd").val(Math.round((Number($("#amount_inr").val()) / Number($("#exchange_rate").val()))));
+                        var amt = $("#amount_inr").val() / $("#exchange_rate").val();
+                        $("#amount_usd").val(amt.toFixed(2));
                     }
                 });
             </script>
             <script>
-
                 function addMember() {
                     var month = $('#month').val();
                     var year = $('#year').val();
@@ -610,7 +609,6 @@
                         alert('Please fill all the field !');
                     }
                 }
-
 
                 function addProject() {
 

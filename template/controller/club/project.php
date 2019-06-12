@@ -74,6 +74,7 @@ protected function getList()
 
         $data['projects'] = array();
 
+
         $results = $this->model_club_project->getProjectById($this->customer->getId());
 
         foreach ($results as $result) {
@@ -109,6 +110,7 @@ protected function getList()
             $data['selected'] = array();
         }
 
+        $data['cancel'] = $this->url->link('club/dashboard');
 
         $data['breadcrumbs'] = array();
 
@@ -431,6 +433,7 @@ protected function getList()
 
             $results = $this->model_club_project->getProject($this->request->get['project_id']);
 
+            
             foreach ($results as $result) {
                     $data['projects'][] = array(
                     'date' => $result['date'],

@@ -37,7 +37,7 @@ class ModelClubTrf extends PT_Model {
     // }
      public function getTrfById($club_id)
     {
-        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "trf WHERE club_id = '" . (int)$club_id . "'");
+        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "trf WHERE club_id = '" . (int)$club_id . "' AND review = '1'");
 
         return $query->rows;
     }

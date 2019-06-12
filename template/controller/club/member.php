@@ -147,6 +147,8 @@ class ControllerClubMember extends PT_Controller {
             $data['thumb'] = $data['placeholder'];
         }
 
+        $data['cancel'] = $this->url->link('club/dashboard');
+
         $data['add'] = $this->url->link('club/member/add');
 
         $data['members'] = array();
@@ -198,6 +200,7 @@ class ControllerClubMember extends PT_Controller {
             'text' => $this->language->get('heading_title'),
             'href' => $this->url->link('club/member')
         );
+
 
 
         $data['continue'] = $this->url->link('common/home');

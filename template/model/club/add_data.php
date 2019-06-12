@@ -50,39 +50,39 @@ class ModelClubAddData extends PT_Model {
     }
      public function getMemberById($club_id)
     {
-        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "member WHERE club_id = '" . (int)$club_id . "'");
+        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "member WHERE club_id = '" . (int)$club_id . "' AND review='1'");
 
         return $query->rows;
     }
      public function getMember($member_id)
     {
-        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "member WHERE member_id = '" . (int)$member_id . "'");
+        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "member WHERE member_id = '" . (int)$member_id . "' AND review='1'");
 
         return $query->row;
     }
      public function getTotalMemberById($club_id)
     {
-        $query = $this->db->query("SELECT DISTINCT SUM(net) as total FROM " . DB_PREFIX . "member WHERE club_id = '" . (int)$club_id . "'");
+        $query = $this->db->query("SELECT DISTINCT SUM(net) as total FROM " . DB_PREFIX . "member WHERE club_id = '" . (int)$club_id . "' AND review='1'");
 
         return $query->row['total'];
     }
 
      public function getMemberPoints($club_id)
     {
-        $query = $this->db->query("SELECT sum(points) as total FROM " . DB_PREFIX . "member WHERE club_id = '" . (int)$club_id . "'");
+        $query = $this->db->query("SELECT sum(points) as total FROM " . DB_PREFIX . "member WHERE club_id = '" . (int)$club_id . "' AND review='1'");
 
         return $query->row['total'];
     }
      public function getTrfPoints($club_id)
     {
-        $query = $this->db->query("SELECT sum(points) as total FROM " . DB_PREFIX . "trf WHERE club_id = '" . (int)$club_id . "'");
+        $query = $this->db->query("SELECT sum(points) as total FROM " . DB_PREFIX . "trf WHERE club_id = '" . (int)$club_id . "' AND review='1'");
 
         return $query->row['total'];
     }
 
      public function getProjectPoints($club_id)
     {
-        $query = $this->db->query("SELECT sum(points) as total FROM " . DB_PREFIX . "projects WHERE club_id = '" . (int)$club_id . "'");
+        $query = $this->db->query("SELECT sum(points) as total FROM " . DB_PREFIX . "projects WHERE club_id = '" . (int)$club_id . "' AND review='1'");
 
         return $query->row['total'];
     }
