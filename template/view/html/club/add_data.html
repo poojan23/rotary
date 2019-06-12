@@ -24,6 +24,15 @@
         color: #fff;
     }
 
+    .points-box {
+        box-shadow: 1px 1px 1px 1px #eee;
+        padding: 14px;
+        font-weight: 700;
+        color: #f7a81b;
+    }
+
+
+
     /* 
     .image-upload img {
         border: 1px solid #eee;
@@ -68,12 +77,12 @@
                                             style="float: right !important;"><i class="fa fa-reply"></i></a>
                                     </div>
                                     <div class="club-page-content">
+                                        <!-- <?php echo $total_point_members + $total_point_trfs + $total_point_projects; ?> -->
                                         <ul class="nav nav-pills">
                                             <li class="active"><a data-toggle="pill" href="#member">Add New Members</a>
                                             </li>
                                             <li><a data-toggle="pill" href="#trf">Add TRF Contribution</a></li>
                                             <li><a data-toggle="pill" href="#project">Add Projects</a></li>
-                                            <li><a data-toggle="pill" href="#club">Add New Clubs</a></li>
                                         </ul>
                                         <div class="tab-content">
                                             <div id="member" class="tab-pane fade in active">
@@ -116,6 +125,12 @@
                                                                     print $year_html;
                                                                     ?>
                                                                 </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="points-box">
+                                                                        <p>Total Members Points -
+                                                                            <?php echo $total_point_members ?></p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <hr class="featurette-divider">
                                                             <div class="form-group row">
@@ -144,7 +159,8 @@
                                                             <hr class="featurette-divider">
                                                             <div class="form-group row">
                                                                 <div class="col-sm-4">
-                                                                    <label for="inputpoint_accumulate">Citation Points
+                                                                    <label for="inputpoint_accumulate">Citation
+                                                                        Points
                                                                         Accrued :
                                                                     </label>
                                                                     <input type="number" class="form-control"
@@ -206,6 +222,12 @@
                                                                 print $year_html;
                                                                 ?>
                                                                 </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="points-box">
+                                                                        <p>Total Trf Points -
+                                                                            <?php echo $total_point_trfs ?></p>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                             <hr class="featurette-divider">
                                                             <div class="form-group row">
@@ -220,7 +242,8 @@
                                                                         Rate :</label>
                                                                     <input type="number" class="form-control"
                                                                         name="exchange_rate" id="exchange_rate"
-                                                                        required="">
+                                                                        value="<?php echo round($exchange_rate,2); ?>"
+                                                                        required="" readonly>
                                                                 </div>
                                                                 <div class="col-sm-3">
                                                                     <label for="inputamount_usd">Amount in
@@ -295,6 +318,12 @@
                                                                 // output
                                                                 print $year_html;
                                                                 ?>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                    <div class="points-box">
+                                                                        <p>Total Projects Points -
+                                                                            <?php echo $total_point_projects ?></p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                             <hr class="featurette-divider">
@@ -401,13 +430,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="club" class="tab-pane fade">
-                                                <div class="club-page-content">
-                                                    <div class="club-pill-form">
-                                                        under construction
-                                                    </div>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -494,7 +516,10 @@
                     $("#amount_inr, #exchange_rate").on("keydown keyup", sum);
 
                     function sum() {
-                        $("#amount_usd").val(Number($("#amount_inr").val()) / Number($("#exchange_rate").val()));
+
+                        //var total = Math.round(Number($("#amount_inr").val() / Number($("#exchange_rate").val() + 'e' + decimals) + 'e-' + decimals));
+
+                        $("#amount_usd").val(Math.round((Number($("#amount_inr").val()) / Number($("#exchange_rate").val()))));
                     }
                 });
             </script>

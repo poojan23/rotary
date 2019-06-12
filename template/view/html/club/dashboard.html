@@ -33,7 +33,7 @@
                                     </div>
                                     <div class="club-page-content">
                                         <div class="row dashboard-stats">
-                                            <div class="col-md-4 col-sm-4">
+                                            <div class="col-md-3 col-sm-3">
                                                 <section class="panel panel-box">
                                                     <div class="panel-left panel-icon bg-success">
                                                         <i class="fa fa-dollar text-large stat-icon success-text"></i>
@@ -42,11 +42,11 @@
                                                         <p class="size-h1 no-margin countdown_first">
                                                             <?php echo round($trfs,2); ?>
                                                         </p>
-                                                        <p class="text-muted no-margin text"><span>TRF</span></p>
+                                                        <p class="text-muted no-margin text"><span>Total TRF</span></p>
                                                     </div>
                                                 </section>
                                             </div>
-                                            <div class="col-md-4 col-sm-4">
+                                            <div class="col-md-3 col-sm-3">
                                                 <section class="panel panel-box">
                                                     <div class="panel-left panel-icon bg-danger">
                                                         <i
@@ -54,21 +54,37 @@
                                                     </div>
                                                     <div class="panel-right panel-icon bg-reverse">
                                                         <p class="size-h1 no-margin countdown_second">
-                                                            <?php echo round($projects,2); ?></p>
-                                                        <p class="text-muted no-margin text"><span>Projects</span></p>
+                                                            <?php echo $projects; ?></p>
+                                                        <p class="text-muted no-margin text"><span> Total
+                                                                Projects</span></p>
                                                     </div>
                                                 </section>
 
                                             </div>
-                                            <div class="col-md-4 col-sm-4">
+                                            <div class="col-md-3 col-sm-3">
                                                 <section class="panel panel-box">
                                                     <div class="panel-left panel-icon bg-info">
                                                         <i class="fa fa-users text-large stat-icon info-text"></i>
                                                     </div>
                                                     <div class="panel-right panel-icon bg-reverse">
                                                         <p class="size-h1 no-margin countdown_fourth">
-                                                            <?php echo round($members,2); ?></p>
-                                                        <p class="text-muted no-margin text"><span>Members</span></p>
+                                                            <?php echo $members; ?></p>
+                                                        <p class="text-muted no-margin text"><span> Total Members</span>
+                                                        </p>
+                                                    </div>
+                                                </section>
+                                            </div>
+                                            <div class="col-md-3 col-sm-3">
+                                                <section class="panel panel-box">
+                                                    <div class="panel-left panel-icon bg-danger">
+                                                        <i
+                                                            class="fa fa-building-o text-large stat-icon danger-text"></i>
+                                                    </div>
+                                                    <div class="panel-right panel-icon bg-reverse">
+                                                        <p class="size-h1 no-margin countdown_third">
+                                                            <?php echo $clubs; ?></p>
+                                                        <p class="text-muted no-margin text"><span> Total Club</span>
+                                                        </p>
                                                     </div>
                                                 </section>
                                             </div>
