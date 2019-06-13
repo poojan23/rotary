@@ -56,9 +56,10 @@
                 <?php endif; ?>
 
                 <div class="clearfix">
-                     <?php if($user_group =='Administrator') : ?>
+                    
                     <a href="<?php echo $add; ?>" data-toggle="tooltip" title="<?php echo $button_add; ?>"
                         class="btn btn-primary btn-bold"><i class="fa fa-plus"></i></a>
+                         <?php if($user_group =='Administrator') : ?>
                     <button type="button" data-toggle="tooltip" title="<?php echo $button_delete; ?>"
                         class="btn btn-danger btn-bold" onclick="confirm('<?php echo $text_confirm; ?>') ? $('#form-club-group').submit() :
                         false;"><i class="fa fa-trash-alt"></i></button>

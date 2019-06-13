@@ -49,7 +49,7 @@ class ControllerCatalogClub extends PT_Controller {
 
         $this->getForm();
     }
-    
+
     public function view() {
 
         $data['header'] = $this->load->controller('common/header');
@@ -292,7 +292,26 @@ class ControllerCatalogClub extends PT_Controller {
         } else {
             $data['austin_governor_id'] = '';
         }
+        
+        if (isset($this->request->post['parent_id'])) {
+            $data['parent_id'] = $this->request->post['parent_id'];
+        } elseif (!empty($club_info)) {
+            $data['parent_id'] = $club_info['parent_id'];
+        } else {
+            $data['parent_id'] = 0;
+        }
+        
+        if (isset($this->request->post['club_id'])) {
+            $data['club_id'] = $this->request->post['club_id'];
+        } elseif (!empty($team_info)) {
+            $data['club_id'] = $team_info['club_id'];
+        } else {
+            $data['club_id'] = '';
+        }        
+        $this->load->model('catalog/club');
 
+        $data['clubs'] = $this->model_catalog_club->getClubs();
+        
         $this->load->model('catalog/austin_governor');
 
         $data['austin_governors'] = $this->model_catalog_austin_governor->getAustinGovernors();
@@ -456,5 +475,31 @@ class ControllerCatalogClub extends PT_Controller {
 
         return !$this->error;
     }
+    public function autocomplete() {
+        $json = array();
 
+        if (isset($this->request->get['filter_name'])) {
+            $this->load->model('catalog/club');
+
+            $results = $this->model_catalog_club->getclubs();
+           
+            foreach ($results as $result) {
+                $json[] = array(
+                    'club_id' => $result['club_id'],
+                    'title' => strip_tags(html_entity_decode($result['club_name'], ENT_QUOTES, 'UTF-8'))
+                );
+            }
+        }
+
+        $sort_order = array();
+
+        foreach ($json as $key => $value) {
+            $sort_order[$key] = $value;
+        }
+
+        array_multisort($sort_order, SORT_ASC, $json);
+
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
+    }
 }
