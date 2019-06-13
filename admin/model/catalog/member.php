@@ -4,7 +4,7 @@ class ModelCatalogMember extends PT_Model
 {
     public function editMember($member_id, $data)
     {
-        $this->db->query("UPDATE " . DB_PREFIX . "member SET  induction = '" . $this->db->escape((string)$data['member_induct']) . "', unlist = '" . $this->db->escape((string)$data['member_unlist']) . "', net = '" . $this->db->escape((string)$data['net_growth']) . "',review = '" . $this->db->escape((string)$data['review']) . "' WHERE member_id = '" . (int)$member_id . "'");
+        $this->db->query("UPDATE " . DB_PREFIX . "member SET  induction = '" . $this->db->escape((string)$data['member_induct']) . "',notes = '" . $this->db->escape((string)$data['notes']) . "', unlist = '" . $this->db->escape((string)$data['member_unlist']) . "', net = '" . $this->db->escape((string)$data['net_growth']) . "',review = '" . $this->db->escape((string)$data['review']) . "' WHERE member_id = '" . (int)$member_id . "'");
     }
     
     public function getMember($member_id)

@@ -141,13 +141,13 @@ class ControllerCatalogTRF extends PT_Controller
             $data['amount_usd'] = '';
         }
 
-//        if (isset($this->request->post['points'])) {
-//            $data['points'] = $this->request->post['points'];
-//        } elseif (!empty($trf_info)) {
-//            $data['points'] = $trf_info['points'];
-//        } else {
-//            $data['points'] = '';
-//        }
+        if (isset($this->request->post['notes'])) {
+            $data['notes'] = $this->request->post['notes'];
+        } elseif (!empty($trf_info)) {
+            $data['notes'] = $trf_info['notes'];
+        } else {
+            $data['notes'] = '';
+        }
 
         
         $data['header'] = $this->load->controller('common/header');
