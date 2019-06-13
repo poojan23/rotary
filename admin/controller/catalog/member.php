@@ -108,8 +108,8 @@ class ControllerCatalogMember extends PT_Controller
                 'href'  => $this->url->link('catalog/member/edit', 'user_token=' . $this->session->data['user_token'])
             );
         }
-
-        $data['cancel'] = $this->url->link('catalog/member', 'user_token=' . $this->session->data['user_token']);
+        $result = $this->model_catalog_member->getMember($this->request->get['member_id']);
+        $data['cancel'] = $this->url->link('catalog/governor_approve', 'user_token=' . $this->session->data['user_token'].'&club_id=' .$result['club_id']);
 
         if (isset($this->request->get['member_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $member_info = $this->model_catalog_member->getMember($this->request->get['member_id']);
