@@ -10,7 +10,7 @@ class ModelCatalogGovernorApprove extends PT_Model
     }
      public function getProjectById($club_id)
     {
-        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "projects WHERE club_id = '" . (int)$club_id . "' AND  AND review='0'");
+        $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "projects WHERE club_id = '" . (int)$club_id . "' AND  review='0'");
 
         return $query->rows;
     }

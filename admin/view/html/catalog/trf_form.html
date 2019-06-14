@@ -71,89 +71,159 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form action="<?php echo $action; ?>" method="POST" enctype="multipart/form-data"
-                          id="form-team" class="form-horizontal">
-                        <div class="card-body">
-                            <div class="form-group row">
-                                <label for="input-month" class="col-sm-2 col-form-label">Month
-                                </label>
-                                <div class="col-sm-4">
-                                    
-                                    <input type="number" class="form-control" name="month" id="month"
-                                           value="<?php echo $month; ?>" readonly="">
-                                </div>
-                                <label for="input-year" class="col-sm-2 col-form-label">Year
-                                </label>
-                                <div class="col-sm-4">
-                                    <input type=" number" class="form-control" name="month" id="month"
-                                           value="<?php echo $year; ?>" readonly="">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group row required">
-                                <label for="input-member-amount-inr" class="col-sm-2 col-form-label">
-                                    <?php echo $entry_amount_inr; ?></label>
+                    <div class="row">
+                        <div class="col-6">
+                            <form  class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="input-month" class="col-sm-2 col-form-label">Month
+                                        </label>
+                                        <div class="col-sm-4">
 
-                                <div class="col-sm-10">
-                                    <input type="number" name="amount_inr" value="<?php echo $amount_inr; ?>"
-                                           placeholder="<?php echo $entry_amount_inr; ?>" class="form-control"
-                                           id="amount_inr" />
-                                    <?php if($amount_inr_err) : ?>
-                                    <span class="invalid-tooltip">
-                                        <?php echo $amount_inr_err; ?></span>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group row required">
-                                <label for="input-exchange-rate" class="col-sm-2 col-form-label">
-                                    <?php echo $entry_exchange_rate; ?></label>
-
-                                <div class="col-sm-10">
-                                    <input type="number" name="exchange_rate" value="<?php echo $exchange_rate; ?>"
-                                           placeholder="<?php echo $entry_exchange_rate; ?>" class="form-control"
-                                           id="exchange_rate"  readonly=""/>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group row required">
-                                <label for="input-amount-usd" class="col-sm-2 col-form-label">
-                                    <?php echo $entry_amount_usd; ?></label>
-
-                                <div class="col-sm-10">
-                                    <input type="number" name="amount_usd" value="<?php echo $amount_usd; ?>"
-                                           placeholder="<?php echo $entry_amount_usd; ?>" class="form-control"
-                                           id="amount_usd" readonly=""/>
-                                </div>
-                            </div>
-                            
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label"><?php echo $entry_approve; ?></label>
-                                <div class="col-sm-10">
-                                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                        <?php if(($review)) : ?>
-                                        <label class="btn btn-outline-secondary active"><input type="radio"
-                                                                                               name="review" value="1" checked="checked" />
-                                            <?php echo $text_yes; ?></label>
-                                        <label class="btn btn-outline-secondary"><input type="radio"
-                                                                                        name="review" value="0" />
-                                            <?php echo $text_no; ?></label>
-                                        <?php else : ?>
-                                        <label class="btn btn-outline-secondary"><input type="radio"
-                                                                                        name="review" value="1" />
-                                            <?php echo $text_yes; ?></label>
-                                        <label class="btn btn-outline-secondary active"><input type="radio"
-                                                                                               name="review" value="0" checked="checked" />
-                                            <?php echo $text_no; ?></label>
-                                        <?php endif; ?>
+                                            <input type="number" class="form-control"
+                                                   value="<?php echo $month; ?>" readonly="">
+                                        </div>
+                                        <label for="input-year" class="col-sm-2 col-form-label">Year
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <input type=" number" class="form-control"
+                                                   value="<?php echo $year; ?>" readonly="">
+                                        </div>
                                     </div>
-                                  
+
+                                    <div class="form-group row">
+                                        <label for="input-member-amount-inr" class="col-sm-2 col-form-label">
+                                            <?php echo $entry_amount_inr; ?></label>
+
+                                        <div class="col-sm-10">
+                                            <input type="number" value="<?php echo $amount_inr; ?>"
+                                                   placeholder="<?php echo $entry_amount_inr; ?>" class="form-control"
+                                                   readonly=""/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="input-exchange-rate" class="col-sm-2 col-form-label">
+                                            <?php echo $entry_exchange_rate; ?></label>
+
+                                        <div class="col-sm-10">
+                                            <input type="number" value="<?php echo $exchange_rate; ?>"
+                                                   placeholder="<?php echo $entry_exchange_rate; ?>" class="form-control"
+                                                   readonly=""/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="input-amount-usd" class="col-sm-2 col-form-label">
+                                            <?php echo $entry_amount_usd; ?></label>
+
+                                        <div class="col-sm-10">
+                                            <input type="number" value="<?php echo $amount_usd; ?>"
+                                                   placeholder="<?php echo $entry_amount_usd; ?>" class="form-control"
+                                                   readonly=""/>
+                                        </div>
+                                    </div>
+
                                 </div>
-                            </div>
-                            
+                                <!-- /.box-body -->
+                            </form>
                         </div>
-                        <!-- /.box-body -->
-                    </form>
+                        <div class="col-6">
+                            <form action="<?php echo $action; ?>" method="POST" enctype="multipart/form-data"
+                                  id="form-team" class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        <label for="input-month" class="col-sm-2 col-form-label">Month
+                                        </label>
+                                        <div class="col-sm-4">
+
+                                            <input type="number" class="form-control" name="month" id="month"
+                                                   value="<?php echo $month; ?>" readonly="">
+                                        </div>
+                                        <label for="input-year" class="col-sm-2 col-form-label">Year
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <input type=" number" class="form-control" name="month" id="month"
+                                                   value="<?php echo $year; ?>" readonly="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="input-member-amount-inr" class="col-sm-2 col-form-label">
+                                        </label>
+
+                                        <div class="col-sm-10">
+                                            <input type="number" name="amount_inr" value="<?php echo $amount_inr; ?>"
+                                                   placeholder="<?php echo $entry_amount_inr; ?>" class="form-control"
+                                                   id="amount_inr" />
+                                            <?php if($amount_inr_err) : ?>
+                                            <span class="invalid-tooltip">
+                                                <?php echo $amount_inr_err; ?></span>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="input-exchange-rate" class="col-sm-2 col-form-label">
+                                        </label>
+
+                                        <div class="col-sm-10">
+                                            <input type="number" name="exchange_rate" value="<?php echo $exchange_rate; ?>"
+                                                   placeholder="<?php echo $entry_exchange_rate; ?>" class="form-control"
+                                                   id="exchange_rate"  readonly=""/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="input-amount-usd" class="col-sm-2 col-form-label">
+                                        </label>
+
+                                        <div class="col-sm-10">
+                                            <input type="number" name="amount_usd" value="<?php echo $amount_usd; ?>"
+                                                   placeholder="<?php echo $entry_amount_usd; ?>" class="form-control"
+                                                   id="amount_usd" readonly=""/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="input-member-induct" class="col-sm-2 col-form-label"><?php echo $entry_notes; ?>
+                                        </label>
+                                        <div class="col-sm-4">
+
+                                            <textarea name="notes"
+                                                      placeholder="<?php echo $entry_notes; ?>"
+                                                      class="form-control"
+                                                      id="input-description"
+                                                      data-toggle="ckeditor" data-lang="<?php echo $ckeditor; ?>"></textarea>
+                                        </div>
+                                        <label for="input-member-induct" class="col-sm-2 col-form-label"><?php echo $entry_approve; ?>
+                                        </label>
+                                        <div class="col-sm-4">
+                                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                                <?php if(($review)) : ?>
+                                                <label class="btn btn-outline-secondary active"><input type="radio"
+                                                                                                       name="review" value="1" checked="checked" />
+                                                    <?php echo $text_yes; ?></label>
+                                                <label class="btn btn-outline-secondary"><input type="radio"
+                                                                                                name="review" value="0" />
+                                                    <?php echo $text_no; ?></label>
+                                                <?php else : ?>
+                                                <label class="btn btn-outline-secondary"><input type="radio"
+                                                                                                name="review" value="1" />
+                                                    <?php echo $text_yes; ?></label>
+                                                <label class="btn btn-outline-secondary active"><input type="radio"
+                                                                                                       name="review" value="0" checked="checked" />
+                                                    <?php echo $text_no; ?></label>
+                                                <?php endif; ?>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.box-body -->
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.box -->
             </div>
@@ -165,13 +235,13 @@
 </div>
 <!-- /.content-wrapper -->
 <?php echo $footer; ?>
-            <script>
-                $(function () {
+<script>
+    $(function () {
 
-                    $("#amount_inr, #exchange_rate").on("keydown keyup", sum);
+        $("#amount_inr, #exchange_rate").on("keydown keyup", sum);
 
-                    function sum() {
-                        $("#amount_usd").val(Number($("#amount_inr").val()) / Number($("#exchange_rate").val()));
-                    }
-                });
-            </script>
+        function sum() {
+            $("#amount_usd").val(Number($("#amount_inr").val()) / Number($("#exchange_rate").val()));
+        }
+    });
+</script>

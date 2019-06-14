@@ -35,81 +35,6 @@ class ControllerCatalogMember extends PT_Controller
 
         $this->getForm();
     }
-//
-//    protected function getList()
-//    {
-//        $this->document->addStyle("view/dist/plugins/DataTables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css");
-//        $this->document->addStyle("view/dist/plugins/DataTables/Buttons-1.5.6/css/buttons.bootstrap4.min.css");
-//        $this->document->addStyle("view/dist/plugins/DataTables/FixedHeader-3.1.4/css/fixedHeader.bootstrap4.min.css");
-//        $this->document->addStyle("view/dist/plugins/DataTables/Responsive-2.2.2/css/responsive.bootstrap4.min.css");
-//        $this->document->addScript("view/dist/plugins/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/Buttons-1.5.6/js/dataTables.buttons.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/Buttons-1.5.6/js/buttons.bootstrap4.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/JSZip-2.5.0/jszip.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/pdfmake-0.1.36/pdfmake.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/pdfmake-0.1.36/vfs_fonts.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/Buttons-1.5.6/js/buttons.html5.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/Buttons-1.5.6/js/buttons.print.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/Buttons-1.5.6/js/buttons.colVis.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/FixedHeader-3.1.4/js/dataTables.fixedHeader.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/FixedHeader-3.1.4/js/fixedHeader.bootstrap4.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/Responsive-2.2.2/js/dataTables.responsive.min.js");
-//        $this->document->addScript("view/dist/plugins/DataTables/Responsive-2.2.2/js/responsive.bootstrap4.min.js");
-//
-//        $data['breadcrumbs'] = array();
-//
-//        $data['breadcrumbs'][] = array(
-//            'text'  => $this->language->get('text_home'),
-//            'href'  => $this->url->link('common/dashboard', 'user_token=' . $this->session->data['user_token'])
-//        );
-//
-//        $data['breadcrumbs'][] = array(
-//            'text'  => $this->language->get('heading_title'),
-//            'href'  => $this->url->link('catalog/member', 'user_token=' . $this->session->data['user_token'])
-//        );
-//
-//        $data['add'] = $this->url->link('catalog/member/add', 'user_token=' . $this->session->data['user_token']);
-//        $data['delete'] = $this->url->link('catalog/member/delete', 'user_token=' . $this->session->data['user_token']);
-//
-//        $data['members'] = array();
-//
-//        $results = $this->model_catalog_member->getMembers();
-//
-//        foreach ($results as $result) {
-//            $data['members'][] = array(
-//                'member_id'   => $result['member_id'],
-//                'date_added'    => date($this->language->get('date_format_short'), strtotime($result['date_added'])),
-//                'edit'          => $this->url->link('catalog/member/edit', 'user_token=' . $this->session->data['user_token'] . '&member_id=' . $result['member_id'])
-//            );
-//        }
-//
-//        if (isset($this->error['warning'])) {
-//            $data['warning_err'] = $this->error['warning'];
-//        } else {
-//            $data['warning_err'] = '';
-//        }
-//
-//        if (isset($this->session->data['success'])) {
-//            $data['success'] = $this->session->data['success'];
-//
-//            unset($this->session->data['success']);
-//        } else {
-//            $data['success'] = '';
-//        }
-//
-//        if (isset($this->request->post['selected'])) {
-//            $data['selected'] = (array)$this->request->post['selected'];
-//        } else {
-//            $data['selected'] = array();
-//        }
-//
-//        $data['header'] = $this->load->controller('common/header');
-//        $data['nav'] = $this->load->controller('common/nav');
-//        $data['footer'] = $this->load->controller('common/footer');
-//
-//        $this->response->setOutput($this->load->view('catalog/approve_list', $data));
-//    }
 
     protected function getForm()
     {
@@ -183,8 +108,8 @@ class ControllerCatalogMember extends PT_Controller
                 'href'  => $this->url->link('catalog/member/edit', 'user_token=' . $this->session->data['user_token'])
             );
         }
-
-        $data['cancel'] = $this->url->link('catalog/member', 'user_token=' . $this->session->data['user_token']);
+        $result = $this->model_catalog_member->getMember($this->request->get['member_id']);
+        $data['cancel'] = $this->url->link('catalog/governor_approve', 'user_token=' . $this->session->data['user_token'].'&club_id=' .$result['club_id']);
 
         if (isset($this->request->get['member_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $member_info = $this->model_catalog_member->getMember($this->request->get['member_id']);
@@ -232,6 +157,7 @@ class ControllerCatalogMember extends PT_Controller
         } else {
             $data['member_unlist'] = '';
         }
+        
         if (isset($this->request->post['net_growth'])) {
             $data['net_growth'] = $this->request->post['net_growth'];
         } elseif (!empty($member_info)) {
@@ -239,12 +165,21 @@ class ControllerCatalogMember extends PT_Controller
         } else {
             $data['net_growth'] = '';
         }
+        
         if (isset($this->request->post['point_accumulate'])) {
             $data['point_accumulate'] = $this->request->post['point_accumulate'];
         } elseif (!empty($member_info)) {
             $data['point_accumulate'] = $member_info['net'];
         } else {
             $data['point_accumulate'] = '';
+        }
+        
+        if (isset($this->request->post['notes'])) {
+            $data['notes'] = $this->request->post['notes'];
+        } elseif (!empty($member_info)) {
+            $data['notes'] = $member_info['notes'];
+        } else {
+            $data['notes'] = '';
         }
         
         $data['header'] = $this->load->controller('common/header');

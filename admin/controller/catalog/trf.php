@@ -83,8 +83,8 @@ class ControllerCatalogTRF extends PT_Controller
                 'href'  => $this->url->link('catalog/trf/edit', 'user_token=' . $this->session->data['user_token'])
             );
         }
-
-        $data['cancel'] = $this->url->link('catalog/trf', 'user_token=' . $this->session->data['user_token']);
+        $result = $this->model_catalog_trf->getTrf($this->request->get['trf_id']);
+        $data['cancel'] = $this->url->link('catalog/governor_approve', 'user_token=' . $this->session->data['user_token'].'&club_id=' .$result['club_id']);
 
         if (isset($this->request->get['trf_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
             $trf_info = $this->model_catalog_trf->getTrf($this->request->get['trf_id']);
@@ -141,13 +141,13 @@ class ControllerCatalogTRF extends PT_Controller
             $data['amount_usd'] = '';
         }
 
-//        if (isset($this->request->post['points'])) {
-//            $data['points'] = $this->request->post['points'];
-//        } elseif (!empty($trf_info)) {
-//            $data['points'] = $trf_info['points'];
-//        } else {
-//            $data['points'] = '';
-//        }
+        if (isset($this->request->post['notes'])) {
+            $data['notes'] = $this->request->post['notes'];
+        } elseif (!empty($trf_info)) {
+            $data['notes'] = $trf_info['notes'];
+        } else {
+            $data['notes'] = '';
+        }
 
         
         $data['header'] = $this->load->controller('common/header');

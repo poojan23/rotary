@@ -38,21 +38,21 @@ class ControllerCommonNav extends PT_Controller
                 );
             }
             
-            if ($this->user->hasPermission('access', 'catalog/club')) {
-                $catalog[] = array(
-                    'name'      => $this->language->get('text_club'),
-                    'href'      => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token']),
-                    'children'  => array()
-                );
-            }
+//            if ($this->user->hasPermission('access', 'catalog/club')) {
+//                $catalog[] = array(
+//                    'name'      => $this->language->get('text_club'),
+//                    'href'      => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token']),
+//                    'children'  => array()
+//                );
+//            }
             
-            if ($this->user->hasPermission('access', 'catalog/exchange_rate')) {
-                $catalog[] = array(
-                    'name'      => $this->language->get('text_exchange_rate'),
-                    'href'      => $this->url->link('catalog/exchange_rate', 'user_token=' . $this->session->data['user_token']),
-                    'children'  => array()
-                );
-            }
+//            if ($this->user->hasPermission('access', 'catalog/exchange_rate')) {
+//                $catalog[] = array(
+//                    'name'      => $this->language->get('text_exchange_rate'),
+//                    'href'      => $this->url->link('catalog/exchange_rate', 'user_token=' . $this->session->data['user_token']),
+//                    'children'  => array()
+//                );
+//            }
                         
             if ($this->user->hasPermission('access', 'catalog/team')) {
                 $catalog[] = array(
@@ -170,7 +170,24 @@ class ControllerCommonNav extends PT_Controller
                     'children'  => array()
                 );
             }
-
+            
+            # Exchange Rate
+            $data['menus'][] = array(
+                'id'        => 'menu-review',
+                'icon'      => 'fa-money-bill-alt',
+                'name'      => $this->language->get('text_exchange_rate'),
+                'href'      => $this->url->link('catalog/exchange_rate', 'user_token=' . $this->session->data['user_token']),
+                'children'  => array()
+            );
+            
+            # Review
+            $data['menus'][] = array(
+                'id'        => 'menu-review',
+                'icon'      => 'fa-comment-alt',
+                'name'      => $this->language->get('text_club'),
+                'href'      => $this->url->link('catalog/club', 'user_token=' . $this->session->data['user_token']),
+                'children'  => array()
+            );
             # Settings
             # System
             $system = array();

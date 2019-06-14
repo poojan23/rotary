@@ -36,7 +36,7 @@ $_['entry_image']               = 'Image';
 $_['entry_website']             = 'Website';
 $_['entry_status']              = 'Status';
 $_['entry_language']            = 'Language';
-$_['entry_keyword']             = 'Keyword';
+$_['entry_parent']              = 'Parent';
 
 # Help
 $_['help_bottom']               = 'Display in the bottom footer.';

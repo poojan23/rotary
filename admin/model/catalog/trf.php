@@ -4,7 +4,7 @@ class ModelCatalogTrf extends PT_Model
 {
     public function editTrf($trf_id, $data)
     {
-        $this->db->query("UPDATE " . DB_PREFIX . "trf SET  amount_inr = '" . $this->db->escape((string)$data['amount_inr']) . "',amount_usd = '" . $this->db->escape((string)$data['amount_usd']) . "', review = '" . $this->db->escape((string)$data['review']) . "' WHERE trf_id = '" . (int)$trf_id . "'");
+        $this->db->query("UPDATE " . DB_PREFIX . "trf SET  amount_inr = '" . $this->db->escape((string)$data['amount_inr']) . "',amount_usd = '" . $this->db->escape((string)$data['amount_usd']) . "', review = '" . $this->db->escape((string)$data['review']) . "',notes = '" . $this->db->escape((string)$data['notes']) . "' WHERE trf_id = '" . (int)$trf_id . "'");
     }
     
     public function getTrf($trf_id)
