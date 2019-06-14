@@ -34,7 +34,15 @@
 /* Column Grids End */
 
 /*.wrapper { width: 980px; margin: 30px auto; position: relative;}*/
-.counter { background-color: #ffffff; padding: 20px 0; border-radius: 5px; width: 100%;}
-.count-title { font-size: 40px; font-weight: normal;  margin-top: 10px; margin-bottom: 0; text-align: center; }
+.counter {
+    background-color: #fff;
+    padding: 20px 0;
+    border-radius: 36px;
+    width: 100%;
+    box-shadow: 1px 1px 1px 1px #eee;
+}
+
+
+.count-title { font-size: 27px; font-weight: normal;  margin-top: 10px; margin-bottom: 0; text-align: center; }
 .count-text { font-size: 13px; font-weight: normal;  margin-top: 10px; margin-bottom: 0; text-align: center; color: #17468f;}
-.fa-2x { margin: 0 auto; float: none; display: table; color: #17468f; }
+.fa-3x { margin: 0 auto; float: none; display: table; color: #17468f; }

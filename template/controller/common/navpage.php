@@ -40,6 +40,7 @@ class ControllerCommonNavpage extends PT_Controller
     
         $data['dashboard'] = $this->url->link('club/dashboard');
         $data['add_data'] = $this->url->link('club/add_data');
+        $data['add_citation'] = $this->url->link('club/add_citation');
         $data['project'] = $this->url->link('club/project');
         $data['trf'] = $this->url->link('club/trf');
         $data['member'] = $this->url->link('club/member');
