@@ -4,96 +4,96 @@ class ControllerCommonHome extends PT_Controller
 {
     public function index()
     {
+        
         $this->load->language('common/home');
 
         $this->document->setTitle($this->language->get('heading_title'));
 
         $this->load->model('tool/image');
 
-        # Projects
+        # Home slider
         $this->load->model('design/banner');
 
-        $data['projects'] = array();
+        $data['sliders'] = array();
 
         $results = $this->model_design_banner->getBanner(7, 0, 8);
-//        print_r($results); exit;
         foreach ($results as $result) {
-//            if (is_file(DIR_IMAGE . html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'))) {
-                $data['projects'][] = array(
+                $data['sliders'][] = array(
                     'title' => $result['title'],
                     'image' => $result['image']
-//                    'image' => $this->model_tool_image->resize(html_entity_decode($result['image'], ENT_QUOTES, 'UTF-8'), 1140, 605)
                 );
-//            }
         }
+
+        // home count box data
+        $this->load->model('club/dashboard');
+
+        $data['trfs'] = $this->model_club_dashboard->getTotalTrfHome(); 
+        $data['members'] = $this->model_club_dashboard->getTotalMemberHome(); 
+        $data['clubs'] = $this->model_club_dashboard->getTotalClubHome(); 
+
+        $data['projects'] = $this->model_club_dashboard->getTotalProjectHome(); 
 
         # Team
-        $this->load->model('catalog/team');
+        // $this->load->model('catalog/team');
 
-        $data['teams'] = array();
+        // $data['teams'] = array();
 
-        $results = $this->model_catalog_team->getTeams(0, 6);
+        // $results = $this->model_catalog_team->getTeams(0, 6);
 
-        foreach ($results as $result) {
-            if ($result['image']) {
-                $thumb = $this->model_tool_image->resize($result['image'], 400, 500);
-            } else {
-                $thumb = $this->model_tool_image->resize('default-image.png', 400, 500);
-            }
+        // foreach ($results as $result) {
+        //     if ($result['image']) {
+        //         $thumb = $this->model_tool_image->resize($result['image'], 400, 500);
+        //     } else {
+        //         $thumb = $this->model_tool_image->resize('default-image.png', 400, 500);
+        //     }
 
-            $data['teams'][] = array(
-                'name'          => $result['name'],
-                'designation'   => $result['designation'],
-                'thumb'         => $thumb
-            );
-        }
+        //     $data['teams'][] = array(
+        //         'name'          => $result['name'],
+        //         'designation'   => $result['designation'],
+        //         'thumb'         => $thumb
+        //     );
+        // }
 
         # Watch (See Our Work Showcase)
 
         # Testimonials
-        $this->load->model('catalog/testimonial');
+        // $this->load->model('catalog/testimonial');
 
-        $data['testimonials'] = array();
+        // $data['testimonials'] = array();
 
-        $results = $this->model_catalog_testimonial->getTestimonials(0, 6);
+        // $results = $this->model_catalog_testimonial->getTestimonials(0, 6);
 
-        foreach ($results as $result) {
-            if ($result['image']) {
-                $thumb = $this->model_tool_image->resize($result['image'], 150, 150);
-            } else {
-                $thumb = $this->model_tool_image->resize('default-image.png', 150, 150);
-            }
+        // foreach ($results as $result) {
+        //     if ($result['image']) {
+        //         $thumb = $this->model_tool_image->resize($result['image'], 150, 150);
+        //     } else {
+        //         $thumb = $this->model_tool_image->resize('default-image.png', 150, 150);
+        //     }
 
-            $data['testimonials'][] = array(
-                'name'          => $result['name'],
-                'description'   => trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))),
-                'designation'   => $result['designation'],
-                'thumb'         => $thumb
-            );
-        }
+        //     $data['testimonials'][] = array(
+        //         'name'          => $result['name'],
+        //         'description'   => trim(strip_tags(html_entity_decode($result['description'], ENT_QUOTES, 'UTF-8'))),
+        //         'designation'   => $result['designation'],
+        //         'thumb'         => $thumb
+        //     );
+        // }
 
         # Facts
-        $this->load->model('tool/online');
+        // $this->load->model('tool/online');
 
-        $data['website_icon'] = $this->config->get('config_website_icon');
-        $data['website'] = $this->config->get('config_website');
+        // $data['website_icon'] = $this->config->get('config_website_icon');
+        // $data['website'] = $this->config->get('config_website');
 
-        $data['software_icon'] = $this->config->get('config_software_icon');
-        $data['software'] = $this->config->get('config_software');
+        // $data['software_icon'] = $this->config->get('config_software_icon');
+        // $data['software'] = $this->config->get('config_software');
 
-        $data['client_icon'] = $this->config->get('config_client_icon');
-        $data['client'] = $this->config->get('config_client');
+        // $data['client_icon'] = $this->config->get('config_client_icon');
+        // $data['client'] = $this->config->get('config_client');
 
 //        $data['visitor_icon'] = $this->config->get('config_visitor_icon');
 //        $data['visitor'] = ($this->model_tool_online->getTotalOnlines() > 9999) ? '9999' : $this->model_tool_online->getTotalOnlines();
 
         # Blog
-
-        # Contact
-        $data['address'] = nl2br($this->config->get('config_address'));
-        $data['telephone'] = $this->config->get('config_telephone');
-        $data['email'] = $this->config->get('config_email');
-        $data['open'] = preg_replace("/^(.*)<br.*\/?>/m", '<p>$1</p><p>', nl2br($this->config->get('config_open')));
 
         $data['header'] = $this->load->controller('common/header');
         $data['nav'] = $this->load->controller('common/nav');

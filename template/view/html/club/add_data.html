@@ -93,6 +93,9 @@
                                                             <a href="#" class="close" data-dismiss="alert"
                                                                 aria-label="close">×</a>
                                                         </div>
+                                                        <div id="#memberunique_id">
+
+                                                        </div>
                                                         <form action="" method="post" enctype="multipart/form-data"
                                                             id="form-member">
                                                             <div class="form-group row">
@@ -159,18 +162,11 @@
                                                             </div>
                                                             <hr class="featurette-divider">
                                                             <div class="form-group row">
-                                                                <div class="col-sm-4">
-                                                                    <label for="inputpoint_accumulate">Citation
-                                                                        Points
-                                                                        Accrued :
-                                                                    </label>
-                                                                    <input type="number" class="form-control"
-                                                                        name="point_accumulate" id="point_accumulate"
-                                                                        required="">
-                                                                </div>
                                                                 <div class="col-sm-8">
                                                                     <input type="hidden" name="club_id" id="club_id"
                                                                         value="<?php echo $club_id; ?>">
+                                                                    <!-- <input type="hidden" name="project_id"
+                                                                        id="project_id" value=""> -->
                                                                     <button type="button" class="btn btn-sav mb-2"
                                                                         onclick="addMember()" id='member'>Save</button>
                                                                 </div>
@@ -188,13 +184,13 @@
                                                             <a href="#" class="close" data-dismiss="alert"
                                                                 aria-label="close">×</a>
                                                         </div>
-                                                        <form action="" method="post" enctype="multipart/form-data"
-                                                            id="form-trf">
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-3">
-                                                                    <label for="month">Month
-                                                                        :</label>
-                                                                    <?php
+                                                        <!-- <form action="" method="post" enctype="multipart/form-data"
+                                                            id="form-trf"> -->
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-3">
+                                                                <label for="month">Month
+                                                                    :</label>
+                                                                <?php
                                                                 $timestamp = time();
                                                                 $selected_month = date('n', $timestamp);
                                                                 $selected_day = date('j', $timestamp);
@@ -206,12 +202,12 @@
                                                                 $month_html.= '</select>';
                                                                 print $month_html;
                                                                 ?>
-                                                                </div>
+                                                            </div>
 
-                                                                <div class="col-sm-3">
-                                                                    <label for="year">Year
-                                                                        :</label>
-                                                                    <?php
+                                                            <div class="col-sm-3">
+                                                                <label for="year">Year
+                                                                    :</label>
+                                                                <?php
                                                                 $year_html = '<select name="year" id="year" class="form-control">';
                                                                 $previ_year = date("Y",strtotime("-1 year"));    
                                                                 $start_year = date('Y', time());
@@ -222,59 +218,53 @@
                                                                 $year_html.= '</select>';
                                                                 print $year_html;
                                                                 ?>
-                                                                </div>
-                                                                <div class="col-sm-6">
-                                                                    <div class="points-box">
-                                                                        <p>Total Trf Points -
-                                                                            <?php if($total_point_trfs){ echo $total_point_trfs; }else{ echo '0'; } ?>
-                                                                        </p>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="points-box">
+                                                                    <p>Total Trf Points -
+                                                                        <?php if($total_point_trfs){ echo $total_point_trfs; }else{ echo '0'; } ?>
+                                                                    </p>
                                                                 </div>
                                                             </div>
-                                                            <hr class="featurette-divider">
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-3">
-                                                                    <label for="inputamount_inr">Amount
-                                                                        in INR :</label>
-                                                                    <input type="number" class="form-control"
-                                                                        name="amount_inr" id="amount_inr" required="">
-                                                                </div>
-                                                                <div class="col-sm-3">
-                                                                    <label for="inputexchange_rate">Exchange
-                                                                        Rate :</label>
-                                                                    <input type="number" class="form-control"
-                                                                        name="exchange_rate" id="exchange_rate"
-                                                                        value="<?php echo round($exchange_rate,2); ?>"
-                                                                        required="" readonly>
-                                                                </div>
-                                                                <div class="col-sm-3">
-                                                                    <label for="inputamount_usd">Amount in
-                                                                        USD
-                                                                        :</label>
-                                                                    <input type="number" class="form-control"
-                                                                        name="amount_usd" id="amount_usd" required=""
-                                                                        readonly>
+                                                        </div>
+                                                        <hr class="featurette-divider">
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-3">
+                                                                <label for="inputamount_inr">Amount
+                                                                    in INR :</label>
+                                                                <input type="number" class="form-control"
+                                                                    name="amount_inr" id="amount_inr" required="">
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label for="inputexchange_rate">Exchange
+                                                                    Rate :</label>
+                                                                <input type="number" class="form-control"
+                                                                    name="exchange_rate" id="exchange_rate"
+                                                                    value="<?php echo round($exchange_rate,2); ?>"
+                                                                    required="" readonly>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label for="inputamount_usd">Amount in
+                                                                    USD
+                                                                    :</label>
+                                                                <input type="number" class="form-control"
+                                                                    name="amount_usd" id="amount_usd" required=""
+                                                                    readonly>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="featurette-divider">
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-8">
+                                                                <input type="hidden" name="club_id" id="club_id"
+                                                                    value="<?php echo $club_id; ?>">
+                                                                <div class="col-sm-12">
+                                                                    <button type="submit" class="btn btn-sav mb-2"
+                                                                        id="trf" onclick="addTrf()">Save</button>
                                                                 </div>
                                                             </div>
-                                                            <hr class="featurette-divider">
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-4">
-                                                                    <label for="inputpoints">Citation
-                                                                        Points Accrued :</label>
-                                                                    <input type="number" class="form-control"
-                                                                        name="points" id="points" required="">
-                                                                </div>
-                                                                <div class="col-sm-8">
-                                                                    <input type="hidden" name="club_id" id="club_id"
-                                                                        value="<?php echo $club_id; ?>">
-                                                                    <div class="col-sm-12">
-                                                                        <button type="submit" class="btn btn-sav mb-2"
-                                                                            id="trf" onclick="addTrf()">Save</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="featurette-divider">
-                                                        </form>
+                                                        </div>
+                                                        <hr class="featurette-divider">
+                                                        <!-- </form> -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -528,11 +518,11 @@
                     var month = $('#month').val();
                     var year = $('#year').val();
                     var club_id = $('#club_id').val();
+                    // var project_id = $('#project_id').val();
                     var member_induct = $('#member_induct').val();
                     var member_unlist = $('#member_unlist').val();
                     var net_growth = $('#net_growth').val();
-                    var point_accumulate = $('#point_accumulate').val();
-                    if (month != "" && year != "" && member_induct != "" && member_unlist != "" && net_growth != "" && point_accumulate != "") {
+                    if (month != "" && year != "" && member_induct != "" && member_unlist != "" && net_growth != "") {
                         $.ajax({
                             url: "index.php?url=club/add_data/member",
                             type: "POST",
@@ -541,23 +531,35 @@
                                 month: month,
                                 year: year,
                                 club_id: club_id,
+                                prefix: 'M',
+                                project_id: '',
                                 member_induct: member_induct,
                                 member_unlist: member_unlist,
-                                net_growth: net_growth,
-                                point_accumulate: point_accumulate
+                                net_growth: net_growth
                             },
                             cache: false,
                             success: function (json) {
+                                var id = json;
+
                                 if (json) {
                                     $("#form-member")[0].reset();
-                                    $("#success").show();
 
-                                    $('#success').html('Member added successfully !');
-
+                                    $.ajax({
+                                        url: 'index.php?url=club/add_data/getMemberProjectId',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: 'project_id=' + id,
+                                        success: function (data) {
+                                            $("#success").show();
+                                            var prefix = 'Success: Member has been added successfully. Please note the project id - <b>' + data + '</b> and claim your <a href="index.php?url=club/add_citation">Citation Points here</a>';
+                                            $('#success').html(prefix);
+                                        }
+                                    });
                                 }
-                                else if (!json) {
+                                else {
                                     alert("Error occured !");
                                 }
+
 
                             }
                         });
@@ -574,8 +576,7 @@
                     var amount_inr = $('#amount_inr').val();
                     var exchange_rate = $('#exchange_rate').val();
                     var amount_usd = $('#amount_usd').val();
-                    var points = $('#points').val();
-                    if (month != "" && year != "" && amount_inr != "" && exchange_rate != "" && amount_usd != "" && points != "") {
+                    if (month != "" && year != "" && amount_inr != "" && exchange_rate != "" && amount_usd != "") {
                         $.ajax({
                             url: "index.php?url=club/add_data/trf",
                             type: "POST",
@@ -584,23 +585,36 @@
                                 month: month,
                                 year: year,
                                 club_id: club_id,
+                                prefix: 'T',
+                                project_id: '',
                                 amount_inr: amount_inr,
                                 exchange_rate: exchange_rate,
-                                amount_usd: amount_usd,
-                                points: points
+                                amount_usd: amount_usd
                             },
                             cache: false,
                             success: function (json) {
+                                alert(json);
+                                var id = json;
+
                                 if (json) {
-                                    $("#form-trf")[0].reset();
-                                    $("#success_trf").show();
-
-                                    $('#success_trf').html('TRF added successfully !');
-
+                                    // $("#form-trf")[0].reset();
+                                    $.ajax({
+                                        url: 'index.php?url=club/add_data/getTrfProjectId',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: 'project_id=' + id,
+                                        success: function (data) {
+                                            alert(data);
+                                            $("#success_trf").show();
+                                            var prefix_trf = 'Success: Trf Contribution has been added successfully. Please note the project id - <b>' + data + '</b> and claim your <a href="index.php?url=club/add_citation">Citation Points here</a>';
+                                            $('#success_trf').html(prefix_trf);
+                                        }
+                                    });
                                 }
-                                else if (!json) {
+                                else {
                                     alert("Error occured !");
                                 }
+
 
                             }
                         });

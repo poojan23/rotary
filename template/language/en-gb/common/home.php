@@ -2,6 +2,7 @@
 # Heading Title
 $_['heading_title']         = 'Home - Rotary District 3141';
 
+
 # Text
 $_['text_success']          = 'Your message has been successfully sent!';
 $_['text_website']          = 'Websites';

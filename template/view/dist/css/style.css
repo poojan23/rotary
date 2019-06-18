@@ -1441,6 +1441,10 @@ img.img-responsive.img-banner-size {
     /* float: left; */
     width: 100%;
 }
+.footer-powered {
+    width: 100%;
+    padding: 0px 7px;
+}
 .footer-top {
     background-color: #fff;
     padding: 15px 0px;
@@ -1917,6 +1921,8 @@ img.img-responsive.slider-image-size {
 .box-title {
     color: #000;
     font-size: 15px !important;
+    margin: 0;
+    padding: 10px;
 }
 
 .desc-box {
@@ -1934,13 +1940,10 @@ img.img-responsive.slider-image-size {
 .desc-box.box-bg.header-link{
     display: inline-block;
     width: 100%;
-    /* border: 2px solid #eee; */
-    /* padding: 42px 0px; */
     padding: 1px 0px;
     text-align: center;
-    margin-bottom: 10px;
     background-color: #fff;
-    margin-right: 39px;
+    margin:0;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .2);
 }
 .desc-box .box-text a :hover i {

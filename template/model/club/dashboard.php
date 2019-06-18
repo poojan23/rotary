@@ -73,4 +73,34 @@ class ModelClubDashboard extends PT_Model {
         return $query->row;
     }
 
+    // ----------------------------------------home page data-------------------------------------------------
+        public function getTotalTrfHome()
+    {
+        $query = $this->db->query("SELECT DISTINCT SUM(amount_usd) as total FROM " . DB_PREFIX . "trf WHERE review=1");
+
+        return $query->row['total'];
+    }
+
+    public function getTotalMemberHome()
+    {
+    
+        $query = $this->db->query("SELECT SUM(net) as total FROM " . DB_PREFIX . "member WHERE review = '1'");
+
+        return $query->row['total'];
+    }
+
+    public function getTotalClubHome()
+    {
+        $query = $this->db->query("SELECT DISTINCT COUNT(club_id) as total FROM " . DB_PREFIX . "club");
+
+        return $query->row['total'];
+    }
+    
+    public function getTotalProjectHome()
+    {
+        $query = $this->db->query("SELECT COUNT(project_id) as total,SUM(amount) as amount,SUM(no_of_beneficiary) as nob  FROM " . DB_PREFIX . "projects WHERE review='1'");
+
+        return $query->row;
+    }
+
 }

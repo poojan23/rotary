@@ -151,6 +151,7 @@ class ControllerClubMember extends PT_Controller {
 
         $data['add'] = $this->url->link('club/member/add');
 
+        
         $data['members'] = array();
 
         $club_id = $this->customer->getId();

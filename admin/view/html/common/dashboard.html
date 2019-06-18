@@ -45,8 +45,20 @@
                         </div>
                         <!-- /.d-flex -->
 
-                        <div class="position-relative mb-4"><div class="chartjs-size-monitor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
-                            <canvas id="visitors-chart" height="200" width="764" class="chartjs-render-monitor" style="display: block; width: 764px; height: 200px;"></canvas>
+                        <div class="position-relative mb-4">
+                            <div class="chartjs-size-monitor"
+                                style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
+                                <div class="chartjs-size-monitor-expand"
+                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
+                                </div>
+                                <div class="chartjs-size-monitor-shrink"
+                                    style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
+                                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
+                                </div>
+                            </div>
+                            <canvas id="visitors-chart" height="200" width="764" class="chartjs-render-monitor"
+                                style="display: block; width: 764px; height: 200px;"></canvas>
                         </div>
 
                         <div class="d-flex flex-row justify-content-end">
@@ -74,7 +86,7 @@
                             </p>
                             <p class="d-flex flex-column text-right">
                                 <span class="font-weight-bold">
-                                    <?php echo $website; ?>
+                                    <!-- <?php echo $website; ?> -->
                                 </span>
                                 <span class="text-muted"> <?php echo $text_website; ?></span>
                             </p>
@@ -86,7 +98,7 @@
                             </p>
                             <p class="d-flex flex-column text-right">
                                 <span class="font-weight-bold">
-                                    <?php echo $software; ?>
+                                    <!-- <?php echo $software; ?> -->
                                 </span>
                                 <span class="text-muted"><?php echo $text_software; ?></span>
                             </p>
@@ -98,7 +110,7 @@
                             </p>
                             <p class="d-flex flex-column text-right">
                                 <span class="font-weight-bold">
-                                    <?php echo $client; ?>
+                                    <!-- <?php echo $client; ?> -->
                                 </span>
                                 <span class="text-muted"><?php echo $text_client; ?></span>
                             </p>
@@ -133,7 +145,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if($enquiries) : ?>
+                                <!-- <?php if($enquiries) : ?>
                                 <?php foreach($enquiries as $enquiry) : ?>
                                 <tr>
                                     <td class="text-left">
@@ -147,7 +159,7 @@
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
-                                <?php else : ?>
+                                <?php else : ?> -->
                                 <tr>
                                     <td class="text-center" colspan="5">
                                         <?php echo $text_no_results; ?>
@@ -182,7 +194,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($services as $service) : ?>
+                                <!-- <?php foreach($services as $service) : ?>
                                 <tr>
 
                                     <td class="text-left">
@@ -192,7 +204,7 @@
                                         <?php echo $service['sort_order']; ?>
                                     </td>
                                 </tr>
-                                <?php endforeach; ?>
+                                <?php endforeach; ?> -->
                             </tbody>
                         </table>
                     </div>

@@ -5,10 +5,10 @@
         <div class="container">
             <div class="header-banner">
                 <div class="fullscreen-carousel owl-carousel owl-theme owl-center owl-loaded owl-text-select-on">
-                    <?php if($projects) : ?>
-                    <?php foreach($projects as $project) : ?>
+                    <?php if($sliders) : ?>
+                    <?php foreach($sliders as $slider) : ?>
                     <div class="item">
-                        <img src="image/<?php echo $project['image']; ?>" alt="<?php echo $project['title']; ?>"
+                        <img src="image/<?php echo $slider['image']; ?>" alt="<?php echo $slider['title']; ?>"
                             class="images-responsive slider-image-size">
                     </div>
                     <?php endforeach; ?>
@@ -35,21 +35,21 @@
             </div>
             <div class="quote-banner" id="pagescroll">
                 <div class="quote-text">
-                    <div class="col-md-4 col-sm-5 col-xs-5">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
                         <div class="quote-1">
                             <h4><a
                                     href="https://www.rotarydist3141.org.in/rotary_site/get-involved/district-thrust-area.php#content">District
                                     Thrust Area</a></h4>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-5 col-xs-5">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
                         <div class="quote-2">
                             <h4><a
                                     href="https://www.rotarydist3141.org.in/rotary_site/get-involved/rotary-seva-muhim.php#content">Rotary
                                     Seva Muhim</a></h4>
                         </div>
                     </div>
-                    <div class="col-md-4 col-sm-2 col-xs-2">
+                    <div class="col-md-4 col-sm-4 col-xs-4">
                         <div class="quote-3">
                             <h4><a href="https://www.rotarydist3141.org.in/rotary_site/events.php#content">Event</a>
                             </h4>
@@ -61,46 +61,52 @@
                 <div class="col-md-12">
                     <div class="governor-desc">
                         <div class="row">
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                 <div class="counter col_fourth">
                                     <i class="fa fa-building-o fa-3x"></i>
-                                    <h2 class="timer count-title count-number" data-to="90" data-speed="1500"></h2>
+                                    <h2 class="timer count-title count-number" data-to="<?php echo $clubs; ?>"
+                                        data-speed="1500"></h2>
                                     <p class="count-text ">Total Club</p>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                 <div class="counter col_fourth">
                                     <i class="fa fa-users fa-3x"></i>
-                                    <h2 class="timer count-title count-number" data-to="90" data-speed="1500"></h2>
+                                    <h2 class="timer count-title count-number" data-to="<?php echo $members; ?>"
+                                        data-speed="1500"></h2>
                                     <p class="count-text ">Total Members</p>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                 <div class="counter col_fourth">
                                     <i class="fa fa-dollar fa-3x"></i>
-                                    <h2 class="timer count-title count-number" data-to="83735.00" data-speed="1500">
+                                    <h2 class="timer count-title count-number" data-to="<?php echo $trfs; ?>"
+                                        data-speed="1500">
                                     </h2>
                                     <p class="count-text ">Total TRF Contribution</p>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                 <div class="counter col_fourth end">
                                     <i class="fa fa-tasks fa-3x"></i>
-                                    <h2 class="timer count-title count-number" data-to="32" data-speed="1500"></h2>
+                                    <h2 class="timer count-title count-number"
+                                        data-to="<?php echo $projects['total']; ?>" data-speed="1500"></h2>
                                     <p class="count-text ">Total projects</p>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                 <div class="counter col_fourth">
                                     <i class="fa fa-rupee fa-3x"></i>
-                                    <h2 class="timer count-title count-number" data-to="25" data-speed="1500"></h2>
+                                    <h2 class="timer count-title count-number"
+                                        data-to="<?php echo $projects['amount']; ?>" data-speed="1500"></h2>
                                     <p class="count-text ">Project Value</p>
                                 </div>
                             </div>
-                            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+                            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
                                 <div class="counter col_fourth">
                                     <i class="fa fa-star fa-3x"></i>
-                                    <h2 class="timer count-title count-number" data-to="227" data-speed="1500"></h2>
+                                    <h2 class="timer count-title count-number" data-to="<?php echo $projects['nob']; ?>"
+                                        data-speed="1500"></h2>
                                     <p class="count-text ">Number of beneficiaries</p>
                                 </div>
                             </div>

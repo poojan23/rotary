@@ -6,9 +6,9 @@ define('HTTP_SERVER', 'http://localhost/rotary/');
 define('HTTPS_SERVER', 'http://localhost/rotary/');
 
 # DIR
-define('DIR_APPLICATION', 'C:/ATDI/LMS/htdocs/rotary/template/');
-define('DIR_SYSTEM', 'C:/ATDI/LMS/htdocs/rotary/system/');
-define('DIR_IMAGE', 'C:/ATDI/LMS/htdocs/rotary/image/');
+define('DIR_APPLICATION', 'C:/xampp/htdocs/rotary/template/');
+define('DIR_SYSTEM', 'C:/xampp/htdocs/rotary/system/');
+define('DIR_IMAGE', 'C:/xampp/htdocs/rotary/image/');
 define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
 define('DIR_LANGUAGE', DIR_APPLICATION . 'language/');
 define('DIR_TEMPLATE', DIR_APPLICATION . 'view/html/');
@@ -25,6 +25,6 @@ define('DB_DRIVER', 'pdo');
 define('DB_HOSTNAME', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'root');
-define('DB_DATABASE', 'rotary');
+define('DB_DATABASE', 'db_rotary');
 define('DB_PORT', '3306');
 define('DB_PREFIX', 'pt_');
