@@ -234,7 +234,7 @@ class ControllerCatalogInformation extends PT_Controller {
         $this->load->model('catalog/information_group');
 
         $data['information_groups'] = $this->model_catalog_information_group->getInformationGroups();
-
+        
         if (isset($this->request->post['information_description'])) {
             $data['information_description'] = $this->request->post['information_description'];
         } elseif (!empty($information_info)) {

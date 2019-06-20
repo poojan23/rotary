@@ -2,6 +2,7 @@
 
 class ModelCatalogGml extends PT_Model
 {
+    
     public function addGml($data) {
         $query = $this->db->query("INSERT INTO " . DB_PREFIX . "gml SET name = '" . $this->db->escape($data['name']) . "',filename = '" . $this->db->escape($data['filename']) . "', mask = '" . $this->db->escape($data['mask']) . "', date_modified = NOW(), date_added = NOW()");
 

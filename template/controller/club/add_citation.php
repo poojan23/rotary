@@ -33,6 +33,7 @@ class ControllerClubAddCitation extends PT_Controller
 
         $data['citations'] = $this->model_club_add_citation->getCitationTableForm();
 
+        $data['action'] = $this->url->link('club/add_citation/add');
         // button link
         $data['cancel'] = $this->url->link('club/dashboard');
         $data['continue'] = $this->url->link('common/home');
@@ -44,6 +45,27 @@ class ControllerClubAddCitation extends PT_Controller
         $data['footer'] = $this->load->controller('common/footer');
 
         $this->response->setOutput($this->load->view('club/add_citation', $data));
+    }
+
+
+    public function add()
+    {
+
+        $this->load->language('club/add_citation');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('club/add_citation');
+
+        $json = array();
+        
+        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+           
+           $json[] = $this->model_club_add_citation->addCitation($this->request->post);
+        }
+        
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($json));
     }
 
 }

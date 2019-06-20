@@ -12,34 +12,6 @@ class ModelClubAddData extends PT_Model {
         return $this->db->lastInsertId();
     }
 
-
-  
-
-
-     public function addProject($data)
-    {
-
-        $date = $this->db->escape((string)$data['year']).'-'. $this->db->escape((string)$data['month']);
-       
-        $query = $this->db->query("INSERT INTO " . DB_PREFIX . "projects SET club_id = '" . $this->db->escape((string)$data['club_id']) . "', date = '".$date. "',title = '" . $this->db->escape((string)$data['title']) . "',description = '" . $this->db->escape((string)$data['description']) . "',	amount = '" . $this->db->escape((string)$data['amount']) .  "',	no_of_beneficiary = '" . $this->db->escape((string)$data['no_of_beneficiary']) . "',points = '" . $this->db->escape((string)$data['points']) . "', date_added = NOW()");
-        
-        $project_id = $this->db->lastInsertId();
-        $i=1;
-        
-        foreach ($this->request->post['image'] as $value) {
-            $this->db->query("INSERT INTO " . DB_PREFIX . "project_image SET project_id = '" . (int)$project_id . "', sort_order = '" . (int)$i++ . "', image = '" . $this->db->escape((string)$value) ."'");
-        }
-
-        foreach ($this->request->post['category'] as $value) {
-            $this->db->query("INSERT INTO " . DB_PREFIX . "project_to_category SET project_id = '" . (int)$project_id . "', category_id = '" . $this->db->escape((string)$value['category_id']) ."'");
-        }
-
-
-        $this->cache->delete('projects');
-
-     return $project_id;
-    }
-
      public function getMemberById($club_id)
     {
         $query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "member WHERE club_id = '" . (int)$club_id . "' AND review='1'");
@@ -91,6 +63,8 @@ class ModelClubAddData extends PT_Model {
         return $query->row['total'];
     }
 
+    // members close
+
      public function getTrfPoints($club_id)
     {
         $query = $this->db->query("SELECT sum(points) as total FROM " . DB_PREFIX . "trf WHERE club_id = '" . (int)$club_id . "' AND review='1'");
@@ -113,19 +87,19 @@ class ModelClubAddData extends PT_Model {
         return $query->row['rate'];
     }
 
-    public function GetMemberProjectIds()
-    {
+    // public function GetMemberProjectIds()
+    // {
 
-        $query = $this->db->query("SELECT MAX(project_id) as pid FROM " . DB_PREFIX . "member");
+    //     $query = $this->db->query("SELECT MAX(project_id) as pid FROM " . DB_PREFIX . "member");
 
-        return $query->row['pid'];
-    }
+    //     return $query->row['pid'];
+    // }
 
     public function createMemberId($member_id) {
         $project_info = $this->getMemberProjectId($member_id);
 
 		if ($project_info && !$project_info['project_id']) {
-			$query = $this->db->query("SELECT MAX(project_id) AS project_id FROM `" . DB_PREFIX . "member` WHERE prefix = '" . $this->db->escape($project_info['prefix']) . "'");
+			$query = $this->db->query("SELECT MAX(project_id) AS project_id FROM `" . DB_PREFIX . "member` WHERE `prefix` = '" . $this->db->escape($project_info['prefix']) . "'");
 
 			if ($query->row['project_id']) {
 				$project_id = $query->row['project_id'] + 1;
@@ -151,20 +125,35 @@ class ModelClubAddData extends PT_Model {
         return $this->db->lastInsertId();
     }
 
-    public function GetTrfProjectIds()
-    {
+    public function getTrfProjectId($trf_id) {
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "trf WHERE trf_id = '" . (int)$trf_id . "'");
 
-        $query = $this->db->query("SELECT MAX(project_id) as pid FROM " . DB_PREFIX . "trf");
-
-        return $query->row['pid'];
+        if($query->num_rows) {
+            return array(
+                'trf_id'     => $query->row['trf_id'],
+                'club_id'       => $query->row['club_id'],
+                'prefix'        => $query->row['prefix'],
+                'project_id'    => $query->row['project_id'],
+                'date'          => $query->row['date'],
+                'amount_inr'    => $query->row['amount_inr'],
+                'exchange_rate' => $query->row['exchange_rate'],
+                'amount_usd'    => $query->row['amount_usd'],
+                'review'        => $query->row['review'],
+                'status'        => $query->row['status'],
+                'date_added'    => $query->row['date_added'],
+                'date_modified' => $query->row['date_modified']
+            );
+        } else {
+            return;
+        }
     }
 
-    public function createTRfId($trf_id) {
+    public function createTrfId($trf_id) {
 
         $project_info = $this->getTrfProjectId($trf_id);
 
 		if ($project_info && !$project_info['project_id']) {
-			$query = $this->db->query("SELECT MAX(project_id) AS project_id FROM `" . DB_PREFIX . "trf` WHERE prefix = '" . $this->db->escape($project_info['prefix']) . "'");
+			$query = $this->db->query("SELECT MAX(project_id) AS project_id FROM `" . DB_PREFIX . "trf` WHERE `prefix` = '" . $this->db->escape($project_info['prefix']) . "'");
 
 			if ($query->row['project_id']) {
 				$project_id = $query->row['project_id'] + 1;
@@ -178,27 +167,76 @@ class ModelClubAddData extends PT_Model {
 		}
     }
 
-    public function getTrfProjectId($trf_id) {
-        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "trf WHERE trf_id = '" . (int)$trf_id . "'");
+    // trf close
+
+     public function addProject($data)
+    {
+
+        $date = $this->db->escape((string)$data['year']).'-'. $this->db->escape((string)$data['month']);
+       
+        $query = $this->db->query("INSERT INTO " . DB_PREFIX . "projects SET club_id = '" . $this->db->escape((string)$data['club_id']) . "', prefix = '" . $this->db->escape($data['prefix']) . "', projects_id = '" . $this->db->escape((string)$data['projects_id']) . "', date = '".$date. "',title = '" . $this->db->escape((string)$data['title']) . "',description = '" . $this->db->escape((string)$data['description']) . "',	amount = '" . $this->db->escape((string)$data['amount']) .  "',	no_of_beneficiary = '" . $this->db->escape((string)$data['no_of_beneficiary']) . "', date_added = NOW(), date_modified = NOW()");
+        
+        $project_id = $this->db->lastInsertId();
+
+        $i=1;
+        
+        if (isset($data['image'])) {
+            foreach ($data['image'] as $image) {
+                $this->db->query("INSERT INTO " . DB_PREFIX . "project_image SET project_id = '" . (int)$project_id . "', sort_order = '" . (int)$i++ . "', image = '" . $this->db->escape((string)$image) ."'");
+            }
+        }
+
+        if (isset($data['category'])) {
+            foreach ($data['category'] as $category) {
+                 $this->db->query("INSERT INTO " . DB_PREFIX . "project_to_category SET project_id = '" . (int)$project_id . "', category_id = '" . $this->db->escape((string)$category) ."'");
+            }
+        }
+
+        return $project_id;
+    }
+
+        public function getProjectId($project_id) {
+        $query = $this->db->query("SELECT * FROM " . DB_PREFIX . "projects WHERE project_id = '" . (int)$project_id . "'");
 
         if($query->num_rows) {
             return array(
-                'trf_id'     => $query->row['trf_id'],
-                'club_id'       => $query->row['club_id'],
-                'prefix'        => $query->row['prefix'],
-                'project_id'    => $query->row['project_id'],
-                'date'          => $query->row['date'],
-                'amount_inr'     => $query->row['amount_inr'],
-                'exchange_rate'        => $query->row['exchange_rate'],
-                'amount_usd'           => $query->row['amount_usd'],
-                'review'        => $query->row['review'],
-                'status'        => $query->row['status'],
-                'date_added'    => $query->row['date_added'],
-                'date_modified' => $query->row['date_modified']
+                'project_id'        => $query->row['project_id'],
+                'club_id'           => $query->row['club_id'],
+                'prefix'            => $query->row['prefix'],
+                'projects_id'       => $query->row['projects_id'],
+                'date'              => $query->row['date'],
+                'title'             => $query->row['title'],
+                'description'       => $query->row['description'],
+                'amount'            => $query->row['amount'],
+                'no_of_beneficiary' => $query->row['no_of_beneficiary'],
+                'review'            => $query->row['review'],
+                'status'            => $query->row['status'],
+                'date_added'        => $query->row['date_added'],
+                'date_modified'     => $query->row['date_modified']
             );
         } else {
             return;
         }
     }
 
+    public function createProjectId($project_id) {
+
+        $project_info = $this->getProjectId($project_id);
+
+		if ($project_info && !$project_info['projects_id']) {
+			$query = $this->db->query("SELECT MAX(projects_id) AS projects_id FROM `" . DB_PREFIX . "projects` WHERE `prefix` = '" . $this->db->escape($project_info['prefix']) . "'");
+
+			if ($query->row['projects_id']) {
+				$projects_id = $query->row['projects_id'] + 1;
+			} else {
+				$projects_id = 1;
+			}
+
+			$this->db->query("UPDATE `" . DB_PREFIX . "projects` SET projects_id = '" . (int)$projects_id . "', prefix = '" . $this->db->escape($project_info['prefix']) . "' WHERE project_id = '" . (int)$project_id . "'");
+
+			return $project_info['prefix'] . $projects_id;
+		}
+    }
+
+    // project close
 }

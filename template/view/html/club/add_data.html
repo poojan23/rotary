@@ -276,12 +276,12 @@
                                                             <a href="#" class="close" data-dismiss="alert"
                                                                 aria-label="close">×</a>
                                                         </div>
-                                                        <form id="form-project">
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-3">
-                                                                    <label for="month">Month
-                                                                        :</label>
-                                                                    <?php
+                                                        <!-- <form id="form-project"> -->
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-3">
+                                                                <label for="month">Month
+                                                                    :</label>
+                                                                <?php
                                                                 $timestamp = time();
                                                                 $selected_month = date('n', $timestamp);
                                                                 $selected_day = date('j', $timestamp);
@@ -293,11 +293,11 @@
                                                                 $month_html.= '</select>';
                                                                 print $month_html;
                                                                 ?>
-                                                                </div>
-                                                                <div class="col-sm-3">
-                                                                    <label for="year">Year
-                                                                        :</label>
-                                                                    <?php
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label for="year">Year
+                                                                    :</label>
+                                                                <?php
                                                                 $year_html = '<select name="year" id="year" class="form-control">';
                                                                 $previ_year = date("Y",strtotime("-1 year"));    
                                                                 $start_year = date('Y', time());
@@ -309,115 +309,108 @@
                                                                 // output
                                                                 print $year_html;
                                                                 ?>
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                <div class="points-box">
+                                                                    <p>Total Projects Points -
+                                                                        <?php if($total_point_projects){ echo $total_point_projects; }else{ echo '0'; } ?>
+                                                                    </p>
                                                                 </div>
-                                                                <div class="col-sm-6">
-                                                                    <div class="points-box">
-                                                                        <p>Total Projects Points -
-                                                                            <?php if($total_point_projects){ echo $total_point_projects; }else{ echo '0'; } ?>
-                                                                        </p>
+                                                            </div>
+                                                        </div>
+                                                        <hr class="featurette-divider">
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-4">
+                                                                <label for="title">Projects Title:</label>
+                                                                <input type="text" class="form-control" name="title"
+                                                                    id="title">
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label for="amount">Project
+                                                                    Cost
+                                                                    (&#8377;)
+                                                                    :</label>
+                                                                <input type="number" class="form-control" name="amount"
+                                                                    id="amount">
+                                                            </div>
+                                                            <div class="col-sm-4">
+                                                                <label for="no_of_beneficiary">Number of
+                                                                    beneficiaries
+                                                                    :</label>
+                                                                <input type="number" class="form-control"
+                                                                    name="no_of_beneficiary" id="no_of_beneficiary">
+                                                            </div>
+                                                        </div>
+                                                        <hr class="featurette-divider">
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-5">
+                                                                <label for="image">Image:</label>
+                                                                <div class="img-section">
+                                                                    <div class="image-upload">
+                                                                        <a class="img-thumbnail" id="thumb-img1">
+                                                                            <img id="preview1"
+                                                                                src="<?php echo $thumb; ?>">
+                                                                        </a>
+                                                                        <input type="hidden" id="input_img1"
+                                                                            name="image[]" class="image" value="" />
+                                                                    </div>
+                                                                    <div class="image-upload">
+                                                                        <a class="img-thumbnail" id="thumb-img2"
+                                                                            data-toggle="modal"
+                                                                            data-target="#uploadModal2">
+                                                                            <img id="preview2"
+                                                                                src="<?php echo $thumb; ?>">
+                                                                        </a>
+                                                                        <input type="hidden" id="input_img2"
+                                                                            name="image[]" class="image" value="" />
                                                                     </div>
                                                                 </div>
+                                                                <small class="text-muted">Need high resolution
+                                                                    images,
+                                                                    maximum two
+                                                                    allowed</small>
                                                             </div>
-                                                            <hr class="featurette-divider">
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-4">
-                                                                    <label for="title">Projects Title:</label>
-                                                                    <input type="text" class="form-control" name="title"
-                                                                        id="title">
-                                                                </div>
-                                                                <div class="col-sm-3">
-                                                                    <label for="amount">Project
-                                                                        Cost
-                                                                        (&#8377;)
-                                                                        :</label>
-                                                                    <input type="number" class="form-control"
-                                                                        name="amount" id="amount">
-                                                                </div>
-                                                                <div class="col-sm-4">
-                                                                    <label for="no_of_beneficiary">Number of
-                                                                        beneficiaries
-                                                                        :</label>
-                                                                    <input type="number" class="form-control"
-                                                                        name="no_of_beneficiary" id="no_of_beneficiary">
-                                                                </div>
+                                                            <div class="col-sm-7">
+                                                                <label for="description">Description
+                                                                    :</label>
+                                                                <textarea name="description" id="description"
+                                                                    class="form-control" rows="4"></textarea>
+                                                                <small class="text-muted">Need to have only simple
+                                                                    text
+                                                                    input</small>
                                                             </div>
-                                                            <hr class="featurette-divider">
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-5">
-                                                                    <label for="image">Image:</label>
-                                                                    <div class="img-section">
-                                                                        <div class="image-upload">
-                                                                            <a class="img-thumbnail" id="thumb-img1">
-                                                                                <img id="preview1"
-                                                                                    src="<?php echo $thumb; ?>">
-                                                                            </a>
-                                                                            <input type="hidden" id="input_img1"
-                                                                                name="image[]" class="image" value="" />
-                                                                        </div>
-                                                                        <div class="image-upload">
-                                                                            <a class="img-thumbnail" id="thumb-img2"
-                                                                                data-toggle="modal"
-                                                                                data-target="#uploadModal2">
-                                                                                <img id="preview2"
-                                                                                    src="<?php echo $thumb; ?>">
-                                                                            </a>
-                                                                            <input type="hidden" id="input_img2"
-                                                                                name="image[]" class="image" value="" />
+                                                        </div>
+                                                        <hr class="featurette-divider">
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-12">
+                                                                <label for="category">Category
+                                                                    :</label>
+                                                                <div class="row">
+                                                                    <?php foreach($categoires as $category): ?>
+                                                                    <div class="col-sm-4">
+                                                                        <div class="checkbox checkbox-primary">
+                                                                            <input id="category" name="category[]"
+                                                                                value="<?php echo $category['category_id']; ?>"
+                                                                                type="checkbox" class="category">
+                                                                            <label for="category[]">
+                                                                                <?php echo $category['name']; ?>
+                                                                            </label>
                                                                         </div>
                                                                     </div>
-                                                                    <small class="text-muted">Need high resolution
-                                                                        images,
-                                                                        maximum two
-                                                                        allowed</small>
-                                                                </div>
-                                                                <div class="col-sm-7">
-                                                                    <label for="description">Description
-                                                                        :</label>
-                                                                    <textarea name="description" id="description"
-                                                                        class="form-control" rows="4"></textarea>
-                                                                    <small class="text-muted">Need to have only simple
-                                                                        text
-                                                                        input</small>
+                                                                    <?php endforeach; ?>
                                                                 </div>
                                                             </div>
-                                                            <hr class="featurette-divider">
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-12">
-                                                                    <label for="category">Category
-                                                                        :</label>
-                                                                    <div class="row">
-                                                                        <?php foreach($categoires as $category): ?>
-                                                                        <div class="col-sm-4">
-                                                                            <div class="checkbox checkbox-primary">
-                                                                                <input id="category" name="category[]"
-                                                                                    value="<?php echo $category['category_id']; ?>"
-                                                                                    type="checkbox" class="category">
-                                                                                <label for="category[]">
-                                                                                    <?php echo $category['name']; ?>
-                                                                                </label>
-                                                                            </div>
-                                                                        </div>
-                                                                        <?php endforeach; ?>
-                                                                    </div>
-                                                                </div>
+                                                        </div>
+                                                        <hr class="featurette-divider">
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-8">
+                                                                <input type="hidden" name="club_id" id="club_id"
+                                                                    value="<?php echo $club_id; ?>">
+                                                                <button class="btn btn-sav mb-2" id="project"
+                                                                    onclick="addProject()">Save</button>
                                                             </div>
-                                                            <hr class="featurette-divider">
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-4">
-                                                                    <label for="points">Citation
-                                                                        points
-                                                                        accrued :</label>
-                                                                    <input type="number" class="form-control"
-                                                                        name="point_project" id="point_project">
-                                                                </div>
-                                                                <div class="col-sm-8">
-                                                                    <input type="hidden" name="club_id" id="club_id"
-                                                                        value="<?php echo $club_id; ?>">
-                                                                    <button class="btn btn-sav mb-2" id="project"
-                                                                        onclick="addProject()">Save</button>
-                                                                </div>
-                                                            </div>
-                                                            <hr class="featurette-divider">
+                                                        </div>
+                                                        <hr class="featurette-divider">
                                                         </form>
                                                     </div>
                                                 </div>
@@ -518,7 +511,6 @@
                     var month = $('#month').val();
                     var year = $('#year').val();
                     var club_id = $('#club_id').val();
-                    // var project_id = $('#project_id').val();
                     var member_induct = $('#member_induct').val();
                     var member_unlist = $('#member_unlist').val();
                     var net_growth = $('#net_growth').val();
@@ -593,18 +585,17 @@
                             },
                             cache: false,
                             success: function (json) {
-                                alert(json);
                                 var id = json;
 
                                 if (json) {
-                                    // $("#form-trf")[0].reset();
+                                    $('#trf').find('input:text').val('');
                                     $.ajax({
                                         url: 'index.php?url=club/add_data/getTrfProjectId',
                                         type: 'POST',
                                         dataType: 'json',
                                         data: 'project_id=' + id,
                                         success: function (data) {
-                                            alert(data);
+                                            // alert(data);
                                             $("#success_trf").show();
                                             var prefix_trf = 'Success: Trf Contribution has been added successfully. Please note the project id - <b>' + data + '</b> and claim your <a href="index.php?url=club/add_citation">Citation Points here</a>';
                                             $('#success_trf').html(prefix_trf);
@@ -625,7 +616,6 @@
                 }
 
                 function addProject() {
-
                     var month = $('#month').val();
                     var year = $('#year').val();
                     var club_id = $('#club_id').val();
@@ -633,7 +623,6 @@
                     var amount = $('#amount').val();
                     var no_of_beneficiary = $('#no_of_beneficiary').val();
                     var description = $('#description').val();
-                    var points = $('#point_project').val();
 
                     var image = [];
                     $.each($("input[name='image[]']"), function () {
@@ -646,7 +635,7 @@
                         category.push($(this).val());
                     });
 
-                    if (month != "" && year != "" && club_id != "" && title != "" && amount != "" && no_of_beneficiary != "" && points != "" && category != "") {
+                    if (month != "" && year != "" && club_id != "" && title != "" && amount != "" && no_of_beneficiary != "" && category != "") {
                         $.ajax({
                             url: "index.php?url=club/add_data/project",
                             type: "POST",
@@ -655,25 +644,37 @@
                                 month: month,
                                 year: year,
                                 club_id: club_id,
+                                prefix: 'P',
+                                projects_id: '',
                                 title: title,
                                 amount: amount,
                                 no_of_beneficiary: no_of_beneficiary,
                                 description: description,
                                 image: image,
-                                category: category,
-                                points: points
+                                category: category
                             },
                             cache: false,
                             success: function (json) {
+                                var id = json;
                                 if (json) {
-                                    $("#form-project")[0].reset();
-                                    $("#success_project").show();
-
-                                    $('#success_project').html('Project added successfully !');
+                                    $('#project').find('input:text').val('');
+                                    $.ajax({
+                                        url: 'index.php?url=club/add_data/getProjectId',
+                                        type: 'POST',
+                                        dataType: 'json',
+                                        data: 'projects_id=' + id,
+                                        success: function (data) {
+                                            // alert(data);
+                                            $("#success_project").show();
+                                            var prefix_project = 'Success: Project has been added successfully. Please note the project id - <b>' + data + '</b> and claim your <a href="index.php?url=club/add_citation">Citation Points here</a>';
+                                            $('#success_project').html(prefix_project);
+                                        }
+                                    });
                                 }
-                                else if (!json) {
+                                else {
                                     alert("Error occured !");
                                 }
+
 
                             }
 

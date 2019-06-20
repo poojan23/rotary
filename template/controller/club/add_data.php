@@ -20,6 +20,7 @@ class ControllerClubAddData extends PT_Controller
         
         // points from three tables
         $this->load->model('club/add_data');
+
         $data['total_point_members'] = $this->model_club_add_data->getMemberPoints($data['club_id']);
 
         $data['total_point_trfs'] = $this->model_club_add_data->getTrfPoints($data['club_id']);
@@ -55,9 +56,10 @@ class ControllerClubAddData extends PT_Controller
 
         // member project id
 
-        $data['MemberProjectId'] = $this->model_club_add_data->GetMemberProjectIds();
+        // $data['MemberProjectId'] = $this->model_club_add_data->GetMemberProjectIds();
 
-        $data['TrfProjectId'] = $this->model_club_add_data->GetTrfProjectIds();
+        // trf project id
+        // $data['TrfProjectId'] = $this->model_club_add_data->GetTrfProjectIds();
 
         #category 
         $data['categoires'] = array();
@@ -70,11 +72,6 @@ class ControllerClubAddData extends PT_Controller
                 'name'         => $result['name']
             );
         }
-
-        $data['action1'] = $this->url->link('club/add_data/member');
-        $data['action2'] = $this->url->link('club/add_data/trf');
-        $data['action3'] = $this->url->link('club/add_data/project');
-        $data['action4'] = $this->url->link('club/add_data/club');
 
         $data['cancel'] = $this->url->link('club/dashboard');
 
@@ -100,25 +97,6 @@ class ControllerClubAddData extends PT_Controller
 
         if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
            $json = $this->model_club_add_data->addMember($this->request->post);
-        }
-
-        $this->response->addHeader('Content-Type: application/json');
-        $this->response->setOutput(json_encode($json));
-    }
-
-
-
-     public function project()
-    {
-        $this->load->language('club/add_data');
-
-        $this->document->setTitle($this->language->get('heading_title'));
-
-        $this->load->model('club/add_data');
-       
-        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-            
-          $json =  $this->model_club_add_data->addProject($this->request->post);
         }
 
         $this->response->addHeader('Content-Type: application/json');
@@ -156,13 +134,41 @@ class ControllerClubAddData extends PT_Controller
     public function getTrfProjectId()
     {
         $this->load->model('club/add_data');
-        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
-
-        $json = $this->model_club_add_data->createTrfId($this->request->post['project_id']);
         
+        $data = $this->model_club_add_data->createTrfId($this->request->post['project_id']);
+        
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($data));
+    }
+
+    
+     public function project()
+    {
+        $this->load->language('club/add_data');
+
+        $this->document->setTitle($this->language->get('heading_title'));
+
+        $this->load->model('club/add_data');
+
+        $json = array();
+       
+        if (($this->request->server['REQUEST_METHOD'] == 'POST')) {
+          $json[] =  $this->model_club_add_data->addProject($this->request->post);
+
         }
+
         $this->response->addHeader('Content-Type: application/json');
         $this->response->setOutput(json_encode($json));
+    }
+
+      public function getProjectId()
+    {
+        $this->load->model('club/add_data');
+
+        $data = $this->model_club_add_data->createProjectId($this->request->post['projects_id']);
+        
+        $this->response->addHeader('Content-Type: application/json');
+        $this->response->setOutput(json_encode($data));
     }
 
 }
